@@ -63,27 +63,19 @@ void WeChatGroupImageHandler(MyChatMsg& chatMsg)
 
 void __stdcall MyDownloadImageSuccessed(HookContext* hookContext)
 {
-	GroupMsgInfo tmpMsgInfo;
 	char* pNetSceneGetMsgImgCDN = (char*)hookContext->ECX;
 	ChatMsg* pChatMsg = (ChatMsg*)(pNetSceneGetMsgImgCDN + 0x5F4);
 
-	try
-	{
-		MyChatMsg myChatMsg = CopyChatMsg(pChatMsg);
-		mmString* pImageDownloadPath = (mmString*)(pNetSceneGetMsgImgCDN + 0x98C);
-		myChatMsg.imagePath = UnicodeToAnsi(copyMMString(pImageDownloadPath).c_str());
-		if (myChatMsg.FromUserName.find("@chatroom") != std::string::npos) {
-			WeChatGroupImageHandler(myChatMsg);
-		}
-		else {
-			WeChatNormalImageHandler(myChatMsg);
-		}
-	}
-	catch (...)
-	{
-		WeChatDLL::Instance()->MsgRecvLogger()->error("[MyDownloadImageSuccessed]触发异常");
-	}
 
+	MyChatMsg myChatMsg = CopyChatMsg(pChatMsg);
+	mmString* pImageDownloadPath = (mmString*)(pNetSceneGetMsgImgCDN + 0x98C);
+	myChatMsg.imagePath = UnicodeToAnsi(copyMMString(pImageDownloadPath).c_str());
+	if (myChatMsg.FromUserName.find("@chatroom") != std::string::npos) {
+		WeChatGroupImageHandler(myChatMsg);
+	}
+	else {
+		WeChatNormalImageHandler(myChatMsg);
+	}
 }
 
 void Handle_TicketInfoMsg(MyChatMsg& chatMsg)
@@ -142,10 +134,10 @@ void Handle_NormalChatMsg(MyChatMsg& chatMsg)
 	tmpMsg.robotID = gStr_CurrentUserWxid;
 	tmpMsg.postTime = 1000 * uint64_t(chatMsg.CreateTime);
 	tmpMsg.groupID = chatMsg.FromUserName;
-	tmpMsg.groupName = LocalCpToUtf8(getContactInfoDynamic(chatMsg.FromUserName).nickName.c_str());
+	//tmpMsg.groupName = LocalCpToUtf8(getContactInfoDynamic(chatMsg.FromUserName).nickName.c_str());
 	tmpMsg.senderWxid = chatMsg.sendWxid;
 	tmpMsg.senderName = LocalCpToUtf8(getContactInfoDynamic(chatMsg.sendWxid).nickName.c_str());
-	tmpMsg.msgContent = LocalCpToUtf8(chatMsg.msgContent.c_str());
+	//tmpMsg.msgContent = LocalCpToUtf8(chatMsg.msgContent.c_str());
 	
 	UploadMsg(tmpMsg);
 }
@@ -298,19 +290,19 @@ void __stdcall MyAddChatMsg(HookContext* hookContext)
 
 	for (unsigned int n = 0; n < msgCount; ++n) {
 
-		MyChatMsg tmpMsg = CopyChatMsg((ChatMsg*)pVectorStart);
+		//MyChatMsg tmpMsg = CopyChatMsg((ChatMsg*)pVectorStart);
 
-		if (tmpMsg.IsOwner) {
-			tmpMsg.sendWxid = gStr_CurrentUserWxid;
-		}
+		//if (tmpMsg.IsOwner) {
+		//	tmpMsg.sendWxid = gStr_CurrentUserWxid;
+		//}
 
-		//群聊消息
-		if (tmpMsg.FromUserName.find("@chatroom") != std::string::npos) {
-			WeChatGroupChatMsgHandler(tmpMsg);
-		}
-		else {
-			//WeChatNormalMsgHandler();
-		}
+		////群聊消息
+		//if (tmpMsg.FromUserName.find("@chatroom") != std::string::npos) {
+		//	WeChatGroupChatMsgHandler(tmpMsg);
+		//}
+		//else {
+		//	//WeChatNormalMsgHandler();
+		//}
 
 		pVectorStart = pVectorStart + 0x290;
 	}

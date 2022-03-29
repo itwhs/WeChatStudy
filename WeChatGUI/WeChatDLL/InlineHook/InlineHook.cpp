@@ -56,7 +56,7 @@ InlineHook::~InlineHook()
 //	*(DWORD*)stack_point = eax;
 //}
 
-bool InlineHook::AddHook(LPVOID pTarget, InlineFunc func)
+bool InlineHook::AddHook(LPVOID pTarget, InlineFunc userFunction)
 {
 	unsigned char ShellCode[0x40] = { 
 		0x60,	//pushad
@@ -68,7 +68,7 @@ bool InlineHook::AddHook(LPVOID pTarget, InlineFunc func)
 		0x61, //popad
 	};
 
-	memcpy(&ShellCode[0x4], &func, 4);
+	memcpy(&ShellCode[0x4], &userFunction, 4);
 	//保存原始机器码
 	DWORD dwOldProtect = 0;
 	BOOL bRet = VirtualProtect(pTarget, 0x20, PAGE_EXECUTE_READWRITE, &dwOldProtect);
@@ -77,7 +77,7 @@ bool InlineHook::AddHook(LPVOID pTarget, InlineFunc func)
 		return false;
 	}
 
-	memcpy(m_OldCode, (LPVOID)pTarget, 5);//用于hook还原
+	memcpy(m_OldCode, pTarget, 5);//用于hook还原
 	m_dwVirtualAddr = (DWORD)VirtualAlloc(NULL, 0x100, MEM_COMMIT, PAGE_EXECUTE_READWRITE);
 	if (m_dwVirtualAddr == 0)
 	{
@@ -111,7 +111,12 @@ bool InlineHook::AddHook(LPVOID pTarget, InlineFunc func)
 
 		if (MyDisasm.Instruction.BranchType != 0)			//相对跳转
 		{
-			if (MyDisasm.Instruction.BranchType == RetType)
+			//call eax
+			if (MyDisasm.Instruction.Opcode == 0xFF) {
+				memcpy(NewCmd + CmdLen, cmdbuf + sum, oplen);
+				CmdLen += oplen;
+			}
+			else if (MyDisasm.Instruction.BranchType == RetType)
 			{
 				memcpy(NewCmd + CmdLen, cmdbuf + sum, oplen);
 				CmdLen += oplen;
