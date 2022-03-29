@@ -210,7 +210,9 @@ std::string ParseAppMsg(std::string& appMsg)
 	//开始转移数据
 	auto appmsgElement = originMsgElement->FirstChildElement("appmsg");
 	if (appmsgElement) {
-		newAppMsgElement->SetAttribute("appid", appmsgElement->Attribute("appid"));
+		if (appmsgElement->Attribute("appid")) {
+			newAppMsgElement->SetAttribute("appid", appmsgElement->Attribute("appid"));
+		}
 		CopyXmlElementText(newAppMsgElement, appmsgElement, "title");
 		CopyXmlElementText(newAppMsgElement, appmsgElement, "url");
 		CopyXmlElementText(newAppMsgElement, appmsgElement, "des");
