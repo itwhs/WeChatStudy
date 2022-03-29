@@ -34,22 +34,12 @@ void WeChatNormalImageHandler(MyChatMsg& chatMsg)
 void WeChatGroupImageHandler(MyChatMsg& chatMsg)
 {
 	GroupMsgInfo tmpMsgInfo;
-	int splitIndexA = chatMsg.imagePath.find("wxid");
-	if (splitIndexA == -1) {
-		WeChatDLL::Instance()->MsgRecvLogger()->error("[WeChatGroupImageHandler]" + chatMsg.imagePath);
-		return;
-	}
-	int splitIndexB = chatMsg.imagePath.find("\\", splitIndexA + 4);
-	if (splitIndexB == -1) {
-		WeChatDLL::Instance()->MsgRecvLogger()->error("[WeChatGroupImageHandler]" + chatMsg.imagePath);
-		return;
-	}
 	tmpMsgInfo.msgType = chatMsg.msgType;
-	tmpMsgInfo.robotID = chatMsg.imagePath.substr(splitIndexA, splitIndexB - splitIndexA);
-	tmpMsgInfo.senderName = LocalCpToUtf8(getContactInfoDynamic(chatMsg.sendWxid).nickName.c_str());
+	tmpMsgInfo.robotID = gStr_CurrentUserWxid;
 	tmpMsgInfo.senderWxid = chatMsg.sendWxid;
-	tmpMsgInfo.groupName = LocalCpToUtf8(getContactInfoDynamic(chatMsg.FromUserName).nickName.c_str());
+	tmpMsgInfo.senderName = LocalCpToUtf8(getContactInfoDynamic(chatMsg.sendWxid).nickName.c_str());
 	tmpMsgInfo.groupID = chatMsg.FromUserName;
+	tmpMsgInfo.groupName = LocalCpToUtf8(getContactInfoDynamic(chatMsg.FromUserName).nickName.c_str());
 	tmpMsgInfo.postTime = 1000 * uint64_t(chatMsg.CreateTime);
 	if (chatMsg.imagePath == "") {
 		return;
@@ -65,7 +55,6 @@ void __stdcall MyDownloadImageSuccessed(HookContext* hookContext)
 {
 	char* pNetSceneGetMsgImgCDN = (char*)hookContext->ECX;
 	ChatMsg* pChatMsg = (ChatMsg*)(pNetSceneGetMsgImgCDN + 0x5F4);
-
 
 	MyChatMsg myChatMsg = CopyChatMsg(pChatMsg);
 	mmString* pImageDownloadPath = (mmString*)(pNetSceneGetMsgImgCDN + 0x98C);
@@ -134,10 +123,10 @@ void Handle_NormalChatMsg(MyChatMsg& chatMsg)
 	tmpMsg.robotID = gStr_CurrentUserWxid;
 	tmpMsg.postTime = 1000 * uint64_t(chatMsg.CreateTime);
 	tmpMsg.groupID = chatMsg.FromUserName;
-	//tmpMsg.groupName = LocalCpToUtf8(getContactInfoDynamic(chatMsg.FromUserName).nickName.c_str());
+	tmpMsg.groupName = LocalCpToUtf8(getContactInfoDynamic(chatMsg.FromUserName).nickName.c_str());
 	tmpMsg.senderWxid = chatMsg.sendWxid;
 	tmpMsg.senderName = LocalCpToUtf8(getContactInfoDynamic(chatMsg.sendWxid).nickName.c_str());
-	//tmpMsg.msgContent = LocalCpToUtf8(chatMsg.msgContent.c_str());
+	tmpMsg.msgContent = LocalCpToUtf8(chatMsg.msgContent.c_str());
 	
 	UploadMsg(tmpMsg);
 }
@@ -290,19 +279,19 @@ void __stdcall MyAddChatMsg(HookContext* hookContext)
 
 	for (unsigned int n = 0; n < msgCount; ++n) {
 
-		//MyChatMsg tmpMsg = CopyChatMsg((ChatMsg*)pVectorStart);
+		MyChatMsg tmpMsg = CopyChatMsg((ChatMsg*)pVectorStart);
 
-		//if (tmpMsg.IsOwner) {
-		//	tmpMsg.sendWxid = gStr_CurrentUserWxid;
-		//}
+		if (tmpMsg.IsOwner) {
+			tmpMsg.sendWxid = gStr_CurrentUserWxid;
+		}
 
-		////群聊消息
-		//if (tmpMsg.FromUserName.find("@chatroom") != std::string::npos) {
-		//	WeChatGroupChatMsgHandler(tmpMsg);
-		//}
-		//else {
-		//	//WeChatNormalMsgHandler();
-		//}
+		//群聊消息
+		if (tmpMsg.FromUserName.find("@chatroom") != std::string::npos) {
+			WeChatGroupChatMsgHandler(tmpMsg);
+		}
+		else {
+			//WeChatNormalMsgHandler();
+		}
 
 		pVectorStart = pVectorStart + 0x290;
 	}
