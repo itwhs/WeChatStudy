@@ -7,7 +7,7 @@
 #include "Function/消息监控.h"
 #include "Function/通讯录.h"
 #include "Function/消息上传.h"
-
+#include "微信偏移.h"
 
 
 void test(int a)
@@ -24,6 +24,9 @@ void WeChatDLL::InitDLL()
 	HOOK_消息监控();
 	HOOK_Contact();
 	PLUGIN_消息上传();
+
+	//修改微信版本至3.6.0.18
+	写内存_HEX(-1, m_hWeChatWinDLL + 微信偏移_版本地址, "12000663");
 }
 
 WeChatDLL::WeChatDLL()
