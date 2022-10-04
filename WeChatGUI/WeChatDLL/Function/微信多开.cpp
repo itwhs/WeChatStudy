@@ -1,3 +1,4 @@
+//中文
 #include "微信多开.h"
 #include "../微信偏移.h"
 #include "../public/WinApi.h"

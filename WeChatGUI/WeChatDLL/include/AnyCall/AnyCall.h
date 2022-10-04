@@ -33,4 +33,8 @@ namespace AnyCall
 		fastFuncDef function = (fastFuncDef)address;
 		return function(ecx, edx, args...);
 	}
+
+	//为了应付特殊的函数,最暴力的调用,无视堆栈
+	unsigned int invokeAnycall(void* ecx, void* edx, void* address, void* a1 = 0, void* a2 = 0, void* a3 = 0, void* a4 = 0, void* a5 = 0, void* a6 = 0, void* a7 = 0,
+		void* a8 = 0, void* a9 = 0, void* a10 = 0, void* a11 = 0, void* a12 = 0, void* a13 = 0, void* a14 = 0, void* a15 = 0);
 }

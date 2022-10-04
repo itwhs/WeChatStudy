@@ -40,6 +40,9 @@
     <Filter Include="WeChat">
       <UniqueIdentifier>{b5165554-402a-4fcd-87d8-a5839711441b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ApiServer">
+      <UniqueIdentifier>{ce1897ee-ebac-46bf-a9bd-25ca243a8dec}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="WeChatDLL.cpp">
@@ -104,6 +107,12 @@
     </ClCompile>
     <ClCompile Include="public\Public.cpp">
       <Filter>public</Filter>
+    </ClCompile>
+    <ClCompile Include="ApiServer.cpp">
+      <Filter>ApiServer</Filter>
+    </ClCompile>
+    <ClCompile Include="include\AnyCall\AnyCall.cpp">
+      <Filter>头文件</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -178,6 +187,12 @@
     </ClInclude>
     <ClInclude Include="public\RWMutex.h">
       <Filter>public</Filter>
+    </ClInclude>
+    <ClInclude Include="ApiServer.h">
+      <Filter>ApiServer</Filter>
+    </ClInclude>
+    <ClInclude Include="include\AnyCall\AnyCall.h">
+      <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -1,7 +1,7 @@
 #include "Contact.h"
 #include "../public/Strings.h"
 #include "../WeChatDLL.h"
-#include <AnyCall.h>
+#include <AnyCall/AnyCall.h>
 
 MyContact copyContact(Contact* pContact)
 {

@@ -4,7 +4,6 @@
 MyChatMsg CopyChatMsg(ChatMsg* pChatMsg)
 {
 	MyChatMsg ret;
-
 	ret.msgType = pChatMsg->msgType;
 	ret.IsOwner = pChatMsg->isOwner;
 	ret.FromUserName = UnicodeToAnsi(copyMMString(&pChatMsg->fromUserName).c_str());

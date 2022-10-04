@@ -85,6 +85,24 @@ std::wstring AnsiToUnicode(const char* szStr)
 	return ret;
 }
 
+std::wstring Utf8ToUnicode(const char* szStr)
+{
+	std::wstring ret;
+	int nLen = MultiByteToWideChar(CP_UTF8, MB_PRECOMPOSED, szStr, -1, NULL, 0);
+	if (nLen == 0)
+	{
+		return ret;
+	}
+	wchar_t* pResult = new wchar_t[nLen];
+	if (!pResult) {
+		return ret;
+	}
+	MultiByteToWideChar(CP_UTF8, MB_PRECOMPOSED, szStr, -1, pResult, nLen);
+	ret = pResult;
+	delete[]pResult;
+	return ret;
+}
+
 std::wstring LocalCpToUtf16(const char* str)
 {
 	std::wstring convertedString;

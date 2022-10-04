@@ -79,6 +79,8 @@ struct MixExtra
 	int field_130;
 };
 
+
+//ด๓ะกฮช0x2A0
 struct ChatMsg
 {
 	int vTable;
@@ -165,6 +167,10 @@ struct ChatMsg
 	int field_284;
 	int field_288;
 	int field_28C;
+	int field_290;
+	int field_294;
+	int field_298;
+	int field_29C;
 };
 #pragma pack(pop)
 

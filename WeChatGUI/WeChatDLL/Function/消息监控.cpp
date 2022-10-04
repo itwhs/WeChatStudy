@@ -3,7 +3,7 @@
 #include <fstream>
 #include <vector>
 #include <httplib.h>
-#include <AnyCall.h>
+#include <AnyCall/AnyCall.h>
 #include "../InlineHook/InlineHook.h"
 #include "../WeChatDLL.h"
 #include "../TinyXml/tinyxml2.h"
@@ -308,10 +308,10 @@ bool HOOK_消息监控()
 	DWORD hWeChatWinDLL = WeChatDLL::Instance()->getWinMoudule();
 
 	gHook_AddChatMsg.AddHook((LPVOID)(hWeChatWinDLL + 0x4CAE11), MyAddChatMsg);
-	gHook_ImageDownload.AddHook((LPVOID)(hWeChatWinDLL + 0x58AD50), MyDownloadImageSuccessed);
-	gHook_SetCurrentUserWxid.AddHook((LPVOID)(hWeChatWinDLL + 0x5045C0), MySetCurrentUserWxid);
+	//gHook_ImageDownload.AddHook((LPVOID)(hWeChatWinDLL + 0x58AD50), MyDownloadImageSuccessed);
+	//gHook_SetCurrentUserWxid.AddHook((LPVOID)(hWeChatWinDLL + 0x5045C0), MySetCurrentUserWxid);
 
 	//开启图片自动下载
-	写内存_HEX(-1, WeChatDLL::Instance()->getWinMoudule() + 微信偏移_图片自动下载, "B001C3");
+	//写内存_HEX(-1, WeChatDLL::Instance()->getWinMoudule() + 微信偏移_图片自动下载, "B001C3");
 	return true;
 }

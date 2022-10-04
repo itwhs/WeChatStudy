@@ -11,5 +11,7 @@ std::string UnicodeToAnsi(const wchar_t* szStr);
 
 std::wstring AnsiToUnicode(const char* szStr);
 
+std::wstring Utf8ToUnicode(const char* szStr);
+
 //תutf8
 std::string LocalCpToUtf8(const char* str);
