@@ -66,10 +66,14 @@ bool mmString::empty()
 
 MymmString::MymmString()
 {
-	
+	coreStr.pUnicode = 0x0;
+	coreStr.Mysize = 0x0;
+	coreStr.Myres = 0x0;
+	coreStr.pUTF8 = 0x0;
+	coreStr.uLen = 0x0;
 }
 
 MymmString::~MymmString()
 {
-	data.free();
+	coreStr.free();
 }

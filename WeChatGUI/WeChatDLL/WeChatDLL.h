@@ -16,6 +16,7 @@ public:
 	void InitDLL();
 private:
 	DWORD m_hWeChatWinDLL;
+	std::string m_dllVersion;
 	std::shared_ptr<spdlog::logger> m_MsgRecvLoger;
 	std::shared_ptr<spdlog::logger> m_WechatDLLLoger;
 };

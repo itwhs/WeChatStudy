@@ -11,19 +11,24 @@
 #include "ApiServer.h"
 #include "WeChat/ChatMsg.h"
 
+
 void WeChatDLL::InitDLL()
 {
 	m_hWeChatWinDLL = (DWORD)LoadLibraryA("WeChatWin.dll");
+	std::string dllPath = getModulePath((HMODULE)m_hWeChatWinDLL);
+	m_dllVersion = getFileVersion(dllPath.c_str());
 
-	Patch_微信多开();
+	if (m_dllVersion == "3.7.6.44") {
+		Patch_微信多开_3_7_6_44();
+		std::thread thServer(StartApiServer, 5000);
+		thServer.detach();
+	}
 
 	//HOOK_消息监控();
 	//HOOK_Contact();
 	//修改微信版本至3.6.0.18
 	//写内存_HEX(-1, m_hWeChatWinDLL + 微信偏移_版本地址, "12000663");
-
-	std::thread thServer(StartApiServer,5000);
-	thServer.detach();
+	
 }
 
 WeChatDLL::WeChatDLL()

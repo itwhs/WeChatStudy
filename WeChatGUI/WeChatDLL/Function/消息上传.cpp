@@ -15,7 +15,6 @@ ThreadPool gUploadThread(5);
 void Msg_Upload(std::vector<GroupMsgInfo> vec_Msg)
 {
 	
-
 }
 
 void UploadMsg(GroupMsgInfo& msgInfo)

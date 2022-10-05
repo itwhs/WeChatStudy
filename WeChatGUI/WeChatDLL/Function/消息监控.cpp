@@ -16,7 +16,6 @@
 #include "通讯录.h"
 #include "消息上传.h"
 
-
 InlineHook gHook_AddChatMsg;
 InlineHook gHook_ImageDownload;
 InlineHook gHook_SetCurrentUserWxid;

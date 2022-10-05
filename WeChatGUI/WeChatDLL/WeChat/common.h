@@ -2,7 +2,6 @@
 #include <string>
 
 
-
 //原生结构体
 
 struct mmString
@@ -27,5 +26,6 @@ struct MymmString
 	MymmString();
 	~MymmString();
 public:
-	mmString data;
+	mmString coreStr;
 };
+
