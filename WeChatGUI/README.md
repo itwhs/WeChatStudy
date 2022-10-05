@@ -54,6 +54,8 @@ EmotionStorage::getEmtionByMd5
 
 ## 微信通讯录
 
+ContactMgr::getContact，获取数据库通讯录信息。
+
 
 
 

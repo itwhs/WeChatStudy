@@ -11,18 +11,25 @@
 #include "ApiServer.h"
 #include "WeChat/ChatMsg.h"
 
-
 void WeChatDLL::InitDLL()
 {
 	m_hWeChatWinDLL = (DWORD)LoadLibraryA("WeChatWin.dll");
 	std::string dllPath = getModulePath((HMODULE)m_hWeChatWinDLL);
-	m_dllVersion = getFileVersion(dllPath.c_str());
-
-	if (m_dllVersion == "3.7.6.44") {
-		Patch_微信多开_3_7_6_44();
-		std::thread thServer(StartApiServer, 5000);
-		thServer.detach();
+	std::string dllVersion = getFileVersion(dllPath.c_str());
+	if (dllVersion.empty()) {
+		return;
 	}
+
+	if (dllVersion == "3.7.6.44") {
+		m_WechatVer = WeChat_3_7_6_44;
+	}
+	
+	Patch_微信多开(m_WechatVer);
+	ContactModule::Instance().InitContactModule(m_WechatVer);
+
+	std::thread thServer(StartApiServer, 5000);
+	thServer.detach();
+	
 
 	//HOOK_消息监控();
 	//HOOK_Contact();
@@ -46,10 +53,10 @@ WeChatDLL::~WeChatDLL()
 	MH_Uninitialize();
 }
 
-WeChatDLL* WeChatDLL::Instance()
+WeChatDLL& WeChatDLL::Instance()
 {
 	static WeChatDLL Wechat;
-	return &Wechat;
+	return Wechat;
 }
 
 std::shared_ptr<spdlog::logger>& WeChatDLL::MsgRecvLogger()

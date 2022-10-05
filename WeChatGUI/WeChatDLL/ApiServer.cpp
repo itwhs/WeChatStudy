@@ -10,7 +10,7 @@ unsigned int gWechatInstance;
 
 void* SendMessageMgr_Instance()
 {
-	return AnyCall::invokeStdcall<void*>((void*)(WeChatDLL::Instance()->getWinMoudule() + 0x141890));
+	return AnyCall::invokeStdcall<void*>((void*)(WeChatDLL::Instance().getWinMoudule() + 0x141890));
 }
 
 void Api_sendImageMsg(const httplib::Request& req, httplib::Response& res)
@@ -103,7 +103,7 @@ void Api_sendCustomEmotion(const httplib::Request& req, httplib::Response& res)
 
 void StartApiServer(unsigned short port)
 {
-	gWechatInstance = WeChatDLL::Instance()->getWinMoudule();
+	gWechatInstance = WeChatDLL::Instance().getWinMoudule();
 
 	httplib::Server svr;
 

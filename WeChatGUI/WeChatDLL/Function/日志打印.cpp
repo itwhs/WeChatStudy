@@ -25,9 +25,7 @@ int _cdecl MyLogMessage(MMLogInfo* pLogInfo, char* logMessage)
 {
 	std::string className = pLogInfo->className;
 	std::string funcName = pLogInfo->funcName;
-
 	std::string funcCall = className + "::" + funcName;
-
 	logger->info(funcCall + logMessage);
 	//OutputDebugStringA(logMessage);
 	return gFuncLogMessage(pLogInfo,logMessage);
@@ -35,7 +33,7 @@ int _cdecl MyLogMessage(MMLogInfo* pLogInfo, char* logMessage)
 
 bool HOOK_ÈÕÖ¾´òÓ¡()
 {
-	DWORD hWeChatWinDLL = WeChatDLL::Instance()->getWinMoudule();
+	DWORD hWeChatWinDLL = WeChatDLL::Instance().getWinMoudule();
 	MH_CreateHook((LPVOID)(hWeChatWinDLL + 0x156FC90), MyLogMessage, (LPVOID*)&gFuncLogMessage);
 	MH_EnableHook((LPVOID)(hWeChatWinDLL + 0x156FC90));
 	return true;

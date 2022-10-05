@@ -36,9 +36,9 @@ void WeChatGroupImageHandler(MyChatMsg& chatMsg)
 	tmpMsgInfo.msgType = chatMsg.msgType;
 	tmpMsgInfo.robotID = gStr_CurrentUserWxid;
 	tmpMsgInfo.senderWxid = chatMsg.sendWxid;
-	tmpMsgInfo.senderName = LocalCpToUtf8(getContactInfoDynamic(chatMsg.sendWxid).nickName.c_str());
+	tmpMsgInfo.senderName = LocalCpToUtf8(ContactModule::Instance().getContactInfoDynamic(chatMsg.sendWxid).nickName.c_str());
 	tmpMsgInfo.groupID = chatMsg.FromUserName;
-	tmpMsgInfo.groupName = LocalCpToUtf8(getContactInfoDynamic(chatMsg.FromUserName).nickName.c_str());
+	tmpMsgInfo.groupName = LocalCpToUtf8(ContactModule::Instance().getContactInfoDynamic(chatMsg.FromUserName).nickName.c_str());
 	tmpMsgInfo.postTime = 1000 * uint64_t(chatMsg.CreateTime);
 	if (chatMsg.imagePath == "") {
 		return;
@@ -73,9 +73,9 @@ void Handle_TicketInfoMsg(MyChatMsg& chatMsg)
 	tmpMsg.robotID = gStr_CurrentUserWxid;
 	tmpMsg.postTime = 1000 * uint64_t(chatMsg.CreateTime);
 	tmpMsg.groupID = chatMsg.FromUserName;
-	tmpMsg.groupName = LocalCpToUtf8(getContactInfoDynamic(chatMsg.FromUserName).nickName.c_str());
+	tmpMsg.groupName = LocalCpToUtf8(ContactModule::Instance().getContactInfoDynamic(chatMsg.FromUserName).nickName.c_str());
 	tmpMsg.senderWxid = chatMsg.sendWxid;
-	tmpMsg.senderName = LocalCpToUtf8(getContactInfoDynamic(chatMsg.sendWxid).nickName.c_str());
+	tmpMsg.senderName = LocalCpToUtf8(ContactModule::Instance().getContactInfoDynamic(chatMsg.sendWxid).nickName.c_str());
 	tmpMsg.msgContent = LocalCpToUtf8(chatMsg.msgContent.c_str());
 	UploadMsg(tmpMsg);
 }
@@ -87,28 +87,28 @@ void Handle_EmojiChatMsg(MyChatMsg& chatMsg)
 	tmpMsg.robotID = gStr_CurrentUserWxid;
 	tmpMsg.postTime = 1000 * uint64_t(chatMsg.CreateTime);
 	tmpMsg.groupID = chatMsg.FromUserName;
-	tmpMsg.groupName = LocalCpToUtf8(getContactInfoDynamic(chatMsg.FromUserName).nickName.c_str());
+	tmpMsg.groupName = LocalCpToUtf8(ContactModule::Instance().getContactInfoDynamic(chatMsg.FromUserName).nickName.c_str());
 	tmpMsg.senderWxid = chatMsg.sendWxid;
-	tmpMsg.senderName = LocalCpToUtf8(getContactInfoDynamic(chatMsg.sendWxid).nickName.c_str());
+	tmpMsg.senderName = LocalCpToUtf8(ContactModule::Instance().getContactInfoDynamic(chatMsg.sendWxid).nickName.c_str());
 
 	tinyxml2::XMLDocument xmlDocument;
 	if (xmlDocument.Parse(chatMsg.msgContent.c_str()) != tinyxml2::XMLError::XML_SUCCESS) {
-		WeChatDLL::Instance()->MsgRecvLogger()->error("[Handle_EmojiMsg]解析消息失败:" + chatMsg.msgContent);
+		WeChatDLL::Instance().MsgRecvLogger()->error("[Handle_EmojiMsg]解析消息失败:" + chatMsg.msgContent);
 		return;
 	}
 	auto elementMsg = xmlDocument.FirstChildElement("msg");
 	if (!elementMsg) {
-		WeChatDLL::Instance()->MsgRecvLogger()->error("[Handle_EmojiMsg]未找到msg消息节点:" + chatMsg.msgContent);
+		WeChatDLL::Instance().MsgRecvLogger()->error("[Handle_EmojiMsg]未找到msg消息节点:" + chatMsg.msgContent);
 		return;
 	}
 	auto elementEmoji = elementMsg->FirstChildElement("emoji");
 	if (!elementEmoji) {
-		WeChatDLL::Instance()->MsgRecvLogger()->error("[Handle_EmojiMsg]未找到emoji消息节点:" + chatMsg.msgContent);
+		WeChatDLL::Instance().MsgRecvLogger()->error("[Handle_EmojiMsg]未找到emoji消息节点:" + chatMsg.msgContent);
 		return;
 	}
 	auto elementCDN = elementEmoji->Attribute("cdnurl");
 	if (!elementCDN) {
-		WeChatDLL::Instance()->MsgRecvLogger()->error("[Handle_EmojiMsg]未找到cdnurl消息节点:" + chatMsg.msgContent);
+		WeChatDLL::Instance().MsgRecvLogger()->error("[Handle_EmojiMsg]未找到cdnurl消息节点:" + chatMsg.msgContent);
 		return;
 	}
 	tmpMsg.msgContent = LocalCpToUtf8(elementCDN);
@@ -122,9 +122,9 @@ void Handle_NormalChatMsg(MyChatMsg& chatMsg)
 	tmpMsg.robotID = gStr_CurrentUserWxid;
 	tmpMsg.postTime = 1000 * uint64_t(chatMsg.CreateTime);
 	tmpMsg.groupID = chatMsg.FromUserName;
-	tmpMsg.groupName = LocalCpToUtf8(getContactInfoDynamic(chatMsg.FromUserName).nickName.c_str());
+	tmpMsg.groupName = LocalCpToUtf8(ContactModule::Instance().getContactInfoDynamic(chatMsg.FromUserName).nickName.c_str());
 	tmpMsg.senderWxid = chatMsg.sendWxid;
-	tmpMsg.senderName = LocalCpToUtf8(getContactInfoDynamic(chatMsg.sendWxid).nickName.c_str());
+	tmpMsg.senderName = LocalCpToUtf8(ContactModule::Instance().getContactInfoDynamic(chatMsg.sendWxid).nickName.c_str());
 	tmpMsg.msgContent = LocalCpToUtf8(chatMsg.msgContent.c_str());
 	
 	UploadMsg(tmpMsg);
@@ -154,7 +154,7 @@ std::string ParseAppMsg(std::string& appMsg)
 {
 	tinyxml2::XMLDocument originDocument;
 	if (originDocument.Parse(appMsg.c_str()) != tinyxml2::XMLError::XML_SUCCESS) {
-		WeChatDLL::Instance()->MsgRecvLogger()->error("[ParseAppMsg]" + appMsg);
+		WeChatDLL::Instance().MsgRecvLogger()->error("[ParseAppMsg]" + appMsg);
 		return "";
 	}
 
@@ -225,9 +225,9 @@ void Handle_AppChatMsg(MyChatMsg& chatMsg)
 	tmpMsg.robotID = gStr_CurrentUserWxid;
 	tmpMsg.postTime = 1000 * uint64_t(chatMsg.CreateTime);
 	tmpMsg.groupID = chatMsg.FromUserName;
-	tmpMsg.groupName = LocalCpToUtf8(getContactInfoDynamic(chatMsg.FromUserName).nickName.c_str());
+	tmpMsg.groupName = LocalCpToUtf8(ContactModule::Instance().getContactInfoDynamic(chatMsg.FromUserName).nickName.c_str());
 	tmpMsg.senderWxid = chatMsg.sendWxid;
-	tmpMsg.senderName = LocalCpToUtf8(getContactInfoDynamic(chatMsg.sendWxid).nickName.c_str());
+	tmpMsg.senderName = LocalCpToUtf8(ContactModule::Instance().getContactInfoDynamic(chatMsg.sendWxid).nickName.c_str());
 
 	std::string appMsg = ParseAppMsg(chatMsg.msgContent);
 	tmpMsg.msgContent = LocalCpToUtf8(appMsg.c_str());
@@ -304,7 +304,7 @@ void __stdcall MySetCurrentUserWxid(HookContext* hookContext)
 
 bool HOOK_消息监控()
 {
-	DWORD hWeChatWinDLL = WeChatDLL::Instance()->getWinMoudule();
+	DWORD hWeChatWinDLL = WeChatDLL::Instance().getWinMoudule();
 
 	gHook_AddChatMsg.AddHook((LPVOID)(hWeChatWinDLL + 0x4CAE11), MyAddChatMsg);
 	//gHook_ImageDownload.AddHook((LPVOID)(hWeChatWinDLL + 0x58AD50), MyDownloadImageSuccessed);

@@ -114,6 +114,9 @@
     <ClCompile Include="include\AnyCall\AnyCall.cpp">
       <Filter>头文件</Filter>
     </ClCompile>
+    <ClCompile Include="Function\朋友圈.cpp">
+      <Filter>Function</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="微信偏移.h">
@@ -193,6 +196,9 @@
     </ClInclude>
     <ClInclude Include="include\AnyCall\AnyCall.h">
       <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Function\朋友圈.h">
+      <Filter>Function</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

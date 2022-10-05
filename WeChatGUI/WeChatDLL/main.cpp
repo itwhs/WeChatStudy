@@ -9,14 +9,14 @@ BOOL APIENTRY DllMain(HMODULE hModule,
 	switch (ul_reason_for_call)
 	{
 	case DLL_PROCESS_ATTACH:
-		WeChatDLL::Instance()->InitDLL();
+		WeChatDLL::Instance().InitDLL();
 		break;
 	case DLL_THREAD_ATTACH:
 		break;
 	case DLL_THREAD_DETACH:
 		break;
 	case DLL_PROCESS_DETACH: 
-		WeChatDLL::Instance()->FreeDLL();
+		WeChatDLL::Instance().FreeDLL();
 		break;
 	}
 	return TRUE;

@@ -2,8 +2,15 @@
 #include <string>
 #include "../WeChat/Contact.h"
 
-bool HOOK_Contact();
-
-//MyContact getContactInfo(std::string userName);
-
-MyContact getContactInfoDynamic(std::string userName);
+enum WechatVersion;
+class ContactModule
+{
+public:
+	static ContactModule& Instance();
+	void InitContactModule(WechatVersion ver);
+	MyContact getContactInfoDynamic(std::string userName);
+private:
+	void* ContactMgr_Instance();
+private:
+	WechatVersion WeChatVer;
+};

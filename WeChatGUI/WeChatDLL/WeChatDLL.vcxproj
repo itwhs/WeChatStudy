@@ -152,6 +152,7 @@
     <ClCompile Include="BeaEngine\BeaEngine.c" />
     <ClCompile Include="Function\微信多开.cpp" />
     <ClCompile Include="Function\日志打印.cpp" />
+    <ClCompile Include="Function\朋友圈.cpp" />
     <ClCompile Include="Function\消息上传.cpp" />
     <ClCompile Include="Function\消息监控.cpp" />
     <ClCompile Include="Function\通讯录.cpp" />
@@ -176,6 +177,7 @@
     <ClInclude Include="ApiServer.h" />
     <ClInclude Include="Function\微信多开.h" />
     <ClInclude Include="Function\日志打印.h" />
+    <ClInclude Include="Function\朋友圈.h" />
     <ClInclude Include="Function\消息上传.h" />
     <ClInclude Include="Function\消息监控.h" />
     <ClInclude Include="Function\通讯录.h" />
