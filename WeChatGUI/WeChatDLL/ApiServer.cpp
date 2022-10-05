@@ -85,11 +85,14 @@ void Api_sendTextMsgEx(const httplib::Request& req, httplib::Response& res)
 		else if (msgType == 1) {
 			std::string strAtUser = msgList[n]["atUser"];
 			std::string nickName = msgList[n]["nickName"];
-			if (nickName.empty()) {
+			if (strAtUser == "notify@all") {
+				nickName = LocalCpToUtf8("À˘”–»À");
+			}
+			else if (nickName.empty()) {
 				nickName = ContactModule::Instance().getContactInfoDynamic(strAtUser).nickName;
 				nickName = LocalCpToUtf8(nickName.c_str());
 			}
-			msgContent.append("@" + nickName);
+			msgContent.append("@" + nickName + " ");
 			MymmString mmStrAtUser;
 			mmStrAtUser.assignUTF8(strAtUser.c_str());
 			atUserList.push_back(mmStrAtUser);
