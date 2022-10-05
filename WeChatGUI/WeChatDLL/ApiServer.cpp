@@ -4,7 +4,10 @@
 #include "WeChat/ChatMsg.h"
 #include "WeChatDLL.h"
 #include <AnyCall/AnyCall.h>
+#include "Function/ContactFunction.h"
 #include "WeChat/common.h"
+#include "Public/Strings.h"
+#include <MyTinySTL/vector.h>
 
 unsigned int gWechatInstance;
 
@@ -28,10 +31,10 @@ void Api_sendImageMsg(const httplib::Request& req, httplib::Response& res)
 	ChatMsg retChatMsg;
 	memset(&retChatMsg, 0x0, sizeof(ChatMsg));
 	MymmString sendWxid, imagePath, unknowFiled;
-	sendWxid.coreStr.assignUTF8(toWxid.c_str());
-	imagePath.coreStr.assignUTF8(msgContent.c_str());
+	sendWxid.assignUTF8(toWxid.c_str());
+	imagePath.assignUTF8(msgContent.c_str());
 	AnyCall::invokeThiscall<void>(SendMessageMgr_Instance(), (void*)(gWechatInstance + 0x5CCDD0), &retChatMsg,
-		&sendWxid.coreStr, &imagePath.coreStr, unknowFiled.coreStr);
+		&sendWxid, &imagePath, unknowFiled);
 	retJson["code"] = 200;
 	retJson["msg"] = "send ok";
 	res.set_content(retJson.dump(), "application/json");
@@ -52,10 +55,50 @@ void Api_sendTextMsg(const httplib::Request& req, httplib::Response& res)
 	}
 	ChatMsg objMsg;
 	MymmString sendWxid, sendMsg;
-	sendWxid.coreStr.assignUTF8(toWxid.c_str());
-	sendMsg.coreStr.assignUTF8(msgContent.c_str());
+	sendWxid.assignUTF8(toWxid.c_str());
+	sendMsg.assignUTF8(msgContent.c_str());
 	unsigned int unknowField = 0x0;
-	AnyCall::invokeAnycall(&objMsg, &sendWxid.coreStr, (void*)(gWechatInstance + 0x5CD2E0), &sendMsg.coreStr, &unknowField, (void*)1, 0, 0x0);
+	AnyCall::invokeAnycall(&objMsg, &sendWxid, (void*)(gWechatInstance + 0x5CD2E0), &sendMsg, &unknowField, (void*)1, 0, 0x0);
+	retJson["code"] = 200;
+	retJson["msg"] = "send ok";
+	res.set_content(retJson.dump(), "application/json");
+	return;
+}
+
+void Api_sendTextMsgEx(const httplib::Request& req, httplib::Response& res)
+{
+	nlohmann::json json = nlohmann::json::parse(req.body);
+	nlohmann::json retJson;
+	MymmString toWxid;
+	toWxid.assignUTF8(json["to_wxid"].get<std::string>().c_str());
+	mystl::vector<MymmString> atUserList;
+	std::string msgContent;
+	auto msgList = json["msg_list"];
+	for (unsigned int n = 0; n < msgList.size(); ++n) {
+		int msgType = msgList[n]["type"];
+		//普通文本
+		if (msgType == 0) {
+			std::string msg = msgList[n]["msg"];
+			msgContent.append(msg);
+		}
+		//@用户
+		else if (msgType == 1) {
+			std::string strAtUser = msgList[n]["atUser"];
+			std::string nickName = msgList[n]["nickName"];
+			if (nickName.empty()) {
+				nickName = ContactModule::Instance().getContactInfoDynamic(strAtUser).nickName;
+				nickName = LocalCpToUtf8(nickName.c_str());
+			}
+			msgContent.append("@" + nickName);
+			MymmString mmStrAtUser;
+			mmStrAtUser.assignUTF8(strAtUser.c_str());
+			atUserList.push_back(mmStrAtUser);
+		}
+	}
+	ChatMsg objMsg;
+	MymmString sendMsg;
+	sendMsg.assignUTF8(msgContent.c_str());
+	AnyCall::invokeAnycall(&objMsg, &toWxid, (void*)(gWechatInstance + 0x5CD2E0), &sendMsg, &atUserList, (void*)1, 0, 0x0);
 	retJson["code"] = 200;
 	retJson["msg"] = "send ok";
 	res.set_content(retJson.dump(), "application/json");
@@ -100,7 +143,6 @@ void Api_sendCustomEmotion(const httplib::Request& req, httplib::Response& res)
 	
 }
 
-
 void StartApiServer(unsigned short port)
 {
 	gWechatInstance = WeChatDLL::Instance().getWinMoudule();
@@ -111,6 +153,7 @@ void StartApiServer(unsigned short port)
 	svr.Get("/recvGroupMsg", Api_recvGroupMsg);
 	svr.Get("/recvPrivateMsg", Api_recvPrivateMsg);
 	svr.Post("/sendTextMsg", Api_sendTextMsg);
+	svr.Post("/sendTextMsgEx", Api_sendTextMsgEx);
 	svr.Post("/sendImageMsg", Api_sendImageMsg);
 
 	svr.Get("/getCustomEmotionList", Api_getCustomEmotionList);

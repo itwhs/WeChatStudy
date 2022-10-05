@@ -2,7 +2,7 @@
 #include <windows.h>
 #include "common.h"
 
-//微信原始结构体
+//微信原始结构体,大小为0x3E8
 struct Contact
 {
 	DWORD vtable;

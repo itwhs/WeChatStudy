@@ -75,21 +75,6 @@
     <ClCompile Include="TinyXml\tinyxml2.cpp">
       <Filter>TinyXml</Filter>
     </ClCompile>
-    <ClCompile Include="Function\日志打印.cpp">
-      <Filter>Function</Filter>
-    </ClCompile>
-    <ClCompile Include="Function\通讯录.cpp">
-      <Filter>Function</Filter>
-    </ClCompile>
-    <ClCompile Include="Function\微信多开.cpp">
-      <Filter>Function</Filter>
-    </ClCompile>
-    <ClCompile Include="Function\消息监控.cpp">
-      <Filter>Function</Filter>
-    </ClCompile>
-    <ClCompile Include="Function\消息上传.cpp">
-      <Filter>Function</Filter>
-    </ClCompile>
     <ClCompile Include="WeChat\Contact.cpp">
       <Filter>WeChat</Filter>
     </ClCompile>
@@ -114,7 +99,22 @@
     <ClCompile Include="include\AnyCall\AnyCall.cpp">
       <Filter>头文件</Filter>
     </ClCompile>
-    <ClCompile Include="Function\朋友圈.cpp">
+    <ClCompile Include="Function\LogFunction.cpp">
+      <Filter>Function</Filter>
+    </ClCompile>
+    <ClCompile Include="Function\SnsFunction.cpp">
+      <Filter>Function</Filter>
+    </ClCompile>
+    <ClCompile Include="Function\微信多开.cpp">
+      <Filter>Function</Filter>
+    </ClCompile>
+    <ClCompile Include="Function\消息监控.cpp">
+      <Filter>Function</Filter>
+    </ClCompile>
+    <ClCompile Include="Function\消息上传.cpp">
+      <Filter>Function</Filter>
+    </ClCompile>
+    <ClCompile Include="Function\ContactFunction.cpp">
       <Filter>Function</Filter>
     </ClCompile>
   </ItemGroup>
@@ -155,21 +155,6 @@
     <ClInclude Include="TinyXml\tinyxml2.h">
       <Filter>TinyXml</Filter>
     </ClInclude>
-    <ClInclude Include="Function\日志打印.h">
-      <Filter>Function</Filter>
-    </ClInclude>
-    <ClInclude Include="Function\通讯录.h">
-      <Filter>Function</Filter>
-    </ClInclude>
-    <ClInclude Include="Function\微信多开.h">
-      <Filter>Function</Filter>
-    </ClInclude>
-    <ClInclude Include="Function\消息监控.h">
-      <Filter>Function</Filter>
-    </ClInclude>
-    <ClInclude Include="Function\消息上传.h">
-      <Filter>Function</Filter>
-    </ClInclude>
     <ClInclude Include="WeChat\Contact.h">
       <Filter>WeChat</Filter>
     </ClInclude>
@@ -197,7 +182,22 @@
     <ClInclude Include="include\AnyCall\AnyCall.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="Function\朋友圈.h">
+    <ClInclude Include="Function\LogFunction.h">
+      <Filter>Function</Filter>
+    </ClInclude>
+    <ClInclude Include="Function\SnsFunction.h">
+      <Filter>Function</Filter>
+    </ClInclude>
+    <ClInclude Include="Function\微信多开.h">
+      <Filter>Function</Filter>
+    </ClInclude>
+    <ClInclude Include="Function\消息监控.h">
+      <Filter>Function</Filter>
+    </ClInclude>
+    <ClInclude Include="Function\消息上传.h">
+      <Filter>Function</Filter>
+    </ClInclude>
+    <ClInclude Include="Function\ContactFunction.h">
       <Filter>Function</Filter>
     </ClInclude>
   </ItemGroup>

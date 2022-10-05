@@ -10,6 +10,16 @@ std::wstring copyMMString(mmString* mmStr)
 	return ret;
 }
 
+mmString::mmString()
+{
+	pUnicode = 0x0;
+	Mysize = 0x0;
+	Myres = 0x0;
+	pUTF8 = 0x0;
+	uLen = 0x0;
+}
+
+
 void mmString::assign(const wchar_t* src, int len)
 {
 	this->pUnicode = 0;
@@ -17,7 +27,6 @@ void mmString::assign(const wchar_t* src, int len)
 	this->Myres = 0;
 	this->pUTF8 = 0;
 	this->uLen = 0;
-
 	if (!src || !len) {
 		return;
 	}
@@ -30,7 +39,6 @@ void mmString::assign(const wchar_t* src, int len)
 		this->Myres = len;
 	}
 }
-
 
 void mmString::assignUTF8(const char* src)
 {
@@ -59,21 +67,28 @@ void mmString::free()
 	this->uLen = 0x0;
 }
 
-bool mmString::empty()
+MymmString::MymmString(const MymmString& s)
 {
-	return this->Mysize <= 0;
+	if (!s.Mysize) {
+		return;
+	}
+	wchar_t* pBuf = new wchar_t[s.Mysize + 1];
+	if (pBuf) {
+		wmemcpy(pBuf, s.pUnicode, s.Mysize);
+		pBuf[s.Mysize] = 0x0;
+		this->pUnicode = pBuf;
+		this->Mysize = s.Mysize;
+		this->Myres = s.Mysize;
+	}
 }
 
 MymmString::MymmString()
 {
-	coreStr.pUnicode = 0x0;
-	coreStr.Mysize = 0x0;
-	coreStr.Myres = 0x0;
-	coreStr.pUTF8 = 0x0;
-	coreStr.uLen = 0x0;
+
 }
 
 MymmString::~MymmString()
 {
-	coreStr.free();
+	free();
 }
+

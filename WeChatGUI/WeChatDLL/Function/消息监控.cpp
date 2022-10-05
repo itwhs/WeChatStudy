@@ -13,7 +13,7 @@
 #include "../WeChat/ChatMsg.h"
 #include "../WeChatDLL.h"
 #include "../微信偏移.h"
-#include "通讯录.h"
+#include "ContactFunction.h"
 #include "消息上传.h"
 
 InlineHook gHook_AddChatMsg;

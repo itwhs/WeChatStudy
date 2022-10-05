@@ -2,15 +2,15 @@
 #include <string>
 #include "../WeChat/Contact.h"
 
-enum WechatVersion;
+enum WeChatVersion;
 class ContactModule
 {
 public:
 	static ContactModule& Instance();
-	void InitContactModule(WechatVersion ver);
+	void InitContactModule(WeChatVersion ver);
 	MyContact getContactInfoDynamic(std::string userName);
 private:
 	void* ContactMgr_Instance();
 private:
-	WechatVersion WeChatVer;
+	WeChatVersion WeChatVer;
 };

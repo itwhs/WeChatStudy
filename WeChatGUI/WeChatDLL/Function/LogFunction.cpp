@@ -1,4 +1,4 @@
-#include "»’÷æ¥Ú”°.h"
+#include "LogFunction.h"
 #include <string>
 #include "spdlog/spdlog.h"
 #include "spdlog/sinks/basic_file_sink.h"

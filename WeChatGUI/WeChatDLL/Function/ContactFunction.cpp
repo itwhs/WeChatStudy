@@ -1,4 +1,4 @@
-#include "ͨѶ¼.h"
+#include "ContactFunction.h"
 #include <unordered_map>
 #include "../InlineHook/InlineHook.h"
 #include "../WeChatDLL.h"
@@ -13,7 +13,7 @@ ContactModule& ContactModule::Instance()
 	return gContactModule;
 }
 
-void ContactModule::InitContactModule(WechatVersion ver)
+void ContactModule::InitContactModule(WeChatVersion ver)
 {
 	WeChatVer = ver;
 }
@@ -24,10 +24,10 @@ MyContact ContactModule::getContactInfoDynamic(std::string userName)
 	if (this->WeChatVer == WeChat_3_7_6_44) {
 		Contact outContatInfo;
 		std::wstring wUserName = AnsiToUnicode(userName.c_str());
-		mmString mUserName;
+		MymmString mUserName;
 		mUserName.assign(wUserName.c_str(), wUserName.length());
 		void* gContactMgr = ContactMgr_Instance();
-		if (!AnyCall::invokeThiscall<bool>(gContactMgr, (void*)(WeChatDLL::Instance().getWinMoudule() + 0x4FD560), mUserName, &outContatInfo)) {
+		if (!AnyCall::invokeThiscall<bool>(gContactMgr, (void*)(WeChatDLL::Instance().getWinMoudule() + 0x4FD560), &mUserName, &outContatInfo)) {
 			ret.userName = userName;
 			ret.nickName = userName;
 			return ret;
@@ -45,4 +45,5 @@ void* ContactModule::ContactMgr_Instance()
 	if (this->WeChatVer == WeChat_3_7_6_44) {
 		return AnyCall::invokeStdcall<void*>((void*)(WeChatDLL::Instance().getWinMoudule() + 0x134140));
 	}
+	return NULL;
 }

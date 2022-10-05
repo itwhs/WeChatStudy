@@ -187,3 +187,5 @@ struct MyChatMsg
 
 
 MyChatMsg CopyChatMsg(ChatMsg* pChatMsg);
+
+

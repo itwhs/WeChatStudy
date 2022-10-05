@@ -2,10 +2,10 @@
 #include "public/WinApi.h"
 #include "InlineHook/InlineHook.h"
 #include "MinHook/MinHook.h"
-#include "Function/日志打印.h"
+#include "Function/LogFunction.h"
 #include "Function/微信多开.h"
 #include "Function/消息监控.h"
-#include "Function/通讯录.h"
+#include "Function/ContactFunction.h"
 #include "Function/消息上传.h"
 #include "微信偏移.h"
 #include "ApiServer.h"
@@ -72,6 +72,12 @@ std::shared_ptr<spdlog::logger>& WeChatDLL::WeChatLogger()
 DWORD WeChatDLL::getWinMoudule()
 {
 	return m_hWeChatWinDLL;
+}
+
+
+WeChatVersion WeChatDLL::getWechatVersion()
+{
+	return m_WechatVer;
 }
 
 void WeChatDLL::FreeDLL()

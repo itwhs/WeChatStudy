@@ -16,10 +16,14 @@ MyContact copyContact(Contact* pContact)
 
 Contact::Contact()
 {
-	AnyCall::invokeThiscall<void>((void*)this, (void*)(WeChatDLL::Instance().getWinMoudule() + 0x632420));
+	if (WeChatDLL::Instance().getWechatVersion() == WeChat_3_7_6_44) {
+		AnyCall::invokeThiscall<void>((void*)this, (void*)(WeChatDLL::Instance().getWinMoudule() + 0x76CBC0));
+	}
 }
 
 Contact::~Contact()
 {
-	AnyCall::invokeThiscall<void>((void*)this, (void*)(WeChatDLL::Instance().getWinMoudule() + 0x632F20));
+	if (WeChatDLL::Instance().getWechatVersion() == WeChat_3_7_6_44) {
+		AnyCall::invokeThiscall<void>((void*)this, (void*)(WeChatDLL::Instance().getWinMoudule() + 0x76D6C0));
+	}
 }
