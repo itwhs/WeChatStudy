@@ -53,12 +53,12 @@ void Api_sendTextMsg(const httplib::Request& req, httplib::Response& res)
 		res.set_content(retJson.dump(), "application/json");
 		return;
 	}
-	ChatMsg objMsg;
+	ChatMsg objMsg = { 0 };
 	MymmString sendWxid, sendMsg;
 	sendWxid.assignUTF8(toWxid.c_str());
 	sendMsg.assignUTF8(msgContent.c_str());
-	unsigned int unknowField = 0x0;
-	AnyCall::invokeAnycall(&objMsg, &sendWxid, (void*)(gWechatInstance + 0x5CD2E0), &sendMsg, &unknowField, (void*)1, 0, 0x0);
+	mystl::vector<MymmString> atUserList;
+	AnyCall::invokeAnycall(&objMsg, &sendWxid, (void*)(gWechatInstance + 0x5CD2E0), &sendMsg, &atUserList, (void*)1, 0, 0x0);
 	retJson["code"] = 200;
 	retJson["msg"] = "send ok";
 	res.set_content(retJson.dump(), "application/json");
@@ -163,8 +163,6 @@ void StartApiServer(unsigned short port)
 	svr.Post("/sendCustomEmotion", Api_sendCustomEmotion);
 
 	svr.Get("/recvSnsMsg", Api_recvSnsMsg);
-	
-
 	svr.Get("/getLoginUserInfo", Api_getLoginUserInfo);
 
 
