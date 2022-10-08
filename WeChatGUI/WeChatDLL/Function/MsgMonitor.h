@@ -25,9 +25,9 @@ struct MsgUploadInfo
 	//消息id
 	unsigned long long msgID;
 	//消息来源
-	std::string fromWxid;
+	std::string wxid;
 	//消息来源名称
-	std::string fromName;
+	std::string name;
 	//发送者的名称
 	std::string senderName;
 	//发送者的WXID

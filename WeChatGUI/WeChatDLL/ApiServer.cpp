@@ -122,9 +122,9 @@ void Api_syncMsg(const httplib::Request& req, httplib::Response& res)
 		tmp["sender_name"] = msgList[n].senderName;
 		tmp["sender_wxid"] = msgList[n].senderWxid;
 		tmp["msg_content"] = msgList[n].msgContent;
-		if (!msgList[n].fromWxid.empty()) {
-			tmp["from_wxid"] = msgList[n].fromWxid;
-			tmp["from_name"] = msgList[n].fromName;
+		if (!msgList[n].wxid.empty()) {
+			tmp["wxid"] = msgList[n].wxid;
+			tmp["name"] = msgList[n].name;
 		}
 		tmp["robot_id"] = msgList[n].robotID;
 		tmp["post_time"] = msgList[n].postTime;

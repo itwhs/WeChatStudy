@@ -28,11 +28,15 @@ UpdateMgr里面存着一个要更新的微信地址，和全局变量进行对�
 10002 = 系统消息
 ```
 
-
-
 先是SyncMgr::doAddMsg，解析micromsg::AddMsg，转换成ChatMsg。
 
 然后是SyncMgr::addMsgListToDB，将ChatMsg添加到数据库中。
+
+### 图片消息监控
+
+NetSceneGetMsgImgCDN::onDownloadSuccessed
+
+
 
 ## 消息发送
 
