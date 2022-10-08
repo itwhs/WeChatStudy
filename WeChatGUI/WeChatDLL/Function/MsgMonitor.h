@@ -46,8 +46,6 @@ public:
 	void popMsg(std::vector<MsgUploadInfo>& outMsgList);
 private:
 	std::list<MsgUploadInfo> buffer;
-	unsigned int index;
-	bool bOverflow;
 	std::mutex mute;
 };
 

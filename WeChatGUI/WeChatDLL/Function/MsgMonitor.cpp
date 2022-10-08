@@ -20,35 +20,8 @@
 InlineHook gHook_AddChatMsg;
 InlineHook gHook_ImageDownload;
 
-std::mutex gMutexMsg;
 
-
-void WeChatNormalImageHandler(MyChatMsg& chatMsg)
-{
-
-}
-
-void WeChatGroupImageHandler(MyChatMsg& chatMsg)
-{
-	GroupMsgInfo tmpMsgInfo;
-	tmpMsgInfo.msgType = chatMsg.msgType;
-	tmpMsgInfo.robotID = AccountFunction::currentUserWxid;
-	tmpMsgInfo.senderWxid = chatMsg.sendWxid;
-	tmpMsgInfo.senderName = LocalCpToUtf8(ContactModule::Instance().getContactInfoDynamic(chatMsg.sendWxid).nickName.c_str());
-	tmpMsgInfo.groupID = chatMsg.FromUserName;
-	tmpMsgInfo.groupName = LocalCpToUtf8(ContactModule::Instance().getContactInfoDynamic(chatMsg.FromUserName).nickName.c_str());
-	tmpMsgInfo.postTime = 1000 * uint64_t(chatMsg.CreateTime);
-	if (chatMsg.imagePath == "") {
-		return;
-	}
-	tmpMsgInfo.msgContent = ReadFileToString(chatMsg.imagePath.c_str());
-	if (!tmpMsgInfo.msgContent.size()) {
-		return;
-	}
-	
-}
-
-void Handle_ImageMsg(MyChatMsg& chatMsg)
+void Handle_ImageChatMsg(MyChatMsg& chatMsg)
 {
 	MsgUploadInfo tmpMsg;
 	tmpMsg.msgType = chatMsg.msgType;
@@ -65,7 +38,6 @@ void Handle_ImageMsg(MyChatMsg& chatMsg)
 	MsgMonitor::Instance().AddMsg(tmpMsg);
 }
 
-
 void __stdcall MyOnDownloadImageSuccessed(HookContext* hookContext)
 {
 	char* pNetSceneGetMsgImgCDN = (char*)hookContext->ECX;
@@ -77,7 +49,7 @@ void __stdcall MyOnDownloadImageSuccessed(HookContext* hookContext)
 	if (tmpMsg.IsOwner) {
 		tmpMsg.sendWxid = AccountFunction::currentUserWxid;
 	}
-	Handle_ImageMsg(tmpMsg);
+	Handle_ImageChatMsg(tmpMsg);
 }
 
 void Handle_TicketInfoMsg(MyChatMsg& chatMsg)
@@ -137,7 +109,6 @@ void Handle_NormalChatMsg(MyChatMsg& chatMsg)
 	tmpMsg.postTime = chatMsg.CreateTime;
 	tmpMsg.msgID = chatMsg.msgID;
 	tmpMsg.wxid = chatMsg.FromUserName;
-
 	if (!tmpMsg.wxid.empty()) {
 		tmpMsg.name = LocalCpToUtf8(ContactModule::Instance().getContactInfoDynamic(tmpMsg.wxid).nickName.c_str());
 	}
@@ -146,7 +117,6 @@ void Handle_NormalChatMsg(MyChatMsg& chatMsg)
 	tmpMsg.msgContent = LocalCpToUtf8(chatMsg.msgContent.c_str());
 	MsgMonitor::Instance().AddMsg(tmpMsg);
 }
-
 
 bool CopyXmlElementText(tinyxml2::XMLElement* dst, tinyxml2::XMLElement* src, const char* nodeName)
 {
