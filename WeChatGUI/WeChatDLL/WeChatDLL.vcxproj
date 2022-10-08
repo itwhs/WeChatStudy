@@ -30,14 +30,14 @@
     <ConfigurationType>DynamicLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <PlatformToolset>v143</PlatformToolset>
-    <CharacterSet>Unicode</CharacterSet>
+    <CharacterSet>NotSet</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
     <ConfigurationType>DynamicLibrary</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
     <PlatformToolset>v143</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
-    <CharacterSet>Unicode</CharacterSet>
+    <CharacterSet>NotSet</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
@@ -92,6 +92,7 @@
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>.\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
+      <LanguageStandard>stdcpp14</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -152,12 +153,13 @@
   <ItemGroup>
     <ClCompile Include="ApiServer.cpp" />
     <ClCompile Include="BeaEngine\BeaEngine.c" />
+    <ClCompile Include="Function\AccountFunction.cpp" />
     <ClCompile Include="Function\ContactFunction.cpp" />
     <ClCompile Include="Function\LogFunction.cpp" />
+    <ClCompile Include="Function\MsgMonitor.cpp" />
     <ClCompile Include="Function\SnsFunction.cpp" />
     <ClCompile Include="Function\微信多开.cpp" />
     <ClCompile Include="Function\消息上传.cpp" />
-    <ClCompile Include="Function\消息监控.cpp" />
     <ClCompile Include="include\AnyCall\AnyCall.cpp" />
     <ClCompile Include="InlineHook\InlineHook.cpp" />
     <ClCompile Include="main.cpp" />
@@ -177,12 +179,13 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ApiServer.h" />
+    <ClInclude Include="Function\AccountFunction.h" />
     <ClInclude Include="Function\ContactFunction.h" />
     <ClInclude Include="Function\LogFunction.h" />
+    <ClInclude Include="Function\MsgMonitor.h" />
     <ClInclude Include="Function\SnsFunction.h" />
     <ClInclude Include="Function\微信多开.h" />
     <ClInclude Include="Function\消息上传.h" />
-    <ClInclude Include="Function\消息监控.h" />
     <ClInclude Include="include\AnyCall\AnyCall.h" />
     <ClInclude Include="InlineHook\InlineHook.h" />
     <ClInclude Include="MinHook\buffer.h" />

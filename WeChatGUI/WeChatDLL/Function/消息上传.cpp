@@ -17,10 +17,7 @@ void Msg_Upload(std::vector<GroupMsgInfo> vec_Msg)
 	
 }
 
-void UploadMsg(GroupMsgInfo& msgInfo)
-{
-	
-}
+
 
 void thread_MsgUpload()
 {

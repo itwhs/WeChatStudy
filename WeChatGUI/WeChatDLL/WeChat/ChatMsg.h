@@ -152,6 +152,7 @@ struct ChatMsg
 	int field_124;
 	int field_128;
 	int field_12C;
+	int field_130;
 	MixExtra mixExtra;
 	int field_264;
 	char field_268;
@@ -170,13 +171,13 @@ struct ChatMsg
 	int field_290;
 	int field_294;
 	int field_298;
-	int field_29C;
 };
 #pragma pack(pop)
 
 struct MyChatMsg
 {
 	int msgType;				//消息类型
+	unsigned long long msgID;	//消息id
 	bool IsOwner;				//消息是否为自己发送
 	unsigned int CreateTime;	//消息时间戳
 	std::string FromUserName;	//消息来源,微信群wxid
@@ -184,7 +185,6 @@ struct MyChatMsg
 	std::string msgContent;		//消息内容
 	std::string imagePath;		//图片消息路径
 };
-
 
 MyChatMsg CopyChatMsg(ChatMsg* pChatMsg);
 

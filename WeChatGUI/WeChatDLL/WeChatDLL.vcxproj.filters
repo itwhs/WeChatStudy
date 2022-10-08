@@ -108,13 +108,16 @@
     <ClCompile Include="Function\微信多开.cpp">
       <Filter>Function</Filter>
     </ClCompile>
-    <ClCompile Include="Function\消息监控.cpp">
-      <Filter>Function</Filter>
-    </ClCompile>
     <ClCompile Include="Function\消息上传.cpp">
       <Filter>Function</Filter>
     </ClCompile>
     <ClCompile Include="Function\ContactFunction.cpp">
+      <Filter>Function</Filter>
+    </ClCompile>
+    <ClCompile Include="Function\MsgMonitor.cpp">
+      <Filter>Function</Filter>
+    </ClCompile>
+    <ClCompile Include="Function\AccountFunction.cpp">
       <Filter>Function</Filter>
     </ClCompile>
   </ItemGroup>
@@ -191,13 +194,16 @@
     <ClInclude Include="Function\微信多开.h">
       <Filter>Function</Filter>
     </ClInclude>
-    <ClInclude Include="Function\消息监控.h">
-      <Filter>Function</Filter>
-    </ClInclude>
     <ClInclude Include="Function\消息上传.h">
       <Filter>Function</Filter>
     </ClInclude>
     <ClInclude Include="Function\ContactFunction.h">
+      <Filter>Function</Filter>
+    </ClInclude>
+    <ClInclude Include="Function\MsgMonitor.h">
+      <Filter>Function</Filter>
+    </ClInclude>
+    <ClInclude Include="Function\AccountFunction.h">
       <Filter>Function</Filter>
     </ClInclude>
   </ItemGroup>

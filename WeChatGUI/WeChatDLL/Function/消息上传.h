@@ -22,6 +22,4 @@ struct GroupMsgInfo
 	std::uint64_t postTime;
 };
 
-void UploadMsg(GroupMsgInfo& msgInfo);
-
 void PLUGIN_消息上传();

@@ -5,9 +5,10 @@ MyChatMsg CopyChatMsg(ChatMsg* pChatMsg)
 {
 	MyChatMsg ret;
 	ret.msgType = pChatMsg->msgType;
+	ret.msgID = pChatMsg->newMsgId;
 	ret.IsOwner = pChatMsg->isOwner;
 	ret.FromUserName = UnicodeToAnsi(copyMMString(&pChatMsg->fromUserName).c_str());
-	if (!pChatMsg->isOwner){
+	if (!pChatMsg->isOwner) {
 		ret.sendWxid = UnicodeToAnsi(copyMMString(&pChatMsg->mixExtra.sendWxid).c_str());
 	}
 	ret.msgContent = UnicodeToAnsi(copyMMString(&pChatMsg->msgContent).c_str());

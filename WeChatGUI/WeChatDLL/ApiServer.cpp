@@ -5,6 +5,7 @@
 #include "WeChatDLL.h"
 #include <AnyCall/AnyCall.h>
 #include "Function/ContactFunction.h"
+#include "Function/MsgMonitor.h"
 #include "WeChat/common.h"
 #include "Public/Strings.h"
 #include <MyTinySTL/vector.h>
@@ -108,16 +109,30 @@ void Api_sendTextMsgEx(const httplib::Request& req, httplib::Response& res)
 	return;
 }
 
-//接受群消息
-void Api_recvGroupMsg(const httplib::Request& req, httplib::Response& res)
+//同步消息
+void Api_syncMsg(const httplib::Request& req, httplib::Response& res)
 {
-	
-}
-
-//接受私聊消息
-void Api_recvPrivateMsg(const httplib::Request& req, httplib::Response& res)
-{
-
+	nlohmann::json retJson;
+	std::vector<MsgUploadInfo> msgList = MsgMonitor::Instance().SyncMsg();
+	nlohmann::json &jsonData = retJson["data"];
+	for (unsigned int n = 0; n < msgList.size(); ++n) {
+		nlohmann::json tmp;
+		tmp["msg_type"] = msgList[n].msgType;
+		tmp["msg_id"] = msgList[n].msgID;
+		tmp["sender_name"] = msgList[n].senderName;
+		tmp["sender_wxid"] = msgList[n].senderWxid;
+		tmp["msg_content"] = msgList[n].msgContent;
+		if (!msgList[n].fromWxid.empty()) {
+			tmp["from_wxid"] = msgList[n].fromWxid;
+			tmp["from_name"] = msgList[n].fromName;
+		}
+		tmp["robot_id"] = msgList[n].robotID;
+		tmp["post_time"] = msgList[n].postTime;
+		jsonData.push_back(tmp);
+	}
+	retJson["code"] = 200;
+	res.set_content(retJson.dump(), "application/json");
+	return;
 }
 
 //接受朋友圈消息
@@ -153,8 +168,7 @@ void StartApiServer(unsigned short port)
 	httplib::Server svr;
 
 	//消息相关
-	svr.Get("/recvGroupMsg", Api_recvGroupMsg);
-	svr.Get("/recvPrivateMsg", Api_recvPrivateMsg);
+	svr.Get("/syncMsg", Api_syncMsg);
 	svr.Post("/sendTextMsg", Api_sendTextMsg);
 	svr.Post("/sendTextMsgEx", Api_sendTextMsgEx);
 	svr.Post("/sendImageMsg", Api_sendImageMsg);
@@ -164,9 +178,5 @@ void StartApiServer(unsigned short port)
 
 	svr.Get("/recvSnsMsg", Api_recvSnsMsg);
 	svr.Get("/getLoginUserInfo", Api_getLoginUserInfo);
-
-
-
-
 	svr.listen("0.0.0.0",port);
 }
