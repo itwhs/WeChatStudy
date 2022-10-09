@@ -120,6 +120,9 @@
     <ClCompile Include="Function\AccountFunction.cpp">
       <Filter>Function</Filter>
     </ClCompile>
+    <ClCompile Include="WeChat\SnsObj.cpp">
+      <Filter>WeChat</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="微信偏移.h">
@@ -205,6 +208,9 @@
     </ClInclude>
     <ClInclude Include="Function\AccountFunction.h">
       <Filter>Function</Filter>
+    </ClInclude>
+    <ClInclude Include="WeChat\SnsObj.h">
+      <Filter>WeChat</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

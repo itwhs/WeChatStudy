@@ -176,6 +176,7 @@
     <ClCompile Include="WeChat\ChatMsg.cpp" />
     <ClCompile Include="WeChat\common.cpp" />
     <ClCompile Include="WeChat\Contact.cpp" />
+    <ClCompile Include="WeChat\SnsObj.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ApiServer.h" />
@@ -205,6 +206,7 @@
     <ClInclude Include="WeChat\ChatMsg.h" />
     <ClInclude Include="WeChat\common.h" />
     <ClInclude Include="WeChat\Contact.h" />
+    <ClInclude Include="WeChat\SnsObj.h" />
     <ClInclude Include="微信偏移.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

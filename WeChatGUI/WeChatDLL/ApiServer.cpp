@@ -6,6 +6,7 @@
 #include <AnyCall/AnyCall.h>
 #include "Function/ContactFunction.h"
 #include "Function/MsgMonitor.h"
+#include "Function/SnsFunction.h"
 #include "WeChat/common.h"
 #include "Public/Strings.h"
 #include <MyTinySTL/vector.h>
@@ -140,7 +141,32 @@ void Api_syncMsg(const httplib::Request& req, httplib::Response& res)
 
 void Api_syncSns(const httplib::Request& req, httplib::Response& res)
 {
-
+	nlohmann::json retJson;
+	std::vector<MyTimeLineResp> msgList = SnsModule::Instance().SyncSns();
+	nlohmann::json& jsonData = retJson["data"];
+	for (unsigned int n = 0; n < msgList.size(); ++n) {
+		nlohmann::json tmp;
+		tmp["id"] = msgList[n].id;
+		tmp["post_time"] = msgList[n].sendTime;
+		tmp["sender_wxid"] = LocalCpToUtf8(msgList[n].sendWxid.c_str());
+		tmp["sender_name"] = LocalCpToUtf8(ContactModule::Instance().getContactInfoDynamic(msgList[n].sendWxid).nickName.c_str());
+		tmp["content"] = LocalCpToUtf8(msgList[n].content.c_str());
+		tmp["title"] = LocalCpToUtf8(msgList[n].title.c_str());
+		tmp["description"] = LocalCpToUtf8(msgList[n].description.c_str());
+		tmp["content_url"] = LocalCpToUtf8(msgList[n].contentUrl.c_str());
+		nlohmann::json& jsonMedia = tmp["media"];
+		for (unsigned int m = 0; m < msgList[n].mediaList.size(); ++m) {
+			nlohmann::json tmpMedia;
+			tmpMedia["id"] = msgList[n].mediaList[m].id;
+			tmpMedia["type"] = msgList[n].mediaList[m].type;
+			tmpMedia["url"] = msgList[n].mediaList[m].url;
+			jsonMedia.push_back(tmpMedia);
+		}
+		jsonData.push_back(tmp);
+	}
+	retJson["code"] = 200;
+	res.set_content(retJson.dump(), "application/json");
+	return;
 }
 
 //获取当前登录用户信息

@@ -7,6 +7,7 @@
 #include "Function/MsgMonitor.h"
 #include "Function/ContactFunction.h"
 #include "Function/AccountFunction.h"
+#include "Function/SnsFunction.h"
 #include "Function/消息上传.h"
 #include "微信偏移.h"
 #include "ApiServer.h"
@@ -28,6 +29,9 @@ void WeChatDLL::InitDLL()
 	Patch_微信多开(m_WechatVer);
 	ContactModule::Instance().InitContactModule(m_WechatVer);
 	if (!AccountFunction::Instance().InitAccountModule(m_WechatVer)) {
+		return;
+	}
+	if (!SnsModule::Instance().InitSnsModule(m_WechatVer)) {
 		return;
 	}
 	if (!MsgMonitor::Instance().InitMsgMonitor(m_WechatVer)) {
