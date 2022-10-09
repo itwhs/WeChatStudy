@@ -10,7 +10,17 @@ UpdateMgr里面存着一个要更新的微信地址，和全局变量进行对�
 
 ## 登录流程
 
-获取当前登录的wxid，AccountService::login
+获取当前登录的wxid，AccountService::login。
+
+LoginWnd::eventProc -> LoginWnd::qrCodeScaned
+
+授权成功之后的回调
+
+NetSceneManualAuth::doManualAuthSuccess
+
+## 判断微信主窗口是否加载
+
+关键字符串MainWnd has been launched
 
 ## 消息监控
 
@@ -69,6 +79,8 @@ EmotionStorage::getEmtionByMd5
 ## 微信通讯录
 
 ContactMgr::getContact，获取数据库通讯录信息。
+
+## 朋友圈
 
 
 

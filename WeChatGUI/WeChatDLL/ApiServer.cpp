@@ -110,6 +110,7 @@ void Api_sendTextMsgEx(const httplib::Request& req, httplib::Response& res)
 }
 
 //同步消息
+
 void Api_syncMsg(const httplib::Request& req, httplib::Response& res)
 {
 	nlohmann::json retJson;
@@ -136,7 +137,8 @@ void Api_syncMsg(const httplib::Request& req, httplib::Response& res)
 }
 
 //接受朋友圈消息
-void Api_recvSnsMsg(const httplib::Request& req, httplib::Response& res)
+
+void Api_syncSns(const httplib::Request& req, httplib::Response& res)
 {
 
 }
@@ -151,6 +153,7 @@ void Api_getLoginUserInfo(const httplib::Request& req, httplib::Response& res)
 
 void Api_getCustomEmotionList(const httplib::Request& req, httplib::Response& res)
 {
+	
 
 }
 
@@ -161,6 +164,27 @@ void Api_sendCustomEmotion(const httplib::Request& req, httplib::Response& res)
 	
 }
 
+void Api_getContactInfo(const httplib::Request& req, httplib::Response& res)
+{
+	nlohmann::json retJson;
+	nlohmann::json json = nlohmann::json::parse(req.body);
+	nlohmann::json& jsonData = retJson["data"];
+	for (unsigned int n = 0; n < json.size(); ++n) {
+		std::string userName = json[n];
+		auto contantInfo = ContactModule::Instance().getContactInfoDynamic(userName);
+		nlohmann::json tmp;
+		tmp["username"] = LocalCpToUtf8(contantInfo.userName.c_str());
+		tmp["alias"] = LocalCpToUtf8(contantInfo.alias.c_str());
+		tmp["encrypt_username"] = LocalCpToUtf8(contantInfo.encryptUserName.c_str());
+		tmp["remark"] = LocalCpToUtf8(contantInfo.remark.c_str());
+		tmp["nickname"] = LocalCpToUtf8(contantInfo.nickName.c_str());
+		jsonData.push_back(tmp);
+	}
+	retJson["code"] = 200;
+	res.set_content(retJson.dump(), "application/json");
+	return;
+}
+
 void StartApiServer(unsigned short port)
 {
 	gWechatInstance = WeChatDLL::Instance().getWinMoudule();
@@ -169,14 +193,19 @@ void StartApiServer(unsigned short port)
 
 	//消息相关
 	svr.Get("/syncMsg", Api_syncMsg);
+	svr.Get("/syncSns", Api_syncSns);
+
 	svr.Post("/sendTextMsg", Api_sendTextMsg);
 	svr.Post("/sendTextMsgEx", Api_sendTextMsgEx);
 	svr.Post("/sendImageMsg", Api_sendImageMsg);
 
+	//联系人相关
+	svr.Post("/getContactInfo", Api_getContactInfo);
+
 	svr.Get("/getCustomEmotionList", Api_getCustomEmotionList);
 	svr.Post("/sendCustomEmotion", Api_sendCustomEmotion);
 
-	svr.Get("/recvSnsMsg", Api_recvSnsMsg);
+	
 	svr.Get("/getLoginUserInfo", Api_getLoginUserInfo);
 	svr.listen("0.0.0.0",port);
 }
