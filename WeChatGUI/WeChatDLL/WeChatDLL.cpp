@@ -12,9 +12,12 @@
 #include "Î¢ÐÅÆ«ÒÆ.h"
 #include "ApiServer.h"
 #include "WeChat/ChatMsg.h"
+#include <MyTinySTL/vector.h>
 
 void WeChatDLL::InitDLL()
 {
+	mystl::vector<Contact> outContactList;
+
 	m_hWeChatWinDLL = (DWORD)LoadLibraryA("WeChatWin.dll");
 	std::string dllPath = getModulePath((HMODULE)m_hWeChatWinDLL);
 	std::string dllVersion = getFileVersion(dllPath.c_str());

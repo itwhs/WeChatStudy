@@ -6,6 +6,7 @@
 #include "../public/RWMutex.h"
 #include "../public/Public.h"
 #include <AnyCall/AnyCall.h>
+#include <MyTinySTL/vector.h>
 
 ContactModule& ContactModule::Instance()
 {
@@ -18,11 +19,36 @@ void ContactModule::InitContactModule(WeChatVersion ver)
 	WeChatVer = ver;
 }
 
-MyContact ContactModule::getContactInfoDynamic(std::string userName)
+std::vector<MyContact> ContactModule::GetContactList()
+{
+	struct tmpVector
+	{
+		Contact* pVectorStart;
+		Contact* pVectorLast;
+		Contact* pVectorEnd;
+	};
+	std::vector<MyContact> retList;
+	if (this->WeChatVer == WeChat_3_7_6_44) {
+		tmpVector outContactList = { 0 };
+		void* gContactMgr = ContactMgr_Instance();
+		AnyCall::invokeThiscall<void>(gContactMgr, (void*)(WeChatDLL::Instance().getWinMoudule() + 0x501060), &outContactList);
+		unsigned int msgCount = (outContactList.pVectorLast - outContactList.pVectorStart);
+		Contact* pStartContact = outContactList.pVectorStart;
+		for (unsigned int n = 0; n < msgCount; ++n) {
+			MyContact tmp = copyContact(pStartContact);
+			retList.push_back(tmp);
+			pStartContact->free();
+			pStartContact++;
+		}
+	}
+	return retList;
+}
+
+MyContact ContactModule::GetContactInfoDynamic(std::string userName)
 {
 	MyContact ret;
 	if (this->WeChatVer == WeChat_3_7_6_44) {
-		Contact outContatInfo;
+		ContactX outContatInfo;
 		std::wstring wUserName = AnsiToUnicode(userName.c_str());
 		MymmString mUserName;
 		mUserName.assign(wUserName.c_str(), wUserName.length());

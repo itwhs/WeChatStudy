@@ -18,8 +18,6 @@ void __stdcall MySetCurrentUserWxid(HookContext* hookContext)
 		AccountFunction::currentUserWxid = pWxid;
 	}
 }
-	
-
 
 bool AccountFunction::InitAccountModule(WeChatVersion v)
 {

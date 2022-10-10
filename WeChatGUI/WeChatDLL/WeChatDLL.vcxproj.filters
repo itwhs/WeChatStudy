@@ -43,6 +43,9 @@
     <Filter Include="ApiServer">
       <UniqueIdentifier>{ce1897ee-ebac-46bf-a9bd-25ca243a8dec}</UniqueIdentifier>
     </Filter>
+    <Filter Include="MyTinySTL">
+      <UniqueIdentifier>{08597978-ea79-476c-b97a-bf8d2f6e9135}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="WeChatDLL.cpp">
@@ -122,6 +125,9 @@
     </ClCompile>
     <ClCompile Include="WeChat\SnsObj.cpp">
       <Filter>WeChat</Filter>
+    </ClCompile>
+    <ClCompile Include="include\MyTinySTL\algobase.cpp">
+      <Filter>MyTinySTL</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -211,6 +217,93 @@
     </ClInclude>
     <ClInclude Include="WeChat\SnsObj.h">
       <Filter>WeChat</Filter>
+    </ClInclude>
+    <ClInclude Include="include\MyTinySTL\iterator.h">
+      <Filter>MyTinySTL</Filter>
+    </ClInclude>
+    <ClInclude Include="include\MyTinySTL\list.h">
+      <Filter>MyTinySTL</Filter>
+    </ClInclude>
+    <ClInclude Include="include\MyTinySTL\map.h">
+      <Filter>MyTinySTL</Filter>
+    </ClInclude>
+    <ClInclude Include="include\MyTinySTL\memory.h">
+      <Filter>MyTinySTL</Filter>
+    </ClInclude>
+    <ClInclude Include="include\MyTinySTL\numeric.h">
+      <Filter>MyTinySTL</Filter>
+    </ClInclude>
+    <ClInclude Include="include\MyTinySTL\queue.h">
+      <Filter>MyTinySTL</Filter>
+    </ClInclude>
+    <ClInclude Include="include\MyTinySTL\rb_tree.h">
+      <Filter>MyTinySTL</Filter>
+    </ClInclude>
+    <ClInclude Include="include\MyTinySTL\set.h">
+      <Filter>MyTinySTL</Filter>
+    </ClInclude>
+    <ClInclude Include="include\MyTinySTL\set_algo.h">
+      <Filter>MyTinySTL</Filter>
+    </ClInclude>
+    <ClInclude Include="include\MyTinySTL\stack.h">
+      <Filter>MyTinySTL</Filter>
+    </ClInclude>
+    <ClInclude Include="include\MyTinySTL\type_traits.h">
+      <Filter>MyTinySTL</Filter>
+    </ClInclude>
+    <ClInclude Include="include\MyTinySTL\uninitialized.h">
+      <Filter>MyTinySTL</Filter>
+    </ClInclude>
+    <ClInclude Include="include\MyTinySTL\unordered_map.h">
+      <Filter>MyTinySTL</Filter>
+    </ClInclude>
+    <ClInclude Include="include\MyTinySTL\unordered_set.h">
+      <Filter>MyTinySTL</Filter>
+    </ClInclude>
+    <ClInclude Include="include\MyTinySTL\util.h">
+      <Filter>MyTinySTL</Filter>
+    </ClInclude>
+    <ClInclude Include="include\MyTinySTL\vector.h">
+      <Filter>MyTinySTL</Filter>
+    </ClInclude>
+    <ClInclude Include="include\MyTinySTL\algo.h">
+      <Filter>MyTinySTL</Filter>
+    </ClInclude>
+    <ClInclude Include="include\MyTinySTL\algobase.h">
+      <Filter>MyTinySTL</Filter>
+    </ClInclude>
+    <ClInclude Include="include\MyTinySTL\algorithm.h">
+      <Filter>MyTinySTL</Filter>
+    </ClInclude>
+    <ClInclude Include="include\MyTinySTL\alloc.h">
+      <Filter>MyTinySTL</Filter>
+    </ClInclude>
+    <ClInclude Include="include\MyTinySTL\allocator.h">
+      <Filter>MyTinySTL</Filter>
+    </ClInclude>
+    <ClInclude Include="include\MyTinySTL\astring.h">
+      <Filter>MyTinySTL</Filter>
+    </ClInclude>
+    <ClInclude Include="include\MyTinySTL\basic_string.h">
+      <Filter>MyTinySTL</Filter>
+    </ClInclude>
+    <ClInclude Include="include\MyTinySTL\construct.h">
+      <Filter>MyTinySTL</Filter>
+    </ClInclude>
+    <ClInclude Include="include\MyTinySTL\deque.h">
+      <Filter>MyTinySTL</Filter>
+    </ClInclude>
+    <ClInclude Include="include\MyTinySTL\exceptdef.h">
+      <Filter>MyTinySTL</Filter>
+    </ClInclude>
+    <ClInclude Include="include\MyTinySTL\functional.h">
+      <Filter>MyTinySTL</Filter>
+    </ClInclude>
+    <ClInclude Include="include\MyTinySTL\hashtable.h">
+      <Filter>MyTinySTL</Filter>
+    </ClInclude>
+    <ClInclude Include="include\MyTinySTL\heap_algo.h">
+      <Filter>MyTinySTL</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

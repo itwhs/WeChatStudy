@@ -91,7 +91,7 @@ void Api_sendTextMsgEx(const httplib::Request& req, httplib::Response& res)
 				nickName = LocalCpToUtf8("所有人");
 			}
 			else if (nickName.empty()) {
-				nickName = ContactModule::Instance().getContactInfoDynamic(strAtUser).nickName;
+				nickName = ContactModule::Instance().GetContactInfoDynamic(strAtUser).nickName;
 				nickName = LocalCpToUtf8(nickName.c_str());
 			}
 			msgContent.append("@" + nickName + " ");
@@ -137,7 +137,7 @@ void Api_syncMsg(const httplib::Request& req, httplib::Response& res)
 	return;
 }
 
-//接受朋友圈消息
+//接收朋友圈消息
 
 void Api_syncSns(const httplib::Request& req, httplib::Response& res)
 {
@@ -149,7 +149,7 @@ void Api_syncSns(const httplib::Request& req, httplib::Response& res)
 		tmp["id"] = msgList[n].id;
 		tmp["post_time"] = msgList[n].sendTime;
 		tmp["sender_wxid"] = LocalCpToUtf8(msgList[n].sendWxid.c_str());
-		tmp["sender_name"] = LocalCpToUtf8(ContactModule::Instance().getContactInfoDynamic(msgList[n].sendWxid).nickName.c_str());
+		tmp["sender_name"] = LocalCpToUtf8(ContactModule::Instance().GetContactInfoDynamic(msgList[n].sendWxid).nickName.c_str());
 		tmp["content"] = LocalCpToUtf8(msgList[n].content.c_str());
 		tmp["title"] = LocalCpToUtf8(msgList[n].title.c_str());
 		tmp["description"] = LocalCpToUtf8(msgList[n].description.c_str());
@@ -197,7 +197,7 @@ void Api_getContactInfo(const httplib::Request& req, httplib::Response& res)
 	nlohmann::json& jsonData = retJson["data"];
 	for (unsigned int n = 0; n < json.size(); ++n) {
 		std::string userName = json[n];
-		auto contantInfo = ContactModule::Instance().getContactInfoDynamic(userName);
+		auto contantInfo = ContactModule::Instance().GetContactInfoDynamic(userName);
 		nlohmann::json tmp;
 		tmp["username"] = LocalCpToUtf8(contantInfo.userName.c_str());
 		tmp["alias"] = LocalCpToUtf8(contantInfo.alias.c_str());
@@ -206,6 +206,35 @@ void Api_getContactInfo(const httplib::Request& req, httplib::Response& res)
 		tmp["nickname"] = LocalCpToUtf8(contantInfo.nickName.c_str());
 		jsonData.push_back(tmp);
 	}
+	retJson["code"] = 200;
+	res.set_content(retJson.dump(), "application/json");
+	return;
+}
+
+void Api_getContactList(const httplib::Request& req, httplib::Response& res)
+{
+	nlohmann::json retJson;
+	std::vector<MyContact> contactList = ContactModule::Instance().GetContactList();
+	nlohmann::json& jsonData = retJson["data"];
+	for (unsigned int n = 0; n < contactList.size(); ++n) {
+		nlohmann::json tmp;
+		MyContact& contantInfo = contactList[n];
+		tmp["username"] = LocalCpToUtf8(contantInfo.userName.c_str());
+		tmp["alias"] = LocalCpToUtf8(contantInfo.alias.c_str());
+		tmp["encrypt_username"] = LocalCpToUtf8(contantInfo.encryptUserName.c_str());
+		tmp["remark"] = LocalCpToUtf8(contantInfo.remark.c_str());
+		tmp["nickname"] = LocalCpToUtf8(contantInfo.nickName.c_str());
+		jsonData.push_back(tmp);
+	}
+	retJson["code"] = 200;
+	retJson["count"] = contactList.size();
+	res.set_content(retJson.dump(), "application/json");
+	return;
+}
+
+void Api_getHome(const httplib::Request& req, httplib::Response& res)
+{
+	nlohmann::json retJson;
 	retJson["code"] = 200;
 	res.set_content(retJson.dump(), "application/json");
 	return;
@@ -227,11 +256,14 @@ void StartApiServer(unsigned short port)
 
 	//联系人相关
 	svr.Post("/getContactInfo", Api_getContactInfo);
+	//获取通讯录列表
+	svr.Get("/getContactList", Api_getContactList);
+
 
 	svr.Get("/getCustomEmotionList", Api_getCustomEmotionList);
 	svr.Post("/sendCustomEmotion", Api_sendCustomEmotion);
 
-	
+	svr.Get("/", Api_getHome);
 	svr.Get("/getLoginUserInfo", Api_getLoginUserInfo);
 	svr.listen("0.0.0.0",port);
 }

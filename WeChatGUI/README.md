@@ -78,7 +78,17 @@ EmotionStorage::getEmtionByMd5
 
 ## 微信通讯录
 
-ContactMgr::getContact，获取数据库通讯录信息。
+FavoriteMgr::init，在这个地方会将ContactMgr赋值给一个全局变量，这个就是gContactMgr。
+
+ContactMgr::InitStorage，账号登录后初始化存储。
+
+ContactMgr::getList，获取内存中的通讯录列表。
+
+ContactMgr::getContact，获取内存中的通讯录信息。
+
+ContactStorage，存储通讯录相关，数据库封装。
+
+
 
 ## 朋友圈
 

@@ -30,10 +30,10 @@ void Handle_ImageChatMsg(MyChatMsg& chatMsg)
 	tmpMsg.msgID = chatMsg.msgID;
 	tmpMsg.wxid = chatMsg.FromUserName;
 	if (!tmpMsg.wxid.empty()) {
-		tmpMsg.name = LocalCpToUtf8(ContactModule::Instance().getContactInfoDynamic(tmpMsg.wxid).nickName.c_str());
+		tmpMsg.name = LocalCpToUtf8(ContactModule::Instance().GetContactInfoDynamic(tmpMsg.wxid).nickName.c_str());
 	}
 	tmpMsg.senderWxid = chatMsg.sendWxid;
-	tmpMsg.senderName = LocalCpToUtf8(ContactModule::Instance().getContactInfoDynamic(chatMsg.sendWxid).nickName.c_str());
+	tmpMsg.senderName = LocalCpToUtf8(ContactModule::Instance().GetContactInfoDynamic(chatMsg.sendWxid).nickName.c_str());
 	tmpMsg.msgContent = LocalCpToUtf8(chatMsg.imagePath.c_str());
 	MsgMonitor::Instance().AddMsg(tmpMsg);
 }
@@ -59,9 +59,9 @@ void Handle_TicketInfoMsg(MyChatMsg& chatMsg)
 	tmpMsg.robotID = AccountFunction::currentUserWxid;
 	tmpMsg.postTime = 1000 * uint64_t(chatMsg.CreateTime);
 	tmpMsg.groupID = chatMsg.FromUserName;
-	tmpMsg.groupName = LocalCpToUtf8(ContactModule::Instance().getContactInfoDynamic(chatMsg.FromUserName).nickName.c_str());
+	tmpMsg.groupName = LocalCpToUtf8(ContactModule::Instance().GetContactInfoDynamic(chatMsg.FromUserName).nickName.c_str());
 	tmpMsg.senderWxid = chatMsg.sendWxid;
-	tmpMsg.senderName = LocalCpToUtf8(ContactModule::Instance().getContactInfoDynamic(chatMsg.sendWxid).nickName.c_str());
+	tmpMsg.senderName = LocalCpToUtf8(ContactModule::Instance().GetContactInfoDynamic(chatMsg.sendWxid).nickName.c_str());
 	tmpMsg.msgContent = LocalCpToUtf8(chatMsg.msgContent.c_str());
 	
 }
@@ -73,9 +73,9 @@ void Handle_EmojiChatMsg(MyChatMsg& chatMsg)
 	tmpMsg.robotID = AccountFunction::currentUserWxid;
 	tmpMsg.postTime = 1000 * uint64_t(chatMsg.CreateTime);
 	tmpMsg.groupID = chatMsg.FromUserName;
-	tmpMsg.groupName = LocalCpToUtf8(ContactModule::Instance().getContactInfoDynamic(chatMsg.FromUserName).nickName.c_str());
+	tmpMsg.groupName = LocalCpToUtf8(ContactModule::Instance().GetContactInfoDynamic(chatMsg.FromUserName).nickName.c_str());
 	tmpMsg.senderWxid = chatMsg.sendWxid;
-	tmpMsg.senderName = LocalCpToUtf8(ContactModule::Instance().getContactInfoDynamic(chatMsg.sendWxid).nickName.c_str());
+	tmpMsg.senderName = LocalCpToUtf8(ContactModule::Instance().GetContactInfoDynamic(chatMsg.sendWxid).nickName.c_str());
 
 	tinyxml2::XMLDocument xmlDocument;
 	if (xmlDocument.Parse(chatMsg.msgContent.c_str()) != tinyxml2::XMLError::XML_SUCCESS) {
@@ -110,10 +110,10 @@ void Handle_NormalChatMsg(MyChatMsg& chatMsg)
 	tmpMsg.msgID = chatMsg.msgID;
 	tmpMsg.wxid = chatMsg.FromUserName;
 	if (!tmpMsg.wxid.empty()) {
-		tmpMsg.name = LocalCpToUtf8(ContactModule::Instance().getContactInfoDynamic(tmpMsg.wxid).nickName.c_str());
+		tmpMsg.name = LocalCpToUtf8(ContactModule::Instance().GetContactInfoDynamic(tmpMsg.wxid).nickName.c_str());
 	}
 	tmpMsg.senderWxid = chatMsg.sendWxid;
-	tmpMsg.senderName = LocalCpToUtf8(ContactModule::Instance().getContactInfoDynamic(chatMsg.sendWxid).nickName.c_str());
+	tmpMsg.senderName = LocalCpToUtf8(ContactModule::Instance().GetContactInfoDynamic(chatMsg.sendWxid).nickName.c_str());
 	tmpMsg.msgContent = LocalCpToUtf8(chatMsg.msgContent.c_str());
 	MsgMonitor::Instance().AddMsg(tmpMsg);
 }
@@ -213,9 +213,9 @@ void Handle_AppChatMsg(MyChatMsg& chatMsg)
 	tmpMsg.robotID = AccountFunction::currentUserWxid;
 	tmpMsg.postTime = 1000 * uint64_t(chatMsg.CreateTime);
 	tmpMsg.groupID = chatMsg.FromUserName;
-	tmpMsg.groupName = LocalCpToUtf8(ContactModule::Instance().getContactInfoDynamic(chatMsg.FromUserName).nickName.c_str());
+	tmpMsg.groupName = LocalCpToUtf8(ContactModule::Instance().GetContactInfoDynamic(chatMsg.FromUserName).nickName.c_str());
 	tmpMsg.senderWxid = chatMsg.sendWxid;
-	tmpMsg.senderName = LocalCpToUtf8(ContactModule::Instance().getContactInfoDynamic(chatMsg.sendWxid).nickName.c_str());
+	tmpMsg.senderName = LocalCpToUtf8(ContactModule::Instance().GetContactInfoDynamic(chatMsg.sendWxid).nickName.c_str());
 
 	std::string appMsg = ParseAppMsg(chatMsg.msgContent);
 	tmpMsg.msgContent = LocalCpToUtf8(appMsg.c_str());
@@ -227,10 +227,12 @@ void __stdcall MyAddChatMsg(HookContext* hookContext)
 	if (pChatMsg->msgType == 51 || pChatMsg->msgType >= 10000) {
 		return;
 	}
+
 	MyChatMsg tmpMsg = CopyChatMsg(pChatMsg);
 	if (tmpMsg.IsOwner) {
 		tmpMsg.sendWxid = AccountFunction::currentUserWxid;
 	}
+
 	switch (tmpMsg.msgType)
 	{
 	case 1:

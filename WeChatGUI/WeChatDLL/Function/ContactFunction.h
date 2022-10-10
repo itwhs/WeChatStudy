@@ -1,6 +1,7 @@
 #pragma once
 #include <string>
 #include "../WeChat/Contact.h"
+#include <vector>
 
 enum WeChatVersion;
 class ContactModule
@@ -8,7 +9,8 @@ class ContactModule
 public:
 	static ContactModule& Instance();
 	void InitContactModule(WeChatVersion ver);
-	MyContact getContactInfoDynamic(std::string userName);
+	MyContact GetContactInfoDynamic(std::string userName);
+	std::vector<MyContact> GetContactList();
 private:
 	void* ContactMgr_Instance();
 private:

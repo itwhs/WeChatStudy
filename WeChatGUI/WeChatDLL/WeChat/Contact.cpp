@@ -21,9 +21,19 @@ Contact::Contact()
 	}
 }
 
-Contact::~Contact()
+void Contact::free()
 {
 	if (WeChatDLL::Instance().getWechatVersion() == WeChat_3_7_6_44) {
 		AnyCall::invokeThiscall<void>((void*)this, (void*)(WeChatDLL::Instance().getWinMoudule() + 0x76D6C0));
 	}
+}
+
+ContactX::ContactX()
+{
+
+}
+
+ContactX::~ContactX()
+{
+	free();
 }

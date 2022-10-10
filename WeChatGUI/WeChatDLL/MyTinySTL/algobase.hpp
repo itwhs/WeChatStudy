@@ -10,20 +10,19 @@
 
 namespace mystl
 {
-
 /*****************************************************************************************/
 // max
 // 取二者中的较大值，语义相等时保证返回第一个参数
 /*****************************************************************************************/
 template <class T>
-const T& MAX(const T& lhs, const T& rhs)
+const T& max(const T& lhs, const T& rhs)
 {
   return lhs < rhs ? rhs : lhs;
 }
 
 // 重载版本使用函数对象 comp 代替比较操作
 template <class T, class Compare>
-const T& MAX(const T& lhs, const T& rhs, Compare comp)
+const T& max(const T& lhs, const T& rhs, Compare comp)
 {
   return comp(lhs, rhs) ? rhs : lhs;
 }
@@ -33,14 +32,14 @@ const T& MAX(const T& lhs, const T& rhs, Compare comp)
 // 取二者中的较小值，语义相等时保证返回第一个参数
 /*****************************************************************************************/
 template <class T>
-const T& MIN(const T& lhs, const T& rhs)
+const T& min(const T& lhs, const T& rhs)
 {
   return rhs < lhs ? rhs : lhs;
 }
 
 // 重载版本使用函数对象 comp 代替比较操作
 template <class T, class Compare>
-const T& MIN(const T& lhs, const T& rhs, Compare comp)
+const T& min(const T& lhs, const T& rhs, Compare comp)
 {
   return comp(rhs, lhs) ? rhs : lhs;
 }
@@ -435,18 +434,46 @@ void fill(ForwardIter first, ForwardIter last, const T& value)
 /*****************************************************************************************/
 template <class InputIter1, class InputIter2>
 bool lexicographical_compare(InputIter1 first1, InputIter1 last1,
-    InputIter2 first2, InputIter2 last2);
+                             InputIter2 first2, InputIter2 last2)
+{
+  for (; first1 != last1 && first2 != last2; ++first1, ++first2)
+  {
+    if (*first1 < *first2)
+      return true;
+    if (*first2 < *first1)
+      return false;
+  }
+  return first1 == last1 && first2 != last2;
+}
 
 // 重载版本使用函数对象 comp 代替比较操作
 template <class InputIter1, class InputIter2, class Compred>
 bool lexicographical_compare(InputIter1 first1, InputIter1 last1,
-    InputIter2 first2, InputIter2 last2, Compred comp);
+                             InputIter2 first2, InputIter2 last2, Compred comp)
+{
+  for (; first1 != last1 && first2 != last2; ++first1, ++first2)
+  {
+    if (comp(*first1, *first2))
+      return true;
+    if (comp(*first2, *first1))
+      return false;
+  }
+  return first1 == last1 && first2 != last2;
+}
 
 // 针对 const unsigned char* 的特化版本
 bool lexicographical_compare(const unsigned char* first1,
-    const unsigned char* last1,
-    const unsigned char* first2,
-	const unsigned char* last2);
+                             const unsigned char* last1,
+                             const unsigned char* first2,
+                             const unsigned char* last2)
+{
+  const auto len1 = last1 - first1;
+  const auto len2 = last2 - first2;
+  // 先比较相同长度的部分
+  const auto result = std::memcmp(first1, first2, mystl::min(len1, len2));
+  // 若相等，长度较长的比较大
+  return result != 0 ? result < 0 : len1 < len2;
+}
 
 /*****************************************************************************************/
 // mismatch

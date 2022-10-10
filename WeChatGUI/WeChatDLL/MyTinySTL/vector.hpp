@@ -543,21 +543,18 @@ void vector<T>::swap(vector<T>& rhs) noexcept
 template <class T>
 void vector<T>::try_init() noexcept
 {
-	begin_ = nullptr;
-	end_ = nullptr;
-	cap_ = nullptr;
-	//try
-	//{
-	//	begin_ = data_allocator::allocate(16);
-	//	end_ = begin_;
-	//	cap_ = begin_ + 16;
-	//}
-	//catch (...)
-	//{
-	//	begin_ = nullptr;
-	//	end_ = nullptr;
-	//	cap_ = nullptr;
-	//}
+  try
+  {
+    begin_ = data_allocator::allocate(16);
+    end_ = begin_;
+    cap_ = begin_ + 16;
+  }
+  catch (...)
+  {
+    begin_ = nullptr;
+    end_ = nullptr;
+    cap_ = nullptr;
+  }
 }
 
 // init_space 函数
@@ -584,7 +581,7 @@ template <class T>
 void vector<T>::
 fill_init(size_type n, const value_type& value)
 {
-  const size_type init_size = mystl::MAX(static_cast<size_type>(16), n);
+  const size_type init_size = mystl::max(static_cast<size_type>(16), n);
   init_space(n, init_size);
   mystl::uninitialized_fill_n(begin_, n, value);
 }
@@ -595,7 +592,7 @@ template <class Iter>
 void vector<T>::
 range_init(Iter first, Iter last)
 {
-  const size_type init_size = mystl::MAX(static_cast<size_type>(last - first),
+  const size_type init_size = mystl::max(static_cast<size_type>(last - first),
                                          static_cast<size_type>(16));
   init_space(static_cast<size_type>(last - first), init_size);
   mystl::uninitialized_copy(first, last, begin_);
@@ -625,8 +622,8 @@ get_new_cap(size_type add_size)
       ? old_size + add_size : old_size + add_size + 16;
   }
   const size_type new_size = old_size == 0
-    ? mystl::MAX(add_size, static_cast<size_type>(16))
-    : mystl::MAX(old_size + old_size / 2, old_size + add_size);
+    ? mystl::max(add_size, static_cast<size_type>(16))
+    : mystl::max(old_size + old_size / 2, old_size + add_size);
   return new_size;
 }
 

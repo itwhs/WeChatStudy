@@ -183,7 +183,14 @@ struct Contact
 	char field_3E7;
 
 	Contact();
-	~Contact();
+	void free();
+};
+
+struct ContactX : public Contact
+{
+public:
+	ContactX();
+	~ContactX();
 };
 
 //转换结构体
