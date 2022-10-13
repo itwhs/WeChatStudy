@@ -37,7 +37,7 @@ void Api_SendFile(const httplib::Request& req, httplib::Response& res)
 	}
 	ChatMsgX retChatMsg;
 	memset(&retChatMsg, 0x0, sizeof(ChatMsgX));
-	MymmString sendWxid, filepath, unknowFiled1,unknowField2;
+	mmStringX sendWxid, filepath, unknowFiled1,unknowField2;
 	sendWxid.assignUTF8(toWxid.c_str());
 	filepath.assignUTF8(msgContent.c_str());
 	AnyCall::invokeThiscall<void>(AppMsgMgr_Instance(), (void*)(gWechatInstance + 0x479B30), &retChatMsg,
@@ -62,7 +62,7 @@ void Api_sendImageMsg(const httplib::Request& req, httplib::Response& res)
 	}
 	ChatMsgX retChatMsg;
 	memset(&retChatMsg, 0x0, sizeof(ChatMsgX));
-	MymmString sendWxid, imagePath, unknowFiled;
+	mmStringX sendWxid, imagePath, unknowFiled;
 	sendWxid.assignUTF8(toWxid.c_str());
 	imagePath.assignUTF8(msgContent.c_str());
 	AnyCall::invokeThiscall<void>(SendMessageMgr_Instance(), (void*)(gWechatInstance + 0x5CCDD0), &retChatMsg,
@@ -85,11 +85,11 @@ void Api_sendTextMsg(const httplib::Request& req, httplib::Response& res)
 		res.set_content(retJson.dump(), "application/json");
 		return;
 	}
-	ChatMsg objMsg = { 0 };
-	MymmString sendWxid, sendMsg;
+	ChatMsgX objMsg;
+	mmStringX sendWxid, sendMsg;
 	sendWxid.assignUTF8(toWxid.c_str());
 	sendMsg.assignUTF8(msgContent.c_str());
-	mystl::vector<MymmString> atUserList;
+	mystl::vector<mmStringX> atUserList;
 	AnyCall::invokeAnycall(&objMsg, &sendWxid, (void*)(gWechatInstance + 0x5CD2E0), &sendMsg, &atUserList, (void*)1, 0, 0x0);
 	retJson["code"] = 200;
 	retJson["msg"] = "send ok";
@@ -101,9 +101,9 @@ void Api_sendTextMsgEx(const httplib::Request& req, httplib::Response& res)
 {
 	nlohmann::json json = nlohmann::json::parse(req.body);
 	nlohmann::json retJson;
-	MymmString toWxid;
+	mmStringX toWxid;
 	toWxid.assignUTF8(json["to_wxid"].get<std::string>().c_str());
-	mystl::vector<MymmString> atUserList;
+	mystl::vector<mmStringX> atUserList;
 	std::string msgContent;
 	auto msgList = json["msg_list"];
 	for (unsigned int n = 0; n < msgList.size(); ++n) {
@@ -125,13 +125,13 @@ void Api_sendTextMsgEx(const httplib::Request& req, httplib::Response& res)
 				nickName = LocalCpToUtf8(nickName.c_str());
 			}
 			msgContent.append("@" + nickName + " ");
-			MymmString mmStrAtUser;
+			mmStringX mmStrAtUser;
 			mmStrAtUser.assignUTF8(strAtUser.c_str());
 			atUserList.push_back(mmStrAtUser);
 		}
 	}
-	ChatMsg objMsg;
-	MymmString sendMsg;
+	ChatMsgX objMsg;
+	mmStringX sendMsg;
 	sendMsg.assignUTF8(msgContent.c_str());
 	AnyCall::invokeAnycall(&objMsg, &toWxid, (void*)(gWechatInstance + 0x5CD2E0), &sendMsg, &atUserList, (void*)1, 0, 0x0);
 	retJson["code"] = 200;

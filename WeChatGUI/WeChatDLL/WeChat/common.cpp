@@ -55,7 +55,7 @@ void mmString::free()
 	this->uLen = 0x0;
 }
 
-MymmString::MymmString(const MymmString& s)
+mmStringX::mmStringX(const mmStringX& s)
 {
 	if (!s.Mysize) {
 		return;
@@ -70,12 +70,12 @@ MymmString::MymmString(const MymmString& s)
 	}
 }
 
-MymmString::MymmString()
+mmStringX::mmStringX()
 {
 
 }
 
-MymmString::~MymmString()
+mmStringX::~mmStringX()
 {
 	free();
 }

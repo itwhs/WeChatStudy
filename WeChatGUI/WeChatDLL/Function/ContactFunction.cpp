@@ -50,7 +50,7 @@ MyContact ContactModule::GetContactInfoDynamic(std::string userName)
 	if (this->WeChatVer == WeChat_3_7_6_44) {
 		ContactX outContatInfo;
 		std::wstring wUserName = AnsiToUnicode(userName.c_str());
-		MymmString mUserName;
+		mmStringX mUserName;
 		mUserName.assign(wUserName.c_str(), wUserName.length());
 		void* gContactMgr = ContactMgr_Instance();
 		if (!AnyCall::invokeThiscall<bool>(gContactMgr, (void*)(WeChatDLL::Instance().getWinMoudule() + 0x4FD560), &mUserName, &outContatInfo)) {

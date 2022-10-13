@@ -23,11 +23,11 @@ public:
 std::wstring copyMMString(mmString* mmStr);
 
 //封装结构体,相比原生结构体增加了析构函数和拷贝构造函数呢
-struct MymmString:public mmString
+struct mmStringX :public mmString
 {
 public:
-	MymmString();
+	mmStringX();
 	//拷贝构造函数
-	MymmString(const MymmString& obj);
-	~MymmString();
+	mmStringX(const mmStringX& obj);
+	~mmStringX();
 };
