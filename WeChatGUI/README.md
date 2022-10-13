@@ -72,7 +72,9 @@ EmotionStorage::getEmtionByMd5
 
 ### 图片发送
 
+### 发送文件
 
+ExtendChatView::sub_xxx -> ChatViewModel::batchSendMsg -> AppMsgMgr::sendFile
 
 
 

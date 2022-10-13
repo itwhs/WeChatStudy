@@ -174,6 +174,13 @@ struct ChatMsg
 };
 #pragma pack(pop)
 
+struct ChatMsgX:public ChatMsg
+{
+public:
+	ChatMsgX();
+	~ChatMsgX();
+};
+
 struct MyChatMsg
 {
 	int msgType;				//消息类型

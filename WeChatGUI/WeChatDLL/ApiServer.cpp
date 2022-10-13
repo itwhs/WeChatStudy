@@ -18,6 +18,36 @@ void* SendMessageMgr_Instance()
 	return AnyCall::invokeStdcall<void*>((void*)(WeChatDLL::Instance().getWinMoudule() + 0x141890));
 }
 
+void* AppMsgMgr_Instance()
+{
+	return AnyCall::invokeStdcall<void*>((void*)(WeChatDLL::Instance().getWinMoudule() + 0x1442E0));
+}
+
+void Api_SendFile(const httplib::Request& req, httplib::Response& res)
+{
+	nlohmann::json json = nlohmann::json::parse(req.body);
+	nlohmann::json retJson;
+	std::string toWxid = json["to_wxid"].get<std::string>();
+	std::string msgContent = json["file_path"].get<std::string>();
+	if (toWxid.empty() || msgContent.empty()) {
+		retJson["code"] = 201;
+		retJson["msg"] = "empty param";
+		res.set_content(retJson.dump(), "application/json");
+		return;
+	}
+	ChatMsgX retChatMsg;
+	memset(&retChatMsg, 0x0, sizeof(ChatMsgX));
+	MymmString sendWxid, filepath, unknowFiled1,unknowField2;
+	sendWxid.assignUTF8(toWxid.c_str());
+	filepath.assignUTF8(msgContent.c_str());
+	AnyCall::invokeThiscall<void>(AppMsgMgr_Instance(), (void*)(gWechatInstance + 0x479B30), &retChatMsg,
+		sendWxid, filepath, unknowFiled1, 0, unknowField2);
+	retJson["code"] = 200;
+	retJson["msg"] = "send ok";
+	res.set_content(retJson.dump(), "application/json");
+	return;
+}
+
 void Api_sendImageMsg(const httplib::Request& req, httplib::Response& res)
 {
 	nlohmann::json json = nlohmann::json::parse(req.body);
@@ -30,8 +60,8 @@ void Api_sendImageMsg(const httplib::Request& req, httplib::Response& res)
 		res.set_content(retJson.dump(), "application/json");
 		return;
 	}
-	ChatMsg retChatMsg;
-	memset(&retChatMsg, 0x0, sizeof(ChatMsg));
+	ChatMsgX retChatMsg;
+	memset(&retChatMsg, 0x0, sizeof(ChatMsgX));
 	MymmString sendWxid, imagePath, unknowFiled;
 	sendWxid.assignUTF8(toWxid.c_str());
 	imagePath.assignUTF8(msgContent.c_str());
@@ -253,6 +283,8 @@ void StartApiServer(unsigned short port)
 	svr.Post("/sendTextMsg", Api_sendTextMsg);
 	svr.Post("/sendTextMsgEx", Api_sendTextMsgEx);
 	svr.Post("/sendImageMsg", Api_sendImageMsg);
+	svr.Post("/sendFile", Api_SendFile);
+
 
 	//联系人相关
 	svr.Post("/getContactInfo", Api_getContactInfo);

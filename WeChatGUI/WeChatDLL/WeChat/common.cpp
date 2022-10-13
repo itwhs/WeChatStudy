@@ -1,5 +1,7 @@
 #include "common.h"
 #include "../public/Strings.h"
+#include "../WeChatDLL.h"
+#include <AnyCall/AnyCall.h>
 
 std::wstring copyMMString(mmString* mmStr)
 {
@@ -19,24 +21,10 @@ mmString::mmString()
 	uLen = 0x0;
 }
 
-
 void mmString::assign(const wchar_t* src, int len)
 {
-	this->pUnicode = 0;
-	this->Mysize = 0;
-	this->Myres = 0;
-	this->pUTF8 = 0;
-	this->uLen = 0;
-	if (!src || !len) {
-		return;
-	}
-	wchar_t* pBuf = new wchar_t[len + 1];
-	if (pBuf) {
-		wmemcpy(pBuf, src, len);
-		pBuf[len] = 0x0;
-		this->pUnicode = pBuf;
-		this->Mysize = len;
-		this->Myres = len;
+	if (WeChatDLL::Instance().getWechatVersion() == WeChat_3_7_6_44) {
+		AnyCall::invokeThiscall<void>((void*)this, (void*)(WeChatDLL::Instance().getWinMoudule() + 0x8167B0), src, len);
 	}
 }
 

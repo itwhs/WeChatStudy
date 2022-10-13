@@ -1,5 +1,7 @@
 #include "ChatMsg.h"
 #include "../public/Strings.h"
+#include "../WeChatDLL.h"
+#include <AnyCall/AnyCall.h>
 
 MyChatMsg CopyChatMsg(ChatMsg* pChatMsg)
 {
@@ -17,3 +19,14 @@ MyChatMsg CopyChatMsg(ChatMsg* pChatMsg)
 	return ret;
 }
 
+ChatMsgX::ChatMsgX()
+{
+
+}
+
+ChatMsgX::~ChatMsgX()
+{
+	if (WeChatDLL::Instance().getWechatVersion() == WeChat_3_7_6_44) {
+		AnyCall::invokeThiscall<void>((void*)this, (void*)(WeChatDLL::Instance().getWinMoudule() + 0x131EB0));
+	}
+}
