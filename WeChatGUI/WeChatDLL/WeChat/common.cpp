@@ -42,17 +42,9 @@ void mmString::assign(const char* src)
 
 void mmString::free()
 {
-	if (this->pUnicode) {
-		delete this->pUnicode;
-		this->pUnicode = 0x0;
+	if (WeChatDLL::Instance().getWechatVersion() == WeChat_3_7_6_44) {
+		AnyCall::invokeThiscall<void>((void*)this, (void*)(WeChatDLL::Instance().getWinMoudule() + 0x131D00));
 	}
-	this->Mysize = 0x0;
-	this->Myres = 0x0;
-	if (this->pUTF8) {
-		delete this->pUTF8;
-		this->pUTF8 = 0x0;
-	}
-	this->uLen = 0x0;
 }
 
 mmStringX::mmStringX(const mmStringX& s)
