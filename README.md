@@ -49,3 +49,23 @@ resp = requests.post("http://127.0.0.1:5000/sendTextMsg", json = data)
 print(resp.text)
 ```
 
+## 发送图片
+
+```python
+data = dict()
+data["to_wxid"] = "filehelper"
+data["image_path"] = '''D:\\test.png'''
+resp = requests.post("http://127.0.0.1:5000/sendImageMsg", json = data)
+print(resp.text)
+```
+
+## 发送文件
+
+```python
+data = dict()
+data["to_wxid"] = "filehelper"
+data["file_path"] = '''D:\\test.bin'''
+resp = requests.post("http://127.0.0.1:5000/sendFile", json = data)
+print(resp.text)
+```
+
