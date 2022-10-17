@@ -39,3 +39,13 @@ resp = requests.post("http://127.0.0.1:5000/getContactInfo",json = contactList)
 print(resp.text)
 ```
 
+## 发送文本消息
+
+```python
+data = dict()
+data["to_wxid"] = "filehelper"
+data["msg"] = "hello wechat"
+resp = requests.post("http://127.0.0.1:5000/sendTextMsg", json = data)
+print(resp.text)
+```
+

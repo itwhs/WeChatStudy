@@ -8,11 +8,9 @@
 #include "Function/ContactFunction.h"
 #include "Function/AccountFunction.h"
 #include "Function/SnsFunction.h"
-#include "Function/消息上传.h"
 #include "微信偏移.h"
 #include "ApiServer.h"
 #include "WeChat/ChatMsg.h"
-#include <MyTinySTL/vector.h>
 
 void WeChatDLL::InitDLL()
 {

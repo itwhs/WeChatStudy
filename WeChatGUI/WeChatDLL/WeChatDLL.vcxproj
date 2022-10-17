@@ -159,7 +159,6 @@
     <ClCompile Include="Function\MsgMonitor.cpp" />
     <ClCompile Include="Function\SnsFunction.cpp" />
     <ClCompile Include="Function\微信多开.cpp" />
-    <ClCompile Include="Function\消息上传.cpp" />
     <ClCompile Include="include\AnyCall\AnyCall.cpp" />
     <ClCompile Include="include\MyTinySTL\algobase.cpp" />
     <ClCompile Include="InlineHook\InlineHook.cpp" />
@@ -187,7 +186,6 @@
     <ClInclude Include="Function\MsgMonitor.h" />
     <ClInclude Include="Function\SnsFunction.h" />
     <ClInclude Include="Function\微信多开.h" />
-    <ClInclude Include="Function\消息上传.h" />
     <ClInclude Include="include\AnyCall\AnyCall.h" />
     <ClInclude Include="include\MyTinySTL\algo.h" />
     <ClInclude Include="include\MyTinySTL\algobase.h" />

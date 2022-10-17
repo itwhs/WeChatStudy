@@ -15,7 +15,6 @@
 #include "../微信偏移.h"
 #include "ContactFunction.h"
 #include "AccountFunction.h"
-#include "消息上传.h"
 
 InlineHook gHook_AddChatMsg;
 InlineHook gHook_ImageDownload;
@@ -54,21 +53,24 @@ void __stdcall MyOnDownloadImageSuccessed(HookContext* hookContext)
 
 void Handle_TicketInfoMsg(MyChatMsg& chatMsg)
 {
-	GroupMsgInfo tmpMsg;
+	MsgUploadInfo tmpMsg;
 	tmpMsg.msgType = chatMsg.msgType;
 	tmpMsg.robotID = AccountFunction::currentUserWxid;
-	tmpMsg.postTime = 1000 * uint64_t(chatMsg.CreateTime);
-	tmpMsg.groupID = chatMsg.FromUserName;
-	tmpMsg.groupName = LocalCpToUtf8(ContactModule::Instance().GetContactInfoDynamic(chatMsg.FromUserName).nickName.c_str());
+	tmpMsg.postTime = chatMsg.CreateTime;
+	tmpMsg.msgID = chatMsg.msgID;
+	tmpMsg.wxid = chatMsg.FromUserName;
+	if (!tmpMsg.wxid.empty()) {
+		tmpMsg.name = LocalCpToUtf8(ContactModule::Instance().GetContactInfoDynamic(tmpMsg.wxid).nickName.c_str());
+	}
 	tmpMsg.senderWxid = chatMsg.sendWxid;
 	tmpMsg.senderName = LocalCpToUtf8(ContactModule::Instance().GetContactInfoDynamic(chatMsg.sendWxid).nickName.c_str());
 	tmpMsg.msgContent = LocalCpToUtf8(chatMsg.msgContent.c_str());
-	
+	MsgMonitor::Instance().AddMsg(tmpMsg);
 }
 
 void Handle_EmojiChatMsg(MyChatMsg& chatMsg)
 {
-	GroupMsgInfo tmpMsg;
+	/*GroupMsgInfo tmpMsg;
 	tmpMsg.msgType = chatMsg.msgType;
 	tmpMsg.robotID = AccountFunction::currentUserWxid;
 	tmpMsg.postTime = 1000 * uint64_t(chatMsg.CreateTime);
@@ -97,7 +99,7 @@ void Handle_EmojiChatMsg(MyChatMsg& chatMsg)
 		WeChatDLL::Instance().MsgRecvLogger()->error("[Handle_EmojiMsg]未找到cdnurl消息节点:" + chatMsg.msgContent);
 		return;
 	}
-	tmpMsg.msgContent = LocalCpToUtf8(elementCDN);
+	tmpMsg.msgContent = LocalCpToUtf8(elementCDN);*/
 
 }
 
@@ -208,17 +210,19 @@ std::string ParseAppMsg(std::string& appMsg)
 
 void Handle_AppChatMsg(MyChatMsg& chatMsg)
 {
-	GroupMsgInfo tmpMsg;
+	MsgUploadInfo tmpMsg;
 	tmpMsg.msgType = chatMsg.msgType;
 	tmpMsg.robotID = AccountFunction::currentUserWxid;
-	tmpMsg.postTime = 1000 * uint64_t(chatMsg.CreateTime);
-	tmpMsg.groupID = chatMsg.FromUserName;
-	tmpMsg.groupName = LocalCpToUtf8(ContactModule::Instance().GetContactInfoDynamic(chatMsg.FromUserName).nickName.c_str());
+	tmpMsg.postTime = chatMsg.CreateTime;
+	tmpMsg.msgID = chatMsg.msgID;
+	tmpMsg.wxid = chatMsg.FromUserName;
+	if (!tmpMsg.wxid.empty()) {
+		tmpMsg.name = LocalCpToUtf8(ContactModule::Instance().GetContactInfoDynamic(tmpMsg.wxid).nickName.c_str());
+	}
 	tmpMsg.senderWxid = chatMsg.sendWxid;
 	tmpMsg.senderName = LocalCpToUtf8(ContactModule::Instance().GetContactInfoDynamic(chatMsg.sendWxid).nickName.c_str());
-
-	std::string appMsg = ParseAppMsg(chatMsg.msgContent);
-	tmpMsg.msgContent = LocalCpToUtf8(appMsg.c_str());
+	tmpMsg.msgContent = LocalCpToUtf8(chatMsg.msgContent.c_str());
+	MsgMonitor::Instance().AddMsg(tmpMsg);
 }
 
 void __stdcall MyAddChatMsg(HookContext* hookContext)
@@ -242,7 +246,7 @@ void __stdcall MyAddChatMsg(HookContext* hookContext)
 		//不在这里处理图片消息
 		break;
 	case 42:
-		//Handle_TicketInfoMsg(tmpMsg);  //名片消息
+		Handle_TicketInfoMsg(tmpMsg);  //名片消息
 		break;
 	case 43:
 		//Handle_VideoMsg(addMsg);    //视频消息
@@ -251,7 +255,7 @@ void __stdcall MyAddChatMsg(HookContext* hookContext)
 		//Handle_EmojiChatMsg(tmpMsg);	//表情消息
 		break;
 	case 49:
-		//Handle_AppChatMsg(tmpMsg);		//应用消息
+		Handle_AppChatMsg(tmpMsg);		//应用消息
 		break;
 	case 10000:
 		//系统通知
