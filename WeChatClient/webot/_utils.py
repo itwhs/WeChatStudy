@@ -65,9 +65,9 @@ def getLoadLibraryOffset(exePath:str):
     return -1
 
 
-def injectDll_py64(exePath:str,dllPath:str):
+def injectDll_py64(exePath:str,dllPath:str,port:int):
     si = win32process.STARTUPINFO()
-    hProcData = win32process.CreateProcess(exePath, None, None, None, False,
+    hProcData = win32process.CreateProcess(exePath, str(port), None, None, False,
                                            win32process.CREATE_SUSPENDED, None, None, si)
     k32 = ctypes.windll.kernel32
     shellcodeAddr = k32.VirtualAllocEx(hProcData[0].__int__(), 0, 0x1000, 0x101000, 0x40)
@@ -94,21 +94,31 @@ def injectDll_py64(exePath:str,dllPath:str):
     return
 
 
-def injectDll(exePath:str,dllPath:str):
+def injectDll(exePath:str,dllPath:str,port:int):
 
     arch = platform.architecture()[0]
     if arch == '64bit':
-        return injectDll_py64(exePath,dllPath)
+        return injectDll_py64(exePath,dllPath,port)
 
-    KERNEL32 = ctypes.WinDLL('kernel32', use_last_error=True)
+    #32位
+    si = win32process.STARTUPINFO()
+    hProcData = win32process.CreateProcess(exePath, str(port), None, None, False,
+                                           win32process.CREATE_SUSPENDED, None, None, si)
 
-    hKernel32 = win32api.GetModuleHandle('kernel32.dll')
-    fLoadLibrary = win32api.GetProcAddress(hKernel32, "LoadLibraryW")
-    if arch[0] == '64bit':
-        # 去除高位,转成32位
-        dll_path_address = numpy.uint32(dll_path_address)
+    #写入dll路径
+    k32 = ctypes.windll.kernel32
+    loadDllPath = k32.VirtualAllocEx(hProcData[0].__int__(), 0, 0x1000, 0x101000, 0x40)
+    bytesWritten = ctypes.c_int(0)
+    k32.WriteProcessMemory(hProcData[0].__int__(), loadDllPath, dllPath.encode("utf-8"), len(dllPath),
+                           ctypes.byref(bytesWritten))
 
+    fLoadLibrary = win32api.GetProcAddress(win32api.GetModuleHandle('kernel32.dll'), 'LoadLibraryA')
+    remoteData = win32process.CreateRemoteThread(hProcData[0], None, 0, fLoadLibrary, loadDllPath, 0)
 
+    win32event.WaitForSingleObject(remoteData[0], -1)
 
-
-    pass
+    # 恢复线程
+    win32process.ResumeThread(hProcData[1])
+    win32api.CloseHandle(hProcData[0])
+    win32api.CloseHandle(hProcData[1])
+    return

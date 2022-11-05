@@ -1,3 +1,7 @@
+import json
+
+import requests
+
 from . import _utils
 import win32api
 import win32process
@@ -9,6 +13,7 @@ class webot:
         self.wechat_ver = 0
         self.wechat_verStr = ""
         self.port = port
+        self.host = "127.0.0.1"
         self.__init_bot()
         self.__create_wechat()
         return
@@ -22,13 +27,29 @@ class webot:
         return
 
     def __create_wechat(self):
-
         exePath = self.wechat_path + "\\[" + self.wechat_verStr + "]\\WeChat.exe"
         dllPath = self.wechat_path + "\\[" + self.wechat_verStr + "]\\WeChatDLL.dll"
         if not os.path.isfile(exePath):
             raise Exception("未找到WeChat.exe", exePath)
         if not os.path.isfile(dllPath):
             raise Exception("未找到核心DLL文件", dllPath)
+        _utils.injectDll(exePath,dllPath,self.port)
+        return
 
-        _utils.injectDll(exePath,dllPath)
-        pass
+    def sync_msg(self):
+        '''同步微信消息'''
+        url = str.format("http://{0}:{1}/syncMsg", self.host, self.port)
+        resp = requests.get(url)
+        retJson = json.loads(resp.text)
+        if retJson["code"] == 200:
+            return retJson["data"]
+        return retJson["msg"]
+
+    def wait_util_login(self):
+        '''等待用户登录'''
+        url = str.format("http://{0}:{1}/waitForLogin",self.host,self.port)
+        resp = requests.get(url,timeout=None)
+        retJson = json.loads(resp.text)
+        if retJson["code"] == 200:
+            return retJson["wxid"]
+        return ""
