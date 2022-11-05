@@ -17,6 +17,7 @@ void WeChatDLL::InitDLL()
 	m_hWeChatWinDLL = (DWORD)LoadLibraryA("WeChatWin.dll");
 	std::string dllPath = getModulePath((HMODULE)m_hWeChatWinDLL);
 	std::string dllVersion = getFileVersion(dllPath.c_str());
+
 	if (dllVersion.empty()) {
 		return;
 	}
@@ -37,12 +38,12 @@ void WeChatDLL::InitDLL()
 		return;
 	}
 
-	std::thread thServer(StartApiServer, 5000);
+	int listenPort = atoi(GetCommandLineA());
+	if (!listenPort) {
+		listenPort = 5000;
+	}
+	std::thread thServer(StartApiServer, listenPort);
 	thServer.detach();
-	
-	//HOOK_Contact();
-	//修改微信版本至3.6.0.18
-	//写内存_HEX(-1, m_hWeChatWinDLL + 微信偏移_版本地址, "12000663");
 }
 
 WeChatDLL::WeChatDLL()

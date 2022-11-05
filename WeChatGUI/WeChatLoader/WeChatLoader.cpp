@@ -18,6 +18,8 @@ bool InjectWeChatDLL(std::string exePath, std::string dllPath)
 	HANDLE hThread;
 	bool bOK = true;
 
+	GetModuleHandle(0);
+
 	do
 	{
 		lpThreadFun = GetProcAddress(GetModuleHandleA("kernel32.dll"), "LoadLibraryA");
@@ -31,7 +33,7 @@ bool InjectWeChatDLL(std::string exePath, std::string dllPath)
 			bOK = false;
 			break;
 		}
-		hThread = CreateRemoteThread(pi.hProcess, NULL, 0, (LPTHREAD_START_ROUTINE)lpThreadFun, ptszRemoteBuf, 0, NULL);
+		hThread = CreateRemoteThread(pi.hProcess, NULL, 0, (LPTHREAD_START_ROUTINE)0x768AFBD0, ptszRemoteBuf, 0, NULL);
 		if (hThread == NULL) {
 			bOK = false;
 			break;
@@ -52,8 +54,8 @@ bool InjectWeChatDLL(std::string exePath, std::string dllPath)
 }
 int main()
 {
-	std::string wechatPath = R"(D:\App\WeChat\[3.5.0.46]\WeChat.exe)";
-	std::string dllPath = R"(D:\App\WeChat\[3.5.0.46]\WeChatDLL.dll)";
+	std::string wechatPath = R"(C:\App\WeChat\[3.7.6.44]\WeChat.exe)";
+	std::string dllPath = R"(C:\App\WeChat\[3.7.6.44]\WeChatDLL.dll)";
 
 	InjectWeChatDLL(wechatPath, dllPath);
 
