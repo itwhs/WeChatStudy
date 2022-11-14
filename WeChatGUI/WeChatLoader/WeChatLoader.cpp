@@ -33,7 +33,7 @@ bool InjectWeChatDLL(std::string exePath, std::string dllPath)
 			bOK = false;
 			break;
 		}
-		hThread = CreateRemoteThread(pi.hProcess, NULL, 0, (LPTHREAD_START_ROUTINE)0x768AFBD0, ptszRemoteBuf, 0, NULL);
+		hThread = CreateRemoteThread(pi.hProcess, NULL, 0, (LPTHREAD_START_ROUTINE)lpThreadFun, ptszRemoteBuf, 0, NULL);
 		if (hThread == NULL) {
 			bOK = false;
 			break;

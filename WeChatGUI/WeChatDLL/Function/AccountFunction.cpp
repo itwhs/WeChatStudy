@@ -23,9 +23,12 @@ void __stdcall MySetCurrentUserWxid(HookContext* hookContext)
 	}
 }
 
+
+//hook的是函数头
 void __stdcall AccountService_login(HookContext* hookContext)
 {
 	SetEvent(gLoginEvent);
+	//第一个参数
 	char* pWxid = (char*)*(DWORD*)(hookContext->ESP + 0x4);
 	AccountFunction::currentUserWxid = pWxid;
 }
@@ -43,15 +46,23 @@ std::string AccountFunction::WaitUtilLogin()
 
 bool AccountFunction::InitAccountModule(WeChatVersion v)
 {
-	std::string loginEvent = "WechatLogin_" + std::to_string(GetCurrentProcessId());
+	std::string loginEvent = "WeChatLogin_" + std::to_string(GetCurrentProcessId());
 	gLoginEvent = CreateEventA(NULL, true, false, loginEvent.c_str());
 
 	WeChatVer = v;
 	DWORD hWeChatWinDLL = WeChatDLL::Instance().getWinMoudule();
-	if (WeChatVer == WeChat_3_7_6_44) {
+
+	switch (WeChatVer) {
+	case WeChat_3_7_6_44:
 		gHook_AccountSvrLogin.AddHook((LPVOID)(hWeChatWinDLL + 0x723270), AccountService_login);
 		gHook_AccountSvrLogout.AddHook((LPVOID)(hWeChatWinDLL + 0x7240F0), AccountService_logout);
 		return true;
+	case WeChat_3_8_0_33:
+		gHook_AccountSvrLogin.AddHook((LPVOID)(hWeChatWinDLL + 0xCC7BC0), AccountService_login);
+		gHook_AccountSvrLogout.AddHook((LPVOID)(hWeChatWinDLL + 0xCC8A50), AccountService_logout);
+		return true;
+	default:
+		break;
 	}
 	return false;
 }

@@ -16,7 +16,13 @@ unsigned int gWechatInstance;
 
 void* SendMessageMgr_Instance()
 {
-	return AnyCall::invokeStdcall<void*>((void*)(WeChatDLL::Instance().getWinMoudule() + 0x141890));
+	switch (WeChatDLL::Instance().getWechatVersion()) {
+	case WeChat_3_7_6_44:
+		return AnyCall::invokeStdcall<void*>((void*)(WeChatDLL::Instance().getWinMoudule() + 0x141890));
+	default:
+		break;
+	}
+	return NULL;
 }
 
 void* AppMsgMgr_Instance()
@@ -296,7 +302,7 @@ void StartApiServer(int port)
 	svr.Get("/getCustomEmotionList", Api_getCustomEmotionList);
 	svr.Post("/sendCustomEmotion", Api_sendCustomEmotion);
 	svr.Get("/getLoginUserInfo", Api_getLoginUserInfo);
-		
+	
 	//µÇÂ¼Ïà¹Ø
 	svr.Get("/waitForLogin", Api_WaitForLogin);
 

@@ -8,9 +8,22 @@
 #include "Function/ContactFunction.h"
 #include "Function/AccountFunction.h"
 #include "Function/SnsFunction.h"
+#include "Function/LogFunction.h"
 #include "微信偏移.h"
 #include "ApiServer.h"
 #include "WeChat/ChatMsg.h"
+
+bool WeChatDLL::initVersion(std::string& dllVersion)
+{
+	if (dllVersion == "3.7.6.44") {
+		m_WechatVer = WeChat_3_7_6_44;
+	}
+	else if (dllVersion == "3.8.0.33") {
+		m_WechatVer = WeChat_3_8_0_33;
+	}
+
+	return false;
+}
 
 void WeChatDLL::InitDLL()
 {
@@ -21,11 +34,11 @@ void WeChatDLL::InitDLL()
 	if (dllVersion.empty()) {
 		return;
 	}
-
-	if (dllVersion == "3.7.6.44") {
-		m_WechatVer = WeChat_3_7_6_44;
-	}
 	
+	if (!initVersion(dllVersion)) {
+		return;
+	}
+
 	Patch_微信多开(m_WechatVer);
 	ContactModule::Instance().InitContactModule(m_WechatVer);
 	if (!AccountFunction::Instance().InitAccountModule(m_WechatVer)) {
@@ -37,13 +50,11 @@ void WeChatDLL::InitDLL()
 	if (!MsgMonitor::Instance().InitMsgMonitor(m_WechatVer)) {
 		return;
 	}
-
 	int listenPort = atoi(GetCommandLineA());
 	if (!listenPort) {
 		listenPort = 5000;
 	}
-	std::thread thServer(StartApiServer, listenPort);
-	thServer.detach();
+	CreateThread(NULL, 0, (LPTHREAD_START_ROUTINE)StartApiServer, (LPVOID)listenPort, 0,0);
 }
 
 WeChatDLL::WeChatDLL()
@@ -81,7 +92,6 @@ DWORD WeChatDLL::getWinMoudule()
 {
 	return m_hWeChatWinDLL;
 }
-
 
 WeChatVersion WeChatDLL::getWechatVersion()
 {

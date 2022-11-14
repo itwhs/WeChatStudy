@@ -15,47 +15,6 @@ InlineHook::~InlineHook()
 
 }
 
-//void InlineHook::fhook_set_edi(DWORD edi)
-//{
-//	DWORD stack_point = fhook_get_esp() - 32;
-//	*(DWORD*)stack_point = edi;
-//}
-//
-//void InlineHook::fhook_set_esi(DWORD esi)
-//{
-//	DWORD stack_point = fhook_get_esp() - 28;
-//	*(DWORD*)stack_point = esi;
-//}
-//void InlineHook::fhook_set_ebp(DWORD ebp)
-//{
-//	DWORD stack_point = fhook_get_esp() - 24;
-//	*(DWORD*)stack_point = ebp;
-//}
-//
-//void F_Hook::fhook_set_ebx(DWORD ebx)
-//{
-//	DWORD stack_point = fhook_get_esp() - 16;
-//	*(DWORD*)stack_point = ebx;
-//}
-//
-//void F_Hook::fhook_set_edx(DWORD edx)
-//{
-//	DWORD stack_point = fhook_get_esp() - 12;
-//	*(DWORD*)stack_point = edx;
-//}
-//
-//void F_Hook::fhook_set_ecx(DWORD ecx)
-//{
-//	DWORD stack_point = fhook_get_esp() - 8;
-//	*(DWORD*)stack_point = ecx;
-//}
-//
-//void F_Hook::fhook_set_eax(DWORD eax)
-//{
-//	DWORD stack_point = fhook_get_esp() - 4;
-//	*(DWORD*)stack_point = eax;
-//}
-
 bool InlineHook::AddHook(LPVOID pTarget, InlineFunc userFunction)
 {
 	unsigned char ShellCode[0x40] = { 

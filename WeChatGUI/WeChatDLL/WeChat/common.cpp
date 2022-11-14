@@ -21,11 +21,20 @@ mmString::mmString()
 	uLen = 0x0;
 }
 
+
+//特征:StartWechat函数里面找找
 void mmString::assign(const wchar_t* src, int len)
 {
-	if (WeChatDLL::Instance().getWechatVersion() == WeChat_3_7_6_44) {
+	switch (WeChatDLL::Instance().getWechatVersion())
+	{
+	case WeChat_3_7_6_44:
 		AnyCall::invokeThiscall<void>((void*)this, (void*)(WeChatDLL::Instance().getWinMoudule() + 0x8167B0), src, len);
+		return;
+	case WeChat_3_8_0_33:
+		AnyCall::invokeThiscall<void>((void*)this, (void*)(WeChatDLL::Instance().getWinMoudule() + 0xDBBB00), src, len);
+		return;
 	}
+	return;
 }
 
 void mmString::assignUTF8(const char* src)
@@ -40,10 +49,17 @@ void mmString::assign(const char* src)
 	this->assign(wStr.c_str(),wStr.size());
 }
 
+//特征:StartWechat函数里面最后的函数
+
 void mmString::free()
 {
-	if (WeChatDLL::Instance().getWechatVersion() == WeChat_3_7_6_44) {
+	switch (WeChatDLL::Instance().getWechatVersion()) {
+	case WeChat_3_7_6_44:
 		AnyCall::invokeThiscall<void>((void*)this, (void*)(WeChatDLL::Instance().getWinMoudule() + 0x131D00));
+		return;
+	case WeChat_3_8_0_33:
+		AnyCall::invokeThiscall<void>((void*)this, (void*)(WeChatDLL::Instance().getWinMoudule() + 0x651A90));
+		return;
 	}
 }
 

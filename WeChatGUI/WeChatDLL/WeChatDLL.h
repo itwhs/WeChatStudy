@@ -5,7 +5,8 @@
 enum WeChatVersion
 {
 	WeChat_NotSupport = 0x0,
-	WeChat_3_7_6_44 = 0x1,
+	WeChat_3_7_6_44 = 0x37644,
+	WeChat_3_8_0_33 = 0x38033,
 };
 
 //OTM0ODIxNzMw
@@ -22,6 +23,7 @@ public:
 	WeChatVersion getWechatVersion();
 	void FreeDLL();
 	void InitDLL();
+	bool initVersion(std::string& ver);
 private:
 	DWORD m_hWeChatWinDLL;
 	WeChatVersion m_WechatVer;

@@ -278,14 +278,20 @@ bool MsgMonitor::InitMsgMonitor(WeChatVersion v)
 	WeChatVer = v;
 
 	DWORD hWeChatWinDLL = WeChatDLL::Instance().getWinMoudule();
-	if (WeChatVer == WeChat_3_7_6_44) {
+	
+	switch (WeChatVer) {
+	case WeChat_3_7_6_44:
 		gHook_AddChatMsg.AddHook((LPVOID)(hWeChatWinDLL + 0x5F7423), MyAddChatMsg);
 		gHook_ImageDownload.AddHook((LPVOID)(hWeChatWinDLL + 0x6C0D50), MyOnDownloadImageSuccessed);
 		//开启图片自动下载
 		写内存_HEX(-1, hWeChatWinDLL + 0x5262B0, "B001C3");
 		return true;
-	}
+	case WeChat_3_8_0_33:
 
+		return true;
+	default:
+		break;
+	}
 	return false;
 }
 

@@ -34,7 +34,7 @@ int _cdecl MyLogMessage(MMLogInfo* pLogInfo, char* logMessage)
 bool HOOK_»’÷æ¥Ú”°()
 {
 	DWORD hWeChatWinDLL = WeChatDLL::Instance().getWinMoudule();
-	MH_CreateHook((LPVOID)(hWeChatWinDLL + 0x156FC90), MyLogMessage, (LPVOID*)&gFuncLogMessage);
-	MH_EnableHook((LPVOID)(hWeChatWinDLL + 0x156FC90));
+	MH_CreateHook((LPVOID)(hWeChatWinDLL + 0x1736A50), MyLogMessage, (LPVOID*)&gFuncLogMessage);
+	MH_EnableHook((LPVOID)(hWeChatWinDLL + 0x1736A50));
 	return true;
 }

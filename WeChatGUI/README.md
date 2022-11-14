@@ -94,6 +94,10 @@ ContactStorage，存储通讯录相关，数据库封装。
 
 ## 朋友圈
 
+## 视频号
+
+CefBrowserCore::OnGetA8KeySuccess -> CefBrowserCore::NavigateToUrl
+
 
 
 ## 结构体逆向
