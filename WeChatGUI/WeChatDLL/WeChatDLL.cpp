@@ -54,6 +54,8 @@ void WeChatDLL::InitDLL()
 	if (!listenPort) {
 		listenPort = 5000;
 	}
+
+	//用std::thread貌似有兼容性问题?改用CreateThread
 	CreateThread(NULL, 0, (LPTHREAD_START_ROUTINE)StartApiServer, (LPVOID)listenPort, 0,0);
 }
 

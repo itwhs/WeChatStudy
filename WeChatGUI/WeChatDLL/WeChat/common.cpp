@@ -22,7 +22,7 @@ mmString::mmString()
 }
 
 
-//特征:StartWechat函数里面找找
+//特征提示:StartWechat函数，第一个函数
 void mmString::assign(const wchar_t* src, int len)
 {
 	switch (WeChatDLL::Instance().getWechatVersion())
@@ -31,7 +31,7 @@ void mmString::assign(const wchar_t* src, int len)
 		AnyCall::invokeThiscall<void>((void*)this, (void*)(WeChatDLL::Instance().getWinMoudule() + 0x8167B0), src, len);
 		return;
 	case WeChat_3_8_0_33:
-		AnyCall::invokeThiscall<void>((void*)this, (void*)(WeChatDLL::Instance().getWinMoudule() + 0xDBBB00), src, len);
+		AnyCall::invokeThiscall<void>((void*)this, (void*)(WeChatDLL::Instance().getWinMoudule() + 0xDBBA10), src, len);
 		return;
 	}
 	return;

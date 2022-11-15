@@ -39,12 +39,25 @@ void Handle_ImageChatMsg(MyChatMsg& chatMsg)
 
 //如何找到该函数,NetSceneGetMsgImgCDN::onDownloadSuccessed
 
-void __stdcall MyOnDownloadImageSuccessed(HookContext* hookContext)
+void __stdcall MyOnDownloadImageSuccessed_3_7_6_44(HookContext* hookContext)
 {
 	char* pNetSceneGetMsgImgCDN = (char*)hookContext->ECX;
 	ChatMsg* pChatMsg = (ChatMsg*)(pNetSceneGetMsgImgCDN + 0x5AC);
 	MyChatMsg tmpMsg = CopyChatMsg(pChatMsg);
 	mmString* pImageDownloadPath = (mmString*)(pNetSceneGetMsgImgCDN + 0x954);
+	tmpMsg.imagePath = UnicodeToAnsi(copyMMString(pImageDownloadPath).c_str());
+	if (tmpMsg.IsOwner) {
+		tmpMsg.sendWxid = AccountFunction::currentUserWxid;
+	}
+	Handle_ImageChatMsg(tmpMsg);
+}
+
+void __stdcall MyOnDownloadImageSuccessed_3_8_0_33(HookContext* hookContext)
+{
+	char* pNetSceneGetMsgImgCDN = (char*)hookContext->ECX;
+	ChatMsg* pChatMsg = (ChatMsg*)(pNetSceneGetMsgImgCDN + 0x5AC);
+	MyChatMsg tmpMsg = CopyChatMsg(pChatMsg);
+	mmString* pImageDownloadPath = (mmString*)(pNetSceneGetMsgImgCDN + 0x964);
 	tmpMsg.imagePath = UnicodeToAnsi(copyMMString(pImageDownloadPath).c_str());
 	if (tmpMsg.IsOwner) {
 		tmpMsg.sendWxid = AccountFunction::currentUserWxid;
@@ -283,15 +296,15 @@ bool MsgMonitor::InitMsgMonitor(WeChatVersion v)
 	switch (WeChatVer) {
 	case WeChat_3_7_6_44:
 		gHook_AddChatMsg.AddHook((LPVOID)(hWeChatWinDLL + 0x5F7423), MyAddChatMsg);
-		gHook_ImageDownload.AddHook((LPVOID)(hWeChatWinDLL + 0x6C0D50), MyOnDownloadImageSuccessed);
+		gHook_ImageDownload.AddHook((LPVOID)(hWeChatWinDLL + 0x6C0D50), MyOnDownloadImageSuccessed_3_7_6_44);
 		//开启图片自动下载
 		写内存_HEX(-1, hWeChatWinDLL + 0x5262B0, "B001C3");
 		return true;
 	case WeChat_3_8_0_33:
 		gHook_AddChatMsg.AddHook((LPVOID)(hWeChatWinDLL + 0xB94296), MyAddChatMsg);
-		gHook_ImageDownload.AddHook((LPVOID)(hWeChatWinDLL + 0xC63740), MyOnDownloadImageSuccessed);
+		gHook_ImageDownload.AddHook((LPVOID)(hWeChatWinDLL + 0xC63740), MyOnDownloadImageSuccessed_3_8_0_33);
 		//开启图片自动下载
-		写内存_HEX(-1, hWeChatWinDLL + 0xB9433B, "E9CE00");
+		写内存_HEX(-1, hWeChatWinDLL + 0xB94344, "E9CE00");
 		return true;
 	default:
 		break;
