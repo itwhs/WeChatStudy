@@ -1,7 +1,8 @@
 # WeChatStudy
-StudyWechat，Support Version
+StudyWechat，theoretically the following versions are supported：
 
 - [x]  3.7.6.44
+- [x]  3.8.0.33
 
 The project is for study only, it is prohibited to use it for illegal purposes.
 
@@ -11,7 +12,7 @@ The project is for study only, it is prohibited to use it for illegal purposes.
 
 # 项目说明
 
-WeChatDLL为核心DLL，在微信上搭建了一个http服务。
+WeChatDLL为核心DLL，作用为搭建一个http服务。
 
 WeChatClient为客户端，通过http协议与微信通讯，使用前需要安装以下python库。
 
@@ -20,6 +21,8 @@ pip3 install pywin32
 pip3 install numpy
 pip3 install pefile
 ```
+
+作者本人并没有使用该项目的需求，因此该项目的代码并未进行充分测试。
 
 
 
