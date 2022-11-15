@@ -3,9 +3,7 @@
 #include <windows.h>
 #include <string>
 
-
 #pragma pack (push,1)
-
 struct ConfigInfoStorage
 {
 	int field_0;
@@ -80,7 +78,10 @@ struct MixExtra
 };
 
 
-//大小为0x2A0
+//3.7.6.44,大小为0x2A0
+//3.8.0.33,大小为0x2A8
+//如何判断结构体大小,MsgMergeMgr::mergeSendMsgs
+//不同版本有不同的大小,这里取最大值
 struct ChatMsg
 {
 	int vTable;
@@ -171,10 +172,12 @@ struct ChatMsg
 	int field_290;
 	int field_294;
 	int field_298;
+	int field_29C;
+	int field_2A0;
 };
 #pragma pack(pop)
 
-struct ChatMsgX:public ChatMsg
+struct ChatMsgX :public ChatMsg
 {
 public:
 	ChatMsgX();

@@ -21,12 +21,19 @@ MyChatMsg CopyChatMsg(ChatMsg* pChatMsg)
 
 ChatMsgX::ChatMsgX()
 {
-
+	
 }
 
+//如何找到析构函数,AppMsgMgr::sendFile
 ChatMsgX::~ChatMsgX()
 {
-	if (WeChatDLL::Instance().getWechatVersion() == WeChat_3_7_6_44) {
+	switch (WeChatDLL::Instance().getWechatVersion()) {
+	case WeChat_3_7_6_44:
 		AnyCall::invokeThiscall<void>((void*)this, (void*)(WeChatDLL::Instance().getWinMoudule() + 0x131EB0));
+		return;
+	case WeChat_3_8_0_33:
+		AnyCall::invokeThiscall<void>((void*)this, (void*)(WeChatDLL::Instance().getWinMoudule() + 0x651C40));
+		return;
 	}
+
 }

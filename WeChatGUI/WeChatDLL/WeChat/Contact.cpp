@@ -14,6 +14,7 @@ MyContact copyContact(Contact* pContact)
 	return ret;
 }
 
+
 Contact::Contact()
 {
 	switch (WeChatDLL::Instance().getWechatVersion()) {
@@ -21,7 +22,7 @@ Contact::Contact()
 		AnyCall::invokeThiscall<void>((void*)this, (void*)(WeChatDLL::Instance().getWinMoudule() + 0x76CBC0));
 		return;
 	case WeChat_3_8_0_33:
-		//To do...
+		AnyCall::invokeThiscall<void>((void*)this, (void*)(WeChatDLL::Instance().getWinMoudule() + 0xD10690));
 		return;
 	}
 }
@@ -33,7 +34,7 @@ void Contact::free()
 		AnyCall::invokeThiscall<void>((void*)this, (void*)(WeChatDLL::Instance().getWinMoudule() + 0x76D6C0));
 		return;
 	case WeChat_3_8_0_33:
-		//To do...
+		AnyCall::invokeThiscall<void>((void*)this, (void*)(WeChatDLL::Instance().getWinMoudule() + 0xD11190));
 		return;
 	}
 }

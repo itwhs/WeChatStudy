@@ -17,6 +17,7 @@ SnsModule& SnsModule::Instance()
 	return gSnsModule;
 }
 
+//如何找到该函数,SnsTimeLineMgr::OnSnsTimeLineSceneFinish
 void __stdcall MyOnSnsTimeLineSceneFinish(HookContext* hookContext)
 {
 	char* pData = (char*)*(DWORD*)(hookContext->ESP + 4);
@@ -38,41 +39,70 @@ void __stdcall MyOnSnsTimeLineSceneFinish(HookContext* hookContext)
 	gCv.notify_one();
 }
 
+
+
 bool SnsModule::InitSnsModule(WeChatVersion ver)
 {
 	this->WeChatVer = ver;
 	DWORD hWeChatWinDLL = WeChatDLL::Instance().getWinMoudule();
-	if (ver == WeChat_3_7_6_44) {
+
+	switch (ver) {
+	case WeChat_3_7_6_44:
 		gHook_OnSnsTimeLineSceneFinish.AddHook((LPVOID)(hWeChatWinDLL + 0xCF05F0), MyOnSnsTimeLineSceneFinish);
 		return true;
+	case WeChat_3_8_0_33:
+		gHook_OnSnsTimeLineSceneFinish.AddHook((LPVOID)(hWeChatWinDLL + 0x12DC220), MyOnSnsTimeLineSceneFinish);
+		return true;
 	}
-
 	return false;
 }
 
 std::vector<MyTimeLineResp> SnsModule::SyncSns()
 {
 	std::vector<MyTimeLineResp> retList;
-	//判断登录窗口是否存在
-	DWORD* hMainWnd = (DWORD*)(WeChatDLL::Instance().getWinMoudule() + 0x2535F3C);
+
+	//判断登录窗口是否存在,如何找到该基址,MainWnd has been launched
+	DWORD* hMainWnd = NULL;
+	switch (this->WeChatVer) {
+	case WeChat_3_7_6_44:
+		hMainWnd = (DWORD*)(WeChatDLL::Instance().getWinMoudule() + 0x2535F3C);
+		break;
+	case WeChat_3_8_0_33:
+		hMainWnd = (DWORD*)(WeChatDLL::Instance().getWinMoudule() + 0x2BED8F4);
+		break;
+	}
 	if (!hMainWnd){
 		return retList;
 	}
+
 	//TryGetFirstPageScene
 	char* pSnsTimeLineMgr = (char*)SnsTimeLineMgr_Instance();
 	char bFlag = 1;
-	AnyCall::invokeThiscall<void>(pSnsTimeLineMgr, (void*)(WeChatDLL::Instance().getWinMoudule() + 0xCF3CC0), bFlag);
-	
+
+	switch (this->WeChatVer) {
+	case WeChat_3_7_6_44:
+		AnyCall::invokeThiscall<void>(pSnsTimeLineMgr, (void*)(WeChatDLL::Instance().getWinMoudule() + 0xCF3CC0), bFlag);
+		break;
+	case WeChat_3_8_0_33:
+		AnyCall::invokeThiscall<void>(pSnsTimeLineMgr, (void*)(WeChatDLL::Instance().getWinMoudule() + 0x12DF8F0), bFlag);
+		break;
+	}
+
 	//等待消息返回
 	std::unique_lock<std::mutex> lck(gMutex);
 	gCv.wait(lck);
 	return gTimeLineRespList;
 }
 
+
+//如何找到该函数,TryGetFirstPageScene
 void* SnsModule::SnsTimeLineMgr_Instance()
 {
-	if (this->WeChatVer == WeChat_3_7_6_44) {
+	switch (this->WeChatVer) {
+	case WeChat_3_7_6_44:
 		return AnyCall::invokeStdcall<void*>((void*)(WeChatDLL::Instance().getWinMoudule() + 0xC82370));
+	case WeChat_3_8_0_33:
+		return AnyCall::invokeStdcall<void*>((void*)(WeChatDLL::Instance().getWinMoudule() + 0x126E3E0));
 	}
 	return NULL;
 }

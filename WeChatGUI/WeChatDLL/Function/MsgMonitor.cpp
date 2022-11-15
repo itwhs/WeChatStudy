@@ -37,6 +37,8 @@ void Handle_ImageChatMsg(MyChatMsg& chatMsg)
 	MsgMonitor::Instance().AddMsg(tmpMsg);
 }
 
+//如何找到该函数,NetSceneGetMsgImgCDN::onDownloadSuccessed
+
 void __stdcall MyOnDownloadImageSuccessed(HookContext* hookContext)
 {
 	char* pNetSceneGetMsgImgCDN = (char*)hookContext->ECX;
@@ -44,7 +46,6 @@ void __stdcall MyOnDownloadImageSuccessed(HookContext* hookContext)
 	MyChatMsg tmpMsg = CopyChatMsg(pChatMsg);
 	mmString* pImageDownloadPath = (mmString*)(pNetSceneGetMsgImgCDN + 0x954);
 	tmpMsg.imagePath = UnicodeToAnsi(copyMMString(pImageDownloadPath).c_str());
-
 	if (tmpMsg.IsOwner) {
 		tmpMsg.sendWxid = AccountFunction::currentUserWxid;
 	}
@@ -225,6 +226,7 @@ void Handle_AppChatMsg(MyChatMsg& chatMsg)
 	MsgMonitor::Instance().AddMsg(tmpMsg);
 }
 
+
 void __stdcall MyAddChatMsg(HookContext* hookContext)
 {
 	ChatMsg* pChatMsg = (ChatMsg*)hookContext->ECX;
@@ -270,7 +272,6 @@ MsgMonitor& MsgMonitor::Instance()
 {
 	static MsgMonitor gMsgMonitor;
 	return gMsgMonitor;
-
 }
 
 bool MsgMonitor::InitMsgMonitor(WeChatVersion v)
@@ -287,7 +288,10 @@ bool MsgMonitor::InitMsgMonitor(WeChatVersion v)
 		写内存_HEX(-1, hWeChatWinDLL + 0x5262B0, "B001C3");
 		return true;
 	case WeChat_3_8_0_33:
-
+		gHook_AddChatMsg.AddHook((LPVOID)(hWeChatWinDLL + 0xB94296), MyAddChatMsg);
+		gHook_ImageDownload.AddHook((LPVOID)(hWeChatWinDLL + 0xC63740), MyOnDownloadImageSuccessed);
+		//开启图片自动下载
+		写内存_HEX(-1, hWeChatWinDLL + 0xB9433B, "E9CE00");
 		return true;
 	default:
 		break;

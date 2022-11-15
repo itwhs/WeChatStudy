@@ -14,22 +14,36 @@
 
 unsigned int gWechatInstance;
 
+//如何找到此函数,FavoriteMgr::init
 void* SendMessageMgr_Instance()
 {
 	switch (WeChatDLL::Instance().getWechatVersion()) {
 	case WeChat_3_7_6_44:
 		return AnyCall::invokeStdcall<void*>((void*)(WeChatDLL::Instance().getWinMoudule() + 0x141890));
+	case WeChat_3_8_0_33:
+		return AnyCall::invokeStdcall<void*>((void*)(WeChatDLL::Instance().getWinMoudule() + 0x663320));
 	default:
 		break;
 	}
 	return NULL;
 }
 
+//如何找到此函数,FavoriteMgr::init
 void* AppMsgMgr_Instance()
 {
-	return AnyCall::invokeStdcall<void*>((void*)(WeChatDLL::Instance().getWinMoudule() + 0x1442E0));
+	switch (WeChatDLL::Instance().getWechatVersion()) {
+	case WeChat_3_7_6_44:
+		return AnyCall::invokeStdcall<void*>((void*)(WeChatDLL::Instance().getWinMoudule() + 0x1442E0));
+	case WeChat_3_8_0_33:
+		return AnyCall::invokeStdcall<void*>((void*)(WeChatDLL::Instance().getWinMoudule() + 0x665F60));
+	default:
+		break;
+	}
+	return NULL;
 }
 
+
+//如何找到此函数,ChatViewModel::batchSendMsg,case 3
 void Api_SendFile(const httplib::Request& req, httplib::Response& res)
 {
 	nlohmann::json json = nlohmann::json::parse(req.body);
@@ -42,19 +56,32 @@ void Api_SendFile(const httplib::Request& req, httplib::Response& res)
 		res.set_content(retJson.dump(), "application/json");
 		return;
 	}
+
+
 	ChatMsgX retChatMsg;
 	memset(&retChatMsg, 0x0, sizeof(ChatMsgX));
 	mmStringX sendWxid, filepath, unknowFiled1,unknowField2;
 	sendWxid.assignUTF8(toWxid.c_str());
 	filepath.assignUTF8(msgContent.c_str());
-	AnyCall::invokeThiscall<void>(AppMsgMgr_Instance(), (void*)(gWechatInstance + 0x479B30), &retChatMsg,
-		sendWxid, filepath, unknowFiled1, 0, unknowField2);
+	switch (WeChatDLL::Instance().getWechatVersion()) {
+	case WeChat_3_7_6_44:
+		AnyCall::invokeThiscall<void>(AppMsgMgr_Instance(), (void*)(gWechatInstance + 0x479B30), &retChatMsg,
+			sendWxid, filepath, unknowFiled1, 0, unknowField2);
+		break;
+	case WeChat_3_8_0_33:
+		AnyCall::invokeThiscall<void>(AppMsgMgr_Instance(), (void*)(gWechatInstance + 0xA0D0A0), &retChatMsg,
+			sendWxid, filepath, unknowFiled1, 0, unknowField2);
+		break;
+	}
+
 	retJson["code"] = 200;
 	retJson["msg"] = "send ok";
 	res.set_content(retJson.dump(), "application/json");
 	return;
 }
 
+
+//如何找到此函数,ChatViewModel::batchSendMsg,case 2
 void Api_sendImageMsg(const httplib::Request& req, httplib::Response& res)
 {
 	nlohmann::json json = nlohmann::json::parse(req.body);
@@ -72,14 +99,25 @@ void Api_sendImageMsg(const httplib::Request& req, httplib::Response& res)
 	mmStringX sendWxid, imagePath, unknowFiled;
 	sendWxid.assignUTF8(toWxid.c_str());
 	imagePath.assignUTF8(msgContent.c_str());
-	AnyCall::invokeThiscall<void>(SendMessageMgr_Instance(), (void*)(gWechatInstance + 0x5CCDD0), &retChatMsg,
-		&sendWxid, &imagePath, unknowFiled);
+
+	switch (WeChatDLL::Instance().getWechatVersion()) {
+	case WeChat_3_7_6_44:
+		AnyCall::invokeThiscall<void>(SendMessageMgr_Instance(), (void*)(gWechatInstance + 0x5CCDD0), &retChatMsg,
+			&sendWxid, &imagePath, unknowFiled);
+		break;
+	case WeChat_3_8_0_33:
+		AnyCall::invokeThiscall<void>(SendMessageMgr_Instance(), (void*)(gWechatInstance + 0xB686B0), &retChatMsg,
+			&sendWxid, &imagePath, unknowFiled);
+		break;
+	}
+
 	retJson["code"] = 200;
 	retJson["msg"] = "send ok";
 	res.set_content(retJson.dump(), "application/json");
 	return;
 }
 
+//如何找到此函数,ChatViewModel::batchSendMsg,case 1
 void Api_sendTextMsg(const httplib::Request& req, httplib::Response& res)
 {
 	nlohmann::json json = nlohmann::json::parse(req.body);
@@ -97,7 +135,16 @@ void Api_sendTextMsg(const httplib::Request& req, httplib::Response& res)
 	sendWxid.assignUTF8(toWxid.c_str());
 	sendMsg.assignUTF8(msgContent.c_str());
 	mystl::vector<mmStringX> atUserList;
-	AnyCall::invokeAnycall(&objMsg, &sendWxid, (void*)(gWechatInstance + 0x5CD2E0), &sendMsg, &atUserList, (void*)1, 0, 0x0);
+
+	switch (WeChatDLL::Instance().getWechatVersion()) {
+	case WeChat_3_7_6_44:
+		AnyCall::invokeAnycall(&objMsg, &sendWxid, (void*)(gWechatInstance + 0x5CD2E0), &sendMsg, &atUserList, (void*)1, 0, 0x0);
+		break;
+	case WeChat_3_8_0_33:
+		AnyCall::invokeAnycall(&objMsg, &sendWxid, (void*)(gWechatInstance + 0xB68BC0), &sendMsg, &atUserList, (void*)1, 0, 0x0);
+		break;
+	}
+
 	retJson["code"] = 200;
 	retJson["msg"] = "send ok";
 	res.set_content(retJson.dump(), "application/json");
@@ -140,7 +187,16 @@ void Api_sendTextMsgEx(const httplib::Request& req, httplib::Response& res)
 	ChatMsgX objMsg;
 	mmStringX sendMsg;
 	sendMsg.assignUTF8(msgContent.c_str());
-	AnyCall::invokeAnycall(&objMsg, &toWxid, (void*)(gWechatInstance + 0x5CD2E0), &sendMsg, &atUserList, (void*)1, 0, 0x0);
+
+	switch (WeChatDLL::Instance().getWechatVersion()) {
+	case WeChat_3_7_6_44:
+		AnyCall::invokeAnycall(&objMsg, &toWxid, (void*)(gWechatInstance + 0x5CD2E0), &sendMsg, &atUserList, (void*)1, 0, 0x0);
+		break;
+	case WeChat_3_8_0_33:
+		AnyCall::invokeAnycall(&objMsg, &toWxid, (void*)(gWechatInstance + 0xB68BC0), &sendMsg, &atUserList, (void*)1, 0, 0x0);
+		break;
+	}
+
 	retJson["code"] = 200;
 	retJson["msg"] = "send ok";
 	res.set_content(retJson.dump(), "application/json");
@@ -148,6 +204,7 @@ void Api_sendTextMsgEx(const httplib::Request& req, httplib::Response& res)
 }
 
 //同步消息
+
 void Api_syncMsg(const httplib::Request& req, httplib::Response& res)
 {
 	nlohmann::json retJson;

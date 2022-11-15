@@ -17,9 +17,11 @@ bool WeChatDLL::initVersion(std::string& dllVersion)
 {
 	if (dllVersion == "3.7.6.44") {
 		m_WechatVer = WeChat_3_7_6_44;
+		return true;
 	}
 	else if (dllVersion == "3.8.0.33") {
 		m_WechatVer = WeChat_3_8_0_33;
+		return true;
 	}
 
 	return false;
@@ -34,11 +36,9 @@ void WeChatDLL::InitDLL()
 	if (dllVersion.empty()) {
 		return;
 	}
-	
 	if (!initVersion(dllVersion)) {
 		return;
 	}
-
 	Patch_΢�Ŷ࿪(m_WechatVer);
 	ContactModule::Instance().InitContactModule(m_WechatVer);
 	if (!AccountFunction::Instance().InitAccountModule(m_WechatVer)) {

@@ -227,6 +227,7 @@ struct TimelineMsg
 };
 
 //结构体大小为0xB48
+//如何判断结构体大小,SnsTimeLineMgr::OnSnsTimeLineSceneFinish
 struct TimelineResp
 {
 	unsigned long long id;

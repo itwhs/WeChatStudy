@@ -3,6 +3,7 @@
 #include "common.h"
 
 //微信原始结构体,大小为0x3E8
+//如何判断结构体大小,ContactMgr::GetNormalContactList
 struct Contact
 {
 	DWORD vtable;
