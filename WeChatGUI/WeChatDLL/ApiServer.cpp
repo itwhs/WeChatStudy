@@ -10,6 +10,7 @@
 #include "Function/AccountFunction.h"
 #include "WeChat/common.h"
 #include "Public/Strings.h"
+#include "public/Public.h"
 #include <MyTinySTL/vector.h>
 
 unsigned int gWechatInstance;
@@ -329,6 +330,20 @@ void Api_getHome(const httplib::Request& req, httplib::Response& res)
 	return;
 }
 
+void Api_GetgetLoginQRCode(const httplib::Request& req, httplib::Response& res)
+{
+	nlohmann::json retJson;
+	std::vector<unsigned char> QRCodeImg;
+	if (!AccountFunction::Instance().getLoginQRCode(QRCodeImg)) {
+		retJson["code"] = 201;
+	}
+	else {
+		retJson["code"] = 200;
+		retJson["qrcode"] = base64_encode(QRCodeImg);
+	}
+	res.set_content(retJson.dump(), "application/json");
+}
+
 void Api_WaitForLogin(const httplib::Request& req, httplib::Response& res)
 {
 	nlohmann::json retJson;
@@ -361,6 +376,7 @@ void StartApiServer(int port)
 	svr.Get("/getLoginUserInfo", Api_getLoginUserInfo);
 	
 	//µÇÂ¼Ïà¹Ø
+	svr.Get("/getLoginQRCode", Api_GetgetLoginQRCode);
 	svr.Get("/waitForLogin", Api_WaitForLogin);
 
 	svr.Get("/", Api_getHome);

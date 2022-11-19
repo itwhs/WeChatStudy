@@ -13,6 +13,7 @@ import pefile
 class wechat_ver(IntEnum):
     ver_unknown = 0
     ver_3_7_6_44 = 0x6307062c
+    ver_3_8_0_33 = 0x63080021
 
 
 def formatVersion(ver:wechat_ver):
@@ -41,6 +42,8 @@ def getWeChatInstallPath():
 def switchCaseVersion(ver:int):
     if ver == 0x6307062c:
         return wechat_ver.ver_3_7_6_44
+    if ver == 0x63080021:
+        return wechat_ver.ver_3_8_0_33
     return wechat_ver.ver_unknown
 
 def getWeChatVersion():

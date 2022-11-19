@@ -24,7 +24,7 @@ void Handle_ImageChatMsg(MyChatMsg& chatMsg)
 {
 	MsgUploadInfo tmpMsg;
 	tmpMsg.msgType = chatMsg.msgType;
-	tmpMsg.robotID = AccountFunction::currentUserWxid;
+	tmpMsg.robotID = AccountFunction::Instance().getCurrentUserWxid();
 	tmpMsg.postTime = chatMsg.CreateTime;
 	tmpMsg.msgID = chatMsg.msgID;
 	tmpMsg.wxid = chatMsg.FromUserName;
@@ -47,7 +47,7 @@ void __stdcall MyOnDownloadImageSuccessed_3_7_6_44(HookContext* hookContext)
 	mmString* pImageDownloadPath = (mmString*)(pNetSceneGetMsgImgCDN + 0x954);
 	tmpMsg.imagePath = UnicodeToAnsi(copyMMString(pImageDownloadPath).c_str());
 	if (tmpMsg.IsOwner) {
-		tmpMsg.sendWxid = AccountFunction::currentUserWxid;
+		tmpMsg.sendWxid = AccountFunction::Instance().getCurrentUserWxid();
 	}
 	Handle_ImageChatMsg(tmpMsg);
 }
@@ -60,7 +60,7 @@ void __stdcall MyOnDownloadImageSuccessed_3_8_0_33(HookContext* hookContext)
 	mmString* pImageDownloadPath = (mmString*)(pNetSceneGetMsgImgCDN + 0x964);
 	tmpMsg.imagePath = UnicodeToAnsi(copyMMString(pImageDownloadPath).c_str());
 	if (tmpMsg.IsOwner) {
-		tmpMsg.sendWxid = AccountFunction::currentUserWxid;
+		tmpMsg.sendWxid = AccountFunction::Instance().getCurrentUserWxid();
 	}
 	Handle_ImageChatMsg(tmpMsg);
 }
@@ -69,7 +69,7 @@ void Handle_TicketInfoMsg(MyChatMsg& chatMsg)
 {
 	MsgUploadInfo tmpMsg;
 	tmpMsg.msgType = chatMsg.msgType;
-	tmpMsg.robotID = AccountFunction::currentUserWxid;
+	tmpMsg.robotID = AccountFunction::Instance().getCurrentUserWxid();
 	tmpMsg.postTime = chatMsg.CreateTime;
 	tmpMsg.msgID = chatMsg.msgID;
 	tmpMsg.wxid = chatMsg.FromUserName;
@@ -121,7 +121,7 @@ void Handle_NormalChatMsg(MyChatMsg& chatMsg)
 {
 	MsgUploadInfo tmpMsg;
 	tmpMsg.msgType = chatMsg.msgType;
-	tmpMsg.robotID = AccountFunction::currentUserWxid;
+	tmpMsg.robotID = AccountFunction::Instance().getCurrentUserWxid();
 	tmpMsg.postTime = chatMsg.CreateTime;
 	tmpMsg.msgID = chatMsg.msgID;
 	tmpMsg.wxid = chatMsg.FromUserName;
@@ -226,7 +226,7 @@ void Handle_AppChatMsg(MyChatMsg& chatMsg)
 {
 	MsgUploadInfo tmpMsg;
 	tmpMsg.msgType = chatMsg.msgType;
-	tmpMsg.robotID = AccountFunction::currentUserWxid;
+	tmpMsg.robotID = AccountFunction::Instance().getCurrentUserWxid();
 	tmpMsg.postTime = chatMsg.CreateTime;
 	tmpMsg.msgID = chatMsg.msgID;
 	tmpMsg.wxid = chatMsg.FromUserName;
@@ -249,7 +249,7 @@ void __stdcall MyAddChatMsg(HookContext* hookContext)
 
 	MyChatMsg tmpMsg = CopyChatMsg(pChatMsg);
 	if (tmpMsg.IsOwner) {
-		tmpMsg.sendWxid = AccountFunction::currentUserWxid;
+		tmpMsg.sendWxid = AccountFunction::Instance().getCurrentUserWxid();
 	}
 
 	switch (tmpMsg.msgType)

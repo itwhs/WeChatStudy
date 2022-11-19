@@ -22,6 +22,12 @@ NetSceneManualAuth::doManualAuthSuccess
 
 关键字符串MainWnd has been launched
 
+## 微信二维码监听
+
+LoginWnd::eventProc，消息id为0x300，获取到二维码。
+
+
+
 ## 消息监控
 
 消息类型
