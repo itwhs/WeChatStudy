@@ -9,13 +9,13 @@ MyChatMsg CopyChatMsg(ChatMsg* pChatMsg)
 	ret.msgType = pChatMsg->msgType;
 	ret.msgID = pChatMsg->newMsgId;
 	ret.IsOwner = pChatMsg->isOwner;
-	ret.FromUserName = UnicodeToAnsi(copyMMString(&pChatMsg->fromUserName).c_str());
+	ret.FromUserName = copyMMString(&pChatMsg->fromUserName);
 	if (!pChatMsg->isOwner) {
-		ret.sendWxid = UnicodeToAnsi(copyMMString(&pChatMsg->mixExtra.sendWxid).c_str());
+		ret.sendWxid = copyMMString(&pChatMsg->mixExtra.sendWxid);
 	}
-	ret.msgContent = UnicodeToAnsi(copyMMString(&pChatMsg->msgContent).c_str());
+	ret.msgContent = copyMMString(&pChatMsg->msgContent);
 	ret.CreateTime = pChatMsg->createTime;
-	ret.imagePath = UnicodeToAnsi(copyMMString(&pChatMsg->mixExtra.imagePath).c_str());
+	ret.imagePath = copyMMString(&pChatMsg->mixExtra.imagePath);
 	return ret;
 }
 

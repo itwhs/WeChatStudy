@@ -24,8 +24,8 @@ MyTimeLineResp CopyTimeLineResp(TimelineResp* pTimelineResp)
 
 	retResp.id = pTimelineResp->id;
 	retResp.sendTime = pTimelineResp->coreMsg.sendTime;
-	retResp.sendWxid = UnicodeToAnsi(copyMMString(&pTimelineResp->coreMsg.senderName).c_str());
-	retResp.content = UnicodeToAnsi(copyMMString(&pTimelineResp->coreMsg.contentDesc).c_str());
+	retResp.sendWxid = copyMMString(&pTimelineResp->coreMsg.senderName).c_str();
+	retResp.content = copyMMString(&pTimelineResp->coreMsg.contentDesc).c_str();
 	SnsContentObject* pContentObject = &pTimelineResp->coreMsg.contentObject;
 	//图片
 	if (pContentObject->contentStyle == 1) {
@@ -35,10 +35,8 @@ MyTimeLineResp CopyTimeLineResp(TimelineResp* pTimelineResp)
 	//转发文案3
 	//视频15
 	//视频号28
-	retResp.title = UnicodeToAnsi(copyMMString(&pContentObject->title).c_str());
-	retResp.description = UnicodeToAnsi(copyMMString(&pContentObject->description).c_str());
-	retResp.contentUrl = UnicodeToAnsi(copyMMString(&pContentObject->contentUrl).c_str());
+	retResp.title = copyMMString(&pContentObject->title).c_str();
+	retResp.description = copyMMString(&pContentObject->description).c_str();
+	retResp.contentUrl = copyMMString(&pContentObject->contentUrl).c_str();
 	return retResp;
-
 }
-

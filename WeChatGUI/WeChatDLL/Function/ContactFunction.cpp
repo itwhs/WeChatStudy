@@ -57,14 +57,13 @@ std::vector<MyContact> ContactModule::GetContactList()
 
 
 //如何找到该函数,ContactMgr::getContact
-MyContact ContactModule::GetContactInfoDynamic(std::string userName)
+MyContact ContactModule::GetContactInfoDynamic(std::wstring userName)
 {
 	MyContact ret;
 
 	ContactX outContatInfo;
-	std::wstring wUserName = AnsiToUnicode(userName.c_str());
 	mmStringX mUserName;
-	mUserName.assign(wUserName.c_str(), wUserName.length());
+	mUserName.assign(userName.c_str(), userName.length());
 	void* gContactMgr = ContactMgr_Instance();
 
 	bool bFind = false;
@@ -82,7 +81,7 @@ MyContact ContactModule::GetContactInfoDynamic(std::string userName)
 		return ret;
 	}
 	ret = copyContact(&outContatInfo);
-	if (ret.nickName == "") {
+	if (ret.nickName == L"") {
 		ret.nickName = userName;
 	}
 	return ret;

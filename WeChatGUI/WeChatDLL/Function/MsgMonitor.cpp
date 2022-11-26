@@ -29,11 +29,11 @@ void Handle_ImageChatMsg(MyChatMsg& chatMsg)
 	tmpMsg.msgID = chatMsg.msgID;
 	tmpMsg.wxid = chatMsg.FromUserName;
 	if (!tmpMsg.wxid.empty()) {
-		tmpMsg.name = LocalCpToUtf8(ContactModule::Instance().GetContactInfoDynamic(tmpMsg.wxid).nickName.c_str());
+		tmpMsg.name = ContactModule::Instance().GetContactInfoDynamic(tmpMsg.wxid).nickName;
 	}
 	tmpMsg.senderWxid = chatMsg.sendWxid;
-	tmpMsg.senderName = LocalCpToUtf8(ContactModule::Instance().GetContactInfoDynamic(chatMsg.sendWxid).nickName.c_str());
-	tmpMsg.msgContent = LocalCpToUtf8(chatMsg.imagePath.c_str());
+	tmpMsg.senderName = ContactModule::Instance().GetContactInfoDynamic(chatMsg.sendWxid).nickName;
+	tmpMsg.msgContent = chatMsg.imagePath;
 	MsgMonitor::Instance().AddMsg(tmpMsg);
 }
 
@@ -45,7 +45,7 @@ void __stdcall MyOnDownloadImageSuccessed_3_7_6_44(HookContext* hookContext)
 	ChatMsg* pChatMsg = (ChatMsg*)(pNetSceneGetMsgImgCDN + 0x5AC);
 	MyChatMsg tmpMsg = CopyChatMsg(pChatMsg);
 	mmString* pImageDownloadPath = (mmString*)(pNetSceneGetMsgImgCDN + 0x954);
-	tmpMsg.imagePath = UnicodeToAnsi(copyMMString(pImageDownloadPath).c_str());
+	tmpMsg.imagePath = copyMMString(pImageDownloadPath);
 	if (tmpMsg.IsOwner) {
 		tmpMsg.sendWxid = AccountFunction::Instance().getCurrentUserWxid();
 	}
@@ -58,7 +58,7 @@ void __stdcall MyOnDownloadImageSuccessed_3_8_0_33(HookContext* hookContext)
 	ChatMsg* pChatMsg = (ChatMsg*)(pNetSceneGetMsgImgCDN + 0x5AC);
 	MyChatMsg tmpMsg = CopyChatMsg(pChatMsg);
 	mmString* pImageDownloadPath = (mmString*)(pNetSceneGetMsgImgCDN + 0x964);
-	tmpMsg.imagePath = UnicodeToAnsi(copyMMString(pImageDownloadPath).c_str());
+	tmpMsg.imagePath = copyMMString(pImageDownloadPath).c_str();
 	if (tmpMsg.IsOwner) {
 		tmpMsg.sendWxid = AccountFunction::Instance().getCurrentUserWxid();
 	}
@@ -74,11 +74,11 @@ void Handle_TicketInfoMsg(MyChatMsg& chatMsg)
 	tmpMsg.msgID = chatMsg.msgID;
 	tmpMsg.wxid = chatMsg.FromUserName;
 	if (!tmpMsg.wxid.empty()) {
-		tmpMsg.name = LocalCpToUtf8(ContactModule::Instance().GetContactInfoDynamic(tmpMsg.wxid).nickName.c_str());
+		tmpMsg.name = ContactModule::Instance().GetContactInfoDynamic(tmpMsg.wxid).nickName;
 	}
 	tmpMsg.senderWxid = chatMsg.sendWxid;
-	tmpMsg.senderName = LocalCpToUtf8(ContactModule::Instance().GetContactInfoDynamic(chatMsg.sendWxid).nickName.c_str());
-	tmpMsg.msgContent = LocalCpToUtf8(chatMsg.msgContent.c_str());
+	tmpMsg.senderName = ContactModule::Instance().GetContactInfoDynamic(chatMsg.sendWxid).nickName.c_str();
+	tmpMsg.msgContent = chatMsg.msgContent.c_str();
 	MsgMonitor::Instance().AddMsg(tmpMsg);
 }
 
@@ -126,11 +126,11 @@ void Handle_NormalChatMsg(MyChatMsg& chatMsg)
 	tmpMsg.msgID = chatMsg.msgID;
 	tmpMsg.wxid = chatMsg.FromUserName;
 	if (!tmpMsg.wxid.empty()) {
-		tmpMsg.name = LocalCpToUtf8(ContactModule::Instance().GetContactInfoDynamic(tmpMsg.wxid).nickName.c_str());
+		tmpMsg.name = ContactModule::Instance().GetContactInfoDynamic(tmpMsg.wxid).nickName;
 	}
 	tmpMsg.senderWxid = chatMsg.sendWxid;
-	tmpMsg.senderName = LocalCpToUtf8(ContactModule::Instance().GetContactInfoDynamic(chatMsg.sendWxid).nickName.c_str());
-	tmpMsg.msgContent = LocalCpToUtf8(chatMsg.msgContent.c_str());
+	tmpMsg.senderName = ContactModule::Instance().GetContactInfoDynamic(chatMsg.sendWxid).nickName;
+	tmpMsg.msgContent = chatMsg.msgContent.c_str();
 	MsgMonitor::Instance().AddMsg(tmpMsg);
 }
 
@@ -231,11 +231,11 @@ void Handle_AppChatMsg(MyChatMsg& chatMsg)
 	tmpMsg.msgID = chatMsg.msgID;
 	tmpMsg.wxid = chatMsg.FromUserName;
 	if (!tmpMsg.wxid.empty()) {
-		tmpMsg.name = LocalCpToUtf8(ContactModule::Instance().GetContactInfoDynamic(tmpMsg.wxid).nickName.c_str());
+		tmpMsg.name = ContactModule::Instance().GetContactInfoDynamic(tmpMsg.wxid).nickName.c_str();
 	}
 	tmpMsg.senderWxid = chatMsg.sendWxid;
-	tmpMsg.senderName = LocalCpToUtf8(ContactModule::Instance().GetContactInfoDynamic(chatMsg.sendWxid).nickName.c_str());
-	tmpMsg.msgContent = LocalCpToUtf8(chatMsg.msgContent.c_str());
+	tmpMsg.senderName = ContactModule::Instance().GetContactInfoDynamic(chatMsg.sendWxid).nickName;
+	tmpMsg.msgContent = chatMsg.msgContent;
 	MsgMonitor::Instance().AddMsg(tmpMsg);
 }
 
@@ -243,7 +243,7 @@ void Handle_AppChatMsg(MyChatMsg& chatMsg)
 void __stdcall MyAddChatMsg(HookContext* hookContext)
 {
 	ChatMsg* pChatMsg = (ChatMsg*)hookContext->ECX;
-	if (pChatMsg->msgType == 51 || pChatMsg->msgType >= 10000) {
+	if (pChatMsg->msgType == 51) {
 		return;
 	}
 
@@ -254,8 +254,8 @@ void __stdcall MyAddChatMsg(HookContext* hookContext)
 
 	switch (tmpMsg.msgType)
 	{
-	case 1:
-		Handle_NormalChatMsg(tmpMsg);	//普通消息
+	case 1:			//普通消息	
+		Handle_NormalChatMsg(tmpMsg);	
 		break;
 	case 3:
 		//不在这里处理图片消息
@@ -272,8 +272,11 @@ void __stdcall MyAddChatMsg(HookContext* hookContext)
 	case 49:
 		Handle_AppChatMsg(tmpMsg);		//应用消息
 		break;
-	case 10000:
-		//系统通知
+	case 10000:		//系统通知
+					//他人邀请好友入群
+		break;
+	case 10002:		//邀请好友入群
+		Handle_NormalChatMsg(tmpMsg);
 		break;
 	default:
 		break;

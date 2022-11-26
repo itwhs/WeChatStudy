@@ -49,6 +49,24 @@ std::string ReplaceString(std::string& str, std::string to_replaced, const std::
 	return str;
 }
 
+std::string UnicodeToUtf8(const wchar_t* szStr)
+{
+	std::string ret;
+	int nLen = WideCharToMultiByte(CP_UTF8, 0, szStr, -1, NULL, 0, NULL, NULL);
+	if (nLen == 0)
+	{
+		return ret;
+	}
+	char* pResult = new char[nLen];
+	if (pResult == NULL) {
+		return ret;
+	}
+	WideCharToMultiByte(CP_UTF8, 0, szStr, -1, pResult, nLen, NULL, NULL);
+	ret = pResult;
+	delete[]pResult;
+	return ret;
+}
+
 std::string UnicodeToAnsi(const wchar_t* szStr)
 {
 	std::string ret;

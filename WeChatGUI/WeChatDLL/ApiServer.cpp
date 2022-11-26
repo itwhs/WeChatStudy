@@ -159,35 +159,36 @@ void Api_sendTextMsgEx(const httplib::Request& req, httplib::Response& res)
 	mmStringX toWxid;
 	toWxid.assignUTF8(json["to_wxid"].get<std::string>().c_str());
 	mystl::vector<mmStringX> atUserList;
-	std::string msgContent;
+	std::wstring msgContent;
 	auto msgList = json["msg_list"];
 	for (unsigned int n = 0; n < msgList.size(); ++n) {
 		int msgType = msgList[n]["type"];
 		//普通文本
 		if (msgType == 0) {
 			std::string msg = msgList[n]["msg"];
-			msgContent.append(msg);
+			msgContent.append(Utf8ToUnicode(msg.c_str()));
 		}
 		//@用户
 		else if (msgType == 1) {
-			std::string strAtUser = msgList[n]["atUser"];
-			std::string nickName = msgList[n]["nickName"];
-			if (strAtUser == "notify@all") {
-				nickName = LocalCpToUtf8("所有人");
+			std::string tmpAtUser = msgList[n]["atUser"];
+			std::string tmpNickName = msgList[n]["nickName"];
+			std::wstring strAtUser = Utf8ToUnicode(tmpAtUser.c_str());
+			std::wstring nickName = Utf8ToUnicode(tmpNickName.c_str());
+			if (strAtUser == L"notify@all") {
+				nickName = L"所有人";
 			}
 			else if (nickName.empty()) {
 				nickName = ContactModule::Instance().GetContactInfoDynamic(strAtUser).nickName;
-				nickName = LocalCpToUtf8(nickName.c_str());
 			}
-			msgContent.append("@" + nickName + " ");
+			msgContent.append(L"@" + nickName + L" ");
 			mmStringX mmStrAtUser;
-			mmStrAtUser.assignUTF8(strAtUser.c_str());
+			mmStrAtUser.assign(strAtUser.c_str(), strAtUser.length());
 			atUserList.push_back(mmStrAtUser);
 		}
 	}
 	ChatMsgX objMsg;
 	mmStringX sendMsg;
-	sendMsg.assignUTF8(msgContent.c_str());
+	sendMsg.assign(msgContent.c_str(), msgContent.length());
 
 	switch (WeChatDLL::Instance().getWechatVersion()) {
 	case WeChat_3_7_6_44:
@@ -241,12 +242,12 @@ void Api_syncSns(const httplib::Request& req, httplib::Response& res)
 		nlohmann::json tmp;
 		tmp["id"] = msgList[n].id;
 		tmp["post_time"] = msgList[n].sendTime;
-		tmp["sender_wxid"] = LocalCpToUtf8(msgList[n].sendWxid.c_str());
-		tmp["sender_name"] = LocalCpToUtf8(ContactModule::Instance().GetContactInfoDynamic(msgList[n].sendWxid).nickName.c_str());
-		tmp["content"] = LocalCpToUtf8(msgList[n].content.c_str());
-		tmp["title"] = LocalCpToUtf8(msgList[n].title.c_str());
-		tmp["description"] = LocalCpToUtf8(msgList[n].description.c_str());
-		tmp["content_url"] = LocalCpToUtf8(msgList[n].contentUrl.c_str());
+		tmp["sender_wxid"] = UnicodeToUtf8(msgList[n].sendWxid.c_str());
+		tmp["sender_name"] = UnicodeToUtf8(ContactModule::Instance().GetContactInfoDynamic(msgList[n].sendWxid).nickName.c_str());
+		tmp["content"] = UnicodeToUtf8(msgList[n].content.c_str());
+		tmp["title"] = UnicodeToUtf8(msgList[n].title.c_str());
+		tmp["description"] = UnicodeToUtf8(msgList[n].description.c_str());
+		tmp["content_url"] = UnicodeToUtf8(msgList[n].contentUrl.c_str());
 		nlohmann::json& jsonMedia = tmp["media"];
 		for (unsigned int m = 0; m < msgList[n].mediaList.size(); ++m) {
 			nlohmann::json tmpMedia;
@@ -287,13 +288,13 @@ void Api_getContactInfo(const httplib::Request& req, httplib::Response& res)
 	nlohmann::json& jsonData = retJson["data"];
 	for (unsigned int n = 0; n < json.size(); ++n) {
 		std::string userName = json[n];
-		auto contantInfo = ContactModule::Instance().GetContactInfoDynamic(userName);
+		auto contantInfo = ContactModule::Instance().GetContactInfoDynamic(Utf8ToUnicode(userName.c_str()));
 		nlohmann::json tmp;
-		tmp["username"] = LocalCpToUtf8(contantInfo.userName.c_str());
-		tmp["alias"] = LocalCpToUtf8(contantInfo.alias.c_str());
-		tmp["encrypt_username"] = LocalCpToUtf8(contantInfo.encryptUserName.c_str());
-		tmp["remark"] = LocalCpToUtf8(contantInfo.remark.c_str());
-		tmp["nickname"] = LocalCpToUtf8(contantInfo.nickName.c_str());
+		tmp["username"] = UnicodeToUtf8(contantInfo.userName.c_str());
+		tmp["alias"] = UnicodeToUtf8(contantInfo.alias.c_str());
+		tmp["encrypt_username"] = UnicodeToUtf8(contantInfo.encryptUserName.c_str());
+		tmp["remark"] = UnicodeToUtf8(contantInfo.remark.c_str());
+		tmp["nickname"] = UnicodeToUtf8(contantInfo.nickName.c_str());
 		jsonData.push_back(tmp);
 	}
 	retJson["code"] = 200;
@@ -309,11 +310,11 @@ void Api_getContactList(const httplib::Request& req, httplib::Response& res)
 	for (unsigned int n = 0; n < contactList.size(); ++n) {
 		nlohmann::json tmp;
 		MyContact& contantInfo = contactList[n];
-		tmp["username"] = LocalCpToUtf8(contantInfo.userName.c_str());
-		tmp["alias"] = LocalCpToUtf8(contantInfo.alias.c_str());
-		tmp["encrypt_username"] = LocalCpToUtf8(contantInfo.encryptUserName.c_str());
-		tmp["remark"] = LocalCpToUtf8(contantInfo.remark.c_str());
-		tmp["nickname"] = LocalCpToUtf8(contantInfo.nickName.c_str());
+		tmp["username"] = UnicodeToUtf8(contantInfo.userName.c_str());
+		tmp["alias"] = UnicodeToUtf8(contantInfo.alias.c_str());
+		tmp["encrypt_username"] = UnicodeToUtf8(contantInfo.encryptUserName.c_str());
+		tmp["remark"] = UnicodeToUtf8(contantInfo.remark.c_str());
+		tmp["nickname"] = UnicodeToUtf8(contantInfo.nickName.c_str());
 		jsonData.push_back(tmp);
 	}
 	retJson["code"] = 200;
@@ -347,9 +348,9 @@ void Api_GetgetLoginQRCode(const httplib::Request& req, httplib::Response& res)
 void Api_WaitForLogin(const httplib::Request& req, httplib::Response& res)
 {
 	nlohmann::json retJson;
-	std::string userWxid = AccountFunction::Instance().WaitUtilLogin();
+	std::wstring userWxid = AccountFunction::Instance().WaitUtilLogin();
 	retJson["code"] = 200;
-	retJson["wxid"] = userWxid;
+	retJson["wxid"] = UnicodeToUtf8(userWxid.c_str());
 	res.set_content(retJson.dump(), "application/json");
 }
 

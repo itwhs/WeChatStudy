@@ -25,17 +25,17 @@ struct MsgUploadInfo
 	//消息id
 	unsigned long long msgID;
 	//消息来源
-	std::string wxid;
+	std::wstring wxid;
 	//消息来源名称
-	std::string name;
+	std::wstring name;
 	//发送者的名称
-	std::string senderName;
+	std::wstring senderName;
 	//发送者的WXID
-	std::string senderWxid;
+	std::wstring senderWxid;
 	//消息内容
-	std::string msgContent;
+	std::wstring msgContent;
 	//机器人的wxid
-	std::string robotID;
+	std::wstring robotID;
 };
 
 class MsgBuffer

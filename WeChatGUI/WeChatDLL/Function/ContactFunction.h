@@ -9,7 +9,7 @@ class ContactModule
 public:
 	static ContactModule& Instance();
 	void InitContactModule(WeChatVersion ver);
-	MyContact GetContactInfoDynamic(std::string userName);
+	MyContact GetContactInfoDynamic(std::wstring userName);
 	std::vector<MyContact> GetContactList();
 private:
 	void* ContactMgr_Instance();

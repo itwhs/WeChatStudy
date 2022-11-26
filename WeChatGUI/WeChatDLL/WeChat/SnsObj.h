@@ -252,13 +252,13 @@ struct MyTimeLineResp
 	//消息发送时间
 	unsigned int sendTime;
 	//消息发送者的名称
-	std::string sendWxid;
+	std::wstring sendWxid;
 	//消息显示内容
-	std::string content;
+	std::wstring content;
 	//描述
-	std::string title;
-	std::string description;
-	std::string contentUrl;
+	std::wstring title;
+	std::wstring description;
+	std::wstring contentUrl;
 	//多媒体
 	std::vector<MySnsMedia> mediaList;
 };

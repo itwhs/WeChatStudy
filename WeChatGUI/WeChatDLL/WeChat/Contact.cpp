@@ -6,11 +6,11 @@
 MyContact copyContact(Contact* pContact)
 {
 	MyContact ret;
-	ret.userName = UnicodeToAnsi(copyMMString(&pContact->userName).c_str());
-	ret.alias = UnicodeToAnsi(copyMMString(&pContact->alias).c_str());
-	ret.encryptUserName = UnicodeToAnsi(copyMMString(&pContact->encryptUserName).c_str());
-	ret.remark = UnicodeToAnsi(copyMMString(&pContact->remark).c_str());
-	ret.nickName = UnicodeToAnsi(copyMMString(&pContact->nickName).c_str());
+	ret.userName = copyMMString(&pContact->userName).c_str();
+	ret.alias = copyMMString(&pContact->alias).c_str();
+	ret.encryptUserName = copyMMString(&pContact->encryptUserName).c_str();
+	ret.remark = copyMMString(&pContact->remark).c_str();
+	ret.nickName = copyMMString(&pContact->nickName).c_str();
 	return ret;
 }
 

@@ -197,11 +197,11 @@ public:
 //转换结构体
 struct MyContact
 {
-	std::string userName;
-	std::string alias;
-	std::string encryptUserName;
-	std::string remark;
-	std::string nickName;
+	std::wstring userName;
+	std::wstring alias;
+	std::wstring encryptUserName;
+	std::wstring remark;
+	std::wstring nickName;
 };
 
 MyContact copyContact(Contact* pContact);

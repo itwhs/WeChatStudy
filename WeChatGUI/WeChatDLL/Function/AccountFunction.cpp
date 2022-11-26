@@ -1,6 +1,7 @@
 #include "AccountFunction.h"
 #include "../WeChatDLL.h"
 #include "../InlineHook/InlineHook.h"
+#include "../public/Strings.h"
 
 InlineHook gHook_SetCurrentUserWxid;
 InlineHook gHook_AccountSvrLogin;
@@ -20,7 +21,7 @@ void __stdcall MySetCurrentUserWxid(HookContext* hookContext)
 	//gHook_SetCurrentUserWxid.AddHook((LPVOID)(hWeChatWinDLL + 0x7232CD), MySetCurrentUserWxid);
 	char* pWxid = (char*)(hookContext->EAX);
 	if (pWxid) {
-		AccountFunction::Instance().currentUserWxid = pWxid;
+		//AccountFunction::Instance().currentUserWxid = pWxid;
 	}
 }
 
@@ -31,7 +32,7 @@ void __stdcall AccountService_login(HookContext* hookContext)
 	//第一个参数
 	char* pWxid = (char*)*(DWORD*)(hookContext->ESP + 0x4);
 
-	AccountFunction::Instance().currentUserWxid = pWxid;
+	AccountFunction::Instance().currentUserWxid = AnsiToUnicode(pWxid);
 }
 
 void __stdcall AccountService_logout(HookContext* hookContext)
@@ -40,13 +41,13 @@ void __stdcall AccountService_logout(HookContext* hookContext)
 }
 
 
-std::string AccountFunction::WaitUtilLogin()
+std::wstring AccountFunction::WaitUtilLogin()
 {
 	WaitForSingleObject(gLoginEvent, INFINITE);
 	return AccountFunction::currentUserWxid;
 }
 
-std::string AccountFunction::getCurrentUserWxid()
+std::wstring AccountFunction::getCurrentUserWxid()
 {
 	return this->currentUserWxid;
 }

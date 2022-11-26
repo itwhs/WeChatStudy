@@ -9,6 +9,8 @@ std::string ReplaceString(std::string& str,std::string to_replaced,const std::st
 
 std::string UnicodeToAnsi(const wchar_t* szStr);
 
+std::string UnicodeToUtf8(const wchar_t* szStr);
+
 std::wstring AnsiToUnicode(const char* szStr);
 
 std::wstring Utf8ToUnicode(const char* szStr);

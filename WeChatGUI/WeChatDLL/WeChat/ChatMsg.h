@@ -190,10 +190,10 @@ struct MyChatMsg
 	unsigned long long msgID;	//消息id
 	bool IsOwner;				//消息是否为自己发送
 	unsigned int CreateTime;	//消息时间戳
-	std::string FromUserName;	//消息来源,微信群wxid
-	std::string sendWxid;		//发送者的wxid
-	std::string msgContent;		//消息内容
-	std::string imagePath;		//图片消息路径
+	std::wstring FromUserName;	//消息来源,微信群wxid
+	std::wstring sendWxid;		//发送者的wxid
+	std::wstring msgContent;		//消息内容
+	std::wstring imagePath;		//图片消息路径
 };
 
 MyChatMsg CopyChatMsg(ChatMsg* pChatMsg);
