@@ -49,21 +49,19 @@ void Api_SendFile(const httplib::Request& req, httplib::Response& res)
 {
 	nlohmann::json json = nlohmann::json::parse(req.body);
 	nlohmann::json retJson;
-	std::string toWxid = json["to_wxid"].get<std::string>();
-	std::string msgContent = json["file_path"].get<std::string>();
+	std::wstring toWxid = Utf8ToUnicode(json["to_wxid"].get<std::string>().c_str());
+	std::wstring msgContent = Utf8ToUnicode(json["file_path"].get<std::string>().c_str());
 	if (toWxid.empty() || msgContent.empty()) {
 		retJson["code"] = 201;
 		retJson["msg"] = "empty param";
 		res.set_content(retJson.dump(), "application/json");
 		return;
 	}
-
-
 	ChatMsgX retChatMsg;
 	memset(&retChatMsg, 0x0, sizeof(ChatMsgX));
 	mmStringX sendWxid, filepath, unknowFiled1,unknowField2;
-	sendWxid.assignUTF8(toWxid.c_str());
-	filepath.assignUTF8(msgContent.c_str());
+	sendWxid.assign(toWxid.c_str(), toWxid.length());
+	filepath.assign(msgContent.c_str(), msgContent.length());
 	switch (WeChatDLL::Instance().getWechatVersion()) {
 	case WeChat_3_7_6_44:
 		AnyCall::invokeThiscall<void>(AppMsgMgr_Instance(), (void*)(gWechatInstance + 0x479B30), &retChatMsg,
@@ -87,8 +85,8 @@ void Api_sendImageMsg(const httplib::Request& req, httplib::Response& res)
 {
 	nlohmann::json json = nlohmann::json::parse(req.body);
 	nlohmann::json retJson;
-	std::string toWxid = json["to_wxid"].get<std::string>();
-	std::string msgContent = json["image_path"].get<std::string>();
+	std::wstring toWxid = Utf8ToUnicode(json["to_wxid"].get<std::string>().c_str());
+	std::wstring msgContent = Utf8ToUnicode(json["image_path"].get<std::string>().c_str());
 	if (toWxid.empty() || msgContent.empty()) {
 		retJson["code"] = 201;
 		retJson["msg"] = "empty param";
@@ -98,8 +96,8 @@ void Api_sendImageMsg(const httplib::Request& req, httplib::Response& res)
 	ChatMsgX retChatMsg;
 	memset(&retChatMsg, 0x0, sizeof(ChatMsgX));
 	mmStringX sendWxid, imagePath, unknowFiled;
-	sendWxid.assignUTF8(toWxid.c_str());
-	imagePath.assignUTF8(msgContent.c_str());
+	sendWxid.assign(toWxid.c_str(), toWxid.length());
+	imagePath.assign(msgContent.c_str(), msgContent.length());
 
 	switch (WeChatDLL::Instance().getWechatVersion()) {
 	case WeChat_3_7_6_44:
@@ -123,8 +121,8 @@ void Api_sendTextMsg(const httplib::Request& req, httplib::Response& res)
 {
 	nlohmann::json json = nlohmann::json::parse(req.body);
 	nlohmann::json retJson;
-	std::string toWxid = json["to_wxid"].get<std::string>();
-	std::string msgContent = json["msg"].get<std::string>();
+	std::wstring toWxid = Utf8ToUnicode(json["to_wxid"].get<std::string>().c_str());
+	std::wstring msgContent = Utf8ToUnicode(json["msg"].get<std::string>().c_str());
 	if (toWxid.empty() || msgContent.empty()) {
 		retJson["code"] = 201;
 		retJson["msg"] = "empty param";
@@ -133,8 +131,8 @@ void Api_sendTextMsg(const httplib::Request& req, httplib::Response& res)
 	}
 	ChatMsgX objMsg;
 	mmStringX sendWxid, sendMsg;
-	sendWxid.assignUTF8(toWxid.c_str());
-	sendMsg.assignUTF8(msgContent.c_str());
+	sendWxid.assign(toWxid.c_str(), toWxid.length());
+	sendMsg.assign(msgContent.c_str(), msgContent.length());
 	mystl::vector<mmStringX> atUserList;
 
 	switch (WeChatDLL::Instance().getWechatVersion()) {
@@ -216,14 +214,14 @@ void Api_syncMsg(const httplib::Request& req, httplib::Response& res)
 		nlohmann::json tmp;
 		tmp["msg_type"] = msgList[n].msgType;
 		tmp["msg_id"] = msgList[n].msgID;
-		tmp["sender_name"] = msgList[n].senderName;
-		tmp["sender_wxid"] = msgList[n].senderWxid;
-		tmp["msg_content"] = msgList[n].msgContent;
+		tmp["sender_name"] = UnicodeToUtf8(msgList[n].senderName.c_str());
+		tmp["sender_wxid"] = UnicodeToUtf8(msgList[n].senderWxid.c_str());
+		tmp["msg_content"] = UnicodeToUtf8(msgList[n].msgContent.c_str());
 		if (!msgList[n].wxid.empty()) {
-			tmp["wxid"] = msgList[n].wxid;
-			tmp["name"] = msgList[n].name;
+			tmp["wxid"] = UnicodeToUtf8(msgList[n].wxid.c_str());
+			tmp["name"] = UnicodeToUtf8(msgList[n].name.c_str());
 		}
-		tmp["robot_id"] = msgList[n].robotID;
+		tmp["robot_id"] = UnicodeToUtf8(msgList[n].robotID.c_str());
 		tmp["post_time"] = msgList[n].postTime;
 		jsonData.push_back(tmp);
 	}
@@ -253,7 +251,7 @@ void Api_syncSns(const httplib::Request& req, httplib::Response& res)
 			nlohmann::json tmpMedia;
 			tmpMedia["id"] = msgList[n].mediaList[m].id;
 			tmpMedia["type"] = msgList[n].mediaList[m].type;
-			tmpMedia["url"] = msgList[n].mediaList[m].url;
+			tmpMedia["url"] = UnicodeToUtf8(msgList[n].mediaList[m].url.c_str());
 			jsonMedia.push_back(tmpMedia);
 		}
 		jsonData.push_back(tmp);

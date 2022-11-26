@@ -40,7 +40,6 @@ void __stdcall MyOnSnsTimeLineSceneFinish(HookContext* hookContext)
 }
 
 
-
 bool SnsModule::InitSnsModule(WeChatVersion ver)
 {
 	this->WeChatVer = ver;

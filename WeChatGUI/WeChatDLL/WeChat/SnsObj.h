@@ -241,8 +241,8 @@ struct MySnsMedia
 {
 	unsigned long long id;
 	unsigned int type;
-	std::string description;
-	std::string url;
+	std::wstring description;
+	std::wstring url;
 };
 
 struct MyTimeLineResp

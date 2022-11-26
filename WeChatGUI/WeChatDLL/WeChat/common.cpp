@@ -43,12 +43,6 @@ void mmString::assignUTF8(const char* src)
 	this->assign(wStr.c_str(), wStr.size());
 }
 
-void mmString::assign(const char* src)
-{
-	std::wstring wStr = AnsiToUnicode(src);
-	this->assign(wStr.c_str(),wStr.size());
-}
-
 //特征:StartWechat函数里面最后的函数
 
 void mmString::free()

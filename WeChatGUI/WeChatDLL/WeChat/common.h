@@ -8,7 +8,6 @@ struct mmString
 public:
 	mmString();
 	void free();
-	void assign(const char* src);
 	void assignUTF8(const char* src);
 	//用微信自己的alloc
 	void assign(const wchar_t* src, int len);

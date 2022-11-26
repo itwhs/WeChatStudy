@@ -6,14 +6,13 @@
 MyContact copyContact(Contact* pContact)
 {
 	MyContact ret;
-	ret.userName = copyMMString(&pContact->userName).c_str();
-	ret.alias = copyMMString(&pContact->alias).c_str();
-	ret.encryptUserName = copyMMString(&pContact->encryptUserName).c_str();
-	ret.remark = copyMMString(&pContact->remark).c_str();
-	ret.nickName = copyMMString(&pContact->nickName).c_str();
+	ret.userName = copyMMString(&pContact->userName);
+	ret.alias = copyMMString(&pContact->alias);
+	ret.encryptUserName = copyMMString(&pContact->encryptUserName);
+	ret.remark = copyMMString(&pContact->remark);
+	ret.nickName = copyMMString(&pContact->nickName);
 	return ret;
 }
-
 
 Contact::Contact()
 {

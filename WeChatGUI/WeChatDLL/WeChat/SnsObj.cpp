@@ -11,7 +11,7 @@ void loadMediaData(SnsMedia* pMediaStart, SnsMedia* pMediaEnd, MyTimeLineResp& o
 		MySnsMedia tmpMedia;
 		//大概是图片
 		if (pMediaStart->type == 2) {
-			tmpMedia.url = UnicodeToAnsi(copyMMString(&pMediaStart->Url).c_str());
+			tmpMedia.url = copyMMString(&pMediaStart->Url);
 		}
 		outResp.mediaList.push_back(tmpMedia);
 		pMediaStart++;
@@ -24,8 +24,8 @@ MyTimeLineResp CopyTimeLineResp(TimelineResp* pTimelineResp)
 
 	retResp.id = pTimelineResp->id;
 	retResp.sendTime = pTimelineResp->coreMsg.sendTime;
-	retResp.sendWxid = copyMMString(&pTimelineResp->coreMsg.senderName).c_str();
-	retResp.content = copyMMString(&pTimelineResp->coreMsg.contentDesc).c_str();
+	retResp.sendWxid = copyMMString(&pTimelineResp->coreMsg.senderName);
+	retResp.content = copyMMString(&pTimelineResp->coreMsg.contentDesc);
 	SnsContentObject* pContentObject = &pTimelineResp->coreMsg.contentObject;
 	//图片
 	if (pContentObject->contentStyle == 1) {
@@ -35,8 +35,8 @@ MyTimeLineResp CopyTimeLineResp(TimelineResp* pTimelineResp)
 	//转发文案3
 	//视频15
 	//视频号28
-	retResp.title = copyMMString(&pContentObject->title).c_str();
-	retResp.description = copyMMString(&pContentObject->description).c_str();
-	retResp.contentUrl = copyMMString(&pContentObject->contentUrl).c_str();
+	retResp.title = copyMMString(&pContentObject->title);
+	retResp.description = copyMMString(&pContentObject->description);
+	retResp.contentUrl = copyMMString(&pContentObject->contentUrl);
 	return retResp;
 }

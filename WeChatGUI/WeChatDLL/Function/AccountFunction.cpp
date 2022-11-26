@@ -9,7 +9,6 @@ InlineHook gHook_AccountSvrLogout;
 InlineHook gHook_LoginWnd_eventProc;
 HANDLE gLoginEvent;
 
-
 AccountFunction& AccountFunction::Instance()
 {
 	static AccountFunction gAccountFunction;
@@ -21,7 +20,7 @@ void __stdcall MySetCurrentUserWxid(HookContext* hookContext)
 	//gHook_SetCurrentUserWxid.AddHook((LPVOID)(hWeChatWinDLL + 0x7232CD), MySetCurrentUserWxid);
 	char* pWxid = (char*)(hookContext->EAX);
 	if (pWxid) {
-		//AccountFunction::Instance().currentUserWxid = pWxid;
+		AccountFunction::Instance().currentUserWxid = AnsiToUnicode(pWxid);
 	}
 }
 
@@ -31,7 +30,6 @@ void __stdcall AccountService_login(HookContext* hookContext)
 	SetEvent(gLoginEvent);
 	//第一个参数
 	char* pWxid = (char*)*(DWORD*)(hookContext->ESP + 0x4);
-
 	AccountFunction::Instance().currentUserWxid = AnsiToUnicode(pWxid);
 }
 

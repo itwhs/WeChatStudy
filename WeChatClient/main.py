@@ -23,13 +23,11 @@ def testDemo():
     #等待扫码登录
     userWxid = wechat.wait_util_login()
     print("登录成功",userWxid)
-
     while True:
         msgList = wechat.sync_msg()
         print(msgList)
         time.sleep(3)
         pass
-
     return
 
 if __name__ == '__main__':

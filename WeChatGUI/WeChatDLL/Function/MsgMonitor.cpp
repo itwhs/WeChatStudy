@@ -19,7 +19,6 @@
 InlineHook gHook_AddChatMsg;
 InlineHook gHook_ImageDownload;
 
-
 void Handle_ImageChatMsg(MyChatMsg& chatMsg)
 {
 	MsgUploadInfo tmpMsg;
@@ -65,59 +64,8 @@ void __stdcall MyOnDownloadImageSuccessed_3_8_0_33(HookContext* hookContext)
 	Handle_ImageChatMsg(tmpMsg);
 }
 
-void Handle_TicketInfoMsg(MyChatMsg& chatMsg)
-{
-	MsgUploadInfo tmpMsg;
-	tmpMsg.msgType = chatMsg.msgType;
-	tmpMsg.robotID = AccountFunction::Instance().getCurrentUserWxid();
-	tmpMsg.postTime = chatMsg.CreateTime;
-	tmpMsg.msgID = chatMsg.msgID;
-	tmpMsg.wxid = chatMsg.FromUserName;
-	if (!tmpMsg.wxid.empty()) {
-		tmpMsg.name = ContactModule::Instance().GetContactInfoDynamic(tmpMsg.wxid).nickName;
-	}
-	tmpMsg.senderWxid = chatMsg.sendWxid;
-	tmpMsg.senderName = ContactModule::Instance().GetContactInfoDynamic(chatMsg.sendWxid).nickName.c_str();
-	tmpMsg.msgContent = chatMsg.msgContent.c_str();
-	MsgMonitor::Instance().AddMsg(tmpMsg);
-}
 
-void Handle_EmojiChatMsg(MyChatMsg& chatMsg)
-{
-	/*GroupMsgInfo tmpMsg;
-	tmpMsg.msgType = chatMsg.msgType;
-	tmpMsg.robotID = AccountFunction::currentUserWxid;
-	tmpMsg.postTime = 1000 * uint64_t(chatMsg.CreateTime);
-	tmpMsg.groupID = chatMsg.FromUserName;
-	tmpMsg.groupName = LocalCpToUtf8(ContactModule::Instance().GetContactInfoDynamic(chatMsg.FromUserName).nickName.c_str());
-	tmpMsg.senderWxid = chatMsg.sendWxid;
-	tmpMsg.senderName = LocalCpToUtf8(ContactModule::Instance().GetContactInfoDynamic(chatMsg.sendWxid).nickName.c_str());
-
-	tinyxml2::XMLDocument xmlDocument;
-	if (xmlDocument.Parse(chatMsg.msgContent.c_str()) != tinyxml2::XMLError::XML_SUCCESS) {
-		WeChatDLL::Instance().MsgRecvLogger()->error("[Handle_EmojiMsg]解析消息失败:" + chatMsg.msgContent);
-		return;
-	}
-	auto elementMsg = xmlDocument.FirstChildElement("msg");
-	if (!elementMsg) {
-		WeChatDLL::Instance().MsgRecvLogger()->error("[Handle_EmojiMsg]未找到msg消息节点:" + chatMsg.msgContent);
-		return;
-	}
-	auto elementEmoji = elementMsg->FirstChildElement("emoji");
-	if (!elementEmoji) {
-		WeChatDLL::Instance().MsgRecvLogger()->error("[Handle_EmojiMsg]未找到emoji消息节点:" + chatMsg.msgContent);
-		return;
-	}
-	auto elementCDN = elementEmoji->Attribute("cdnurl");
-	if (!elementCDN) {
-		WeChatDLL::Instance().MsgRecvLogger()->error("[Handle_EmojiMsg]未找到cdnurl消息节点:" + chatMsg.msgContent);
-		return;
-	}
-	tmpMsg.msgContent = LocalCpToUtf8(elementCDN);*/
-
-}
-
-void Handle_NormalChatMsg(MyChatMsg& chatMsg)
+void HandleChatMsg(MyChatMsg& chatMsg)
 {
 	MsgUploadInfo tmpMsg;
 	tmpMsg.msgType = chatMsg.msgType;
@@ -130,96 +78,8 @@ void Handle_NormalChatMsg(MyChatMsg& chatMsg)
 	}
 	tmpMsg.senderWxid = chatMsg.sendWxid;
 	tmpMsg.senderName = ContactModule::Instance().GetContactInfoDynamic(chatMsg.sendWxid).nickName;
-	tmpMsg.msgContent = chatMsg.msgContent.c_str();
+	tmpMsg.msgContent = chatMsg.msgContent;
 	MsgMonitor::Instance().AddMsg(tmpMsg);
-}
-
-bool CopyXmlElementText(tinyxml2::XMLElement* dst, tinyxml2::XMLElement* src, const char* nodeName)
-{
-	auto nodeElement = src->FirstChildElement(nodeName);
-	if (!nodeElement) {
-		return false;
-	}
-	auto newNodeElement = dst->FirstChildElement(nodeName);
-	if (!newNodeElement) {
-		return false;
-	}
-	const char* pText = nodeElement->GetText();
-	if (pText) {
-		newNodeElement->SetText(pText);
-	}
-	else {
-		dst->DeleteChild(newNodeElement);
-	}
-	return true;
-}
-
-std::string ParseAppMsg(std::string& appMsg)
-{
-	tinyxml2::XMLDocument originDocument;
-	if (originDocument.Parse(appMsg.c_str()) != tinyxml2::XMLError::XML_SUCCESS) {
-		WeChatDLL::Instance().MsgRecvLogger()->error("[ParseAppMsg]" + appMsg);
-		return "";
-	}
-
-	auto originMsgElement = originDocument.FirstChildElement("msg");
-	if (!originMsgElement) {
-		return "";
-	}
-
-	//先声明好要存储的结果
-	tinyxml2::XMLDocument newDocument;
-	newDocument.InsertFirstChild(newDocument.NewDeclaration());
-	tinyxml2::XMLElement* newMsgElement = newDocument.NewElement("msg");
-	newDocument.InsertEndChild(newMsgElement);
-	newMsgElement->InsertNewChildElement("appmsg");
-	newMsgElement->InsertNewChildElement("appinfo");
-
-	tinyxml2::XMLElement* newAppMsgElement = newMsgElement->FirstChildElement("appmsg");
-	newAppMsgElement->InsertNewChildElement("title");
-	newAppMsgElement->InsertNewChildElement("url");
-	newAppMsgElement->InsertNewChildElement("des");
-	newAppMsgElement->InsertNewChildElement("weappinfo");
-
-	tinyxml2::XMLElement* newWeAppInfoElement = newAppMsgElement->FirstChildElement("weappinfo");
-	newWeAppInfoElement->InsertNewChildElement("pagepath");
-	newWeAppInfoElement->InsertNewChildElement("username");
-	newWeAppInfoElement->InsertNewChildElement("weappiconurl");
-	newWeAppInfoElement->InsertNewChildElement("shareId");
-
-	tinyxml2::XMLElement* newAppInfoElement = newAppMsgElement->InsertNewChildElement("appinfo");
-	newAppInfoElement->InsertNewChildElement("version");
-	newAppInfoElement->InsertNewChildElement("appname");
-
-	//开始转移数据
-	auto appmsgElement = originMsgElement->FirstChildElement("appmsg");
-	if (appmsgElement) {
-		if (appmsgElement->Attribute("appid")) {
-			newAppMsgElement->SetAttribute("appid", appmsgElement->Attribute("appid"));
-		}
-		CopyXmlElementText(newAppMsgElement, appmsgElement, "title");
-		CopyXmlElementText(newAppMsgElement, appmsgElement, "url");
-		CopyXmlElementText(newAppMsgElement, appmsgElement, "des");
-
-		auto newWeAppInfoElement = newAppMsgElement->FirstChildElement("weappinfo");
-		auto weappinfoElement = appmsgElement->FirstChildElement("weappinfo");
-		if (weappinfoElement) {
-			CopyXmlElementText(newWeAppInfoElement, weappinfoElement, "pagepath");
-			CopyXmlElementText(newWeAppInfoElement, weappinfoElement, "username");
-			CopyXmlElementText(newWeAppInfoElement, weappinfoElement, "weappiconurl");
-			CopyXmlElementText(newWeAppInfoElement, weappinfoElement, "shareId");
-		}
-	}
-
-	auto appinfoElement = originMsgElement->FirstChildElement("appinfo");
-	if (appinfoElement) {
-		CopyXmlElementText(newAppInfoElement, appinfoElement, "version");
-		CopyXmlElementText(newAppInfoElement, appinfoElement, "appname");
-	}
-
-	tinyxml2::XMLPrinter printer;
-	newDocument.Print(&printer);
-	return printer.CStr();
 }
 
 void Handle_AppChatMsg(MyChatMsg& chatMsg)
@@ -231,7 +91,7 @@ void Handle_AppChatMsg(MyChatMsg& chatMsg)
 	tmpMsg.msgID = chatMsg.msgID;
 	tmpMsg.wxid = chatMsg.FromUserName;
 	if (!tmpMsg.wxid.empty()) {
-		tmpMsg.name = ContactModule::Instance().GetContactInfoDynamic(tmpMsg.wxid).nickName.c_str();
+		tmpMsg.name = ContactModule::Instance().GetContactInfoDynamic(tmpMsg.wxid).nickName;
 	}
 	tmpMsg.senderWxid = chatMsg.sendWxid;
 	tmpMsg.senderName = ContactModule::Instance().GetContactInfoDynamic(chatMsg.sendWxid).nickName;
@@ -251,32 +111,21 @@ void __stdcall MyAddChatMsg(HookContext* hookContext)
 	if (tmpMsg.IsOwner) {
 		tmpMsg.sendWxid = AccountFunction::Instance().getCurrentUserWxid();
 	}
-
+	
 	switch (tmpMsg.msgType)
 	{
 	case 1:			//普通消息	
-		Handle_NormalChatMsg(tmpMsg);	
+	case 42:		//名片消息
+	case 43:		//视频消息
+	case 47:		//表情消息
+	case 49:		//应用消息
+	case 10000:		//系统通知 + 他人邀请好友入群
+		HandleChatMsg(tmpMsg);
+		break;
+	case 10002:		//自己邀请好友入群
 		break;
 	case 3:
 		//不在这里处理图片消息
-		break;
-	case 42:
-		Handle_TicketInfoMsg(tmpMsg);  //名片消息
-		break;
-	case 43:
-		//Handle_VideoMsg(addMsg);    //视频消息
-		break;
-	case 47:
-		//Handle_EmojiChatMsg(tmpMsg);	//表情消息
-		break;
-	case 49:
-		Handle_AppChatMsg(tmpMsg);		//应用消息
-		break;
-	case 10000:		//系统通知
-					//他人邀请好友入群
-		break;
-	case 10002:		//邀请好友入群
-		Handle_NormalChatMsg(tmpMsg);
 		break;
 	default:
 		break;
