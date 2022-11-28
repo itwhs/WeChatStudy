@@ -175,7 +175,6 @@ void __stdcall MyGetChatroomMemberDetail(HookContext* hookContext)
 	if (!memberCount) {
 		return;
 	}
-
 	MsgMonitor& gMsgMonitor = MsgMonitor::Instance();
 	auto memberList = memberDetailResp.chatroomdata().memberlist();
 	for (int n = 0; n < memberList.size(); ++n) {
@@ -200,7 +199,7 @@ bool MsgMonitor::getAddMemberEventMsg(std::wstring& eventName, MsgUploadInfo& ou
 	return true;
 }
 
-void MsgMonitor::pushAddMemberEventMsg(std::wstring& eventName,MsgUploadInfo& msg)
+void MsgMonitor::setAddMemberEventMsg(std::wstring& eventName,MsgUploadInfo& msg)
 {
 	std::lock_guard<std::mutex> lock(this->addEventMutex);
 	this->addMemberEventMap[eventName] = msg;
@@ -223,7 +222,7 @@ void __stdcall MyAddChatroomChangeList(HookContext* hookContext)
 		tmpMsg.msg["member_wxid"] = UnicodeToAnsi(addUserWxid.c_str());
 
 		std::wstring addEventName = chatRoomID + L"_" + addUserWxid;
-		gMsgMonitor.pushAddMemberEventMsg(addEventName, tmpMsg);
+		gMsgMonitor.setAddMemberEventMsg(addEventName, tmpMsg);
 	}
 
 	for (unsigned int n = 0; n < pChatroomDiffList->delelteUserList.size(); n++) {
