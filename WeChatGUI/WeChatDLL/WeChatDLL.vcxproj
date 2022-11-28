@@ -64,8 +64,8 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>.\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>.\lib;..\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>libprotobuf-lited.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -107,12 +107,17 @@
     <ClCompile Include="MinHook\hde\hde64.c" />
     <ClCompile Include="MinHook\hook.c" />
     <ClCompile Include="MinHook\trampoline.c" />
+    <ClCompile Include="proto\BaseResponse.pb.cc" />
+    <ClCompile Include="proto\ChatRoomMemberData.pb.cc" />
+    <ClCompile Include="proto\ChatRoomMemberInfo.pb.cc" />
+    <ClCompile Include="proto\GetChatroomMemberDetailResponse.pb.cc" />
     <ClCompile Include="public\Public.cpp" />
     <ClCompile Include="public\Strings.cpp" />
     <ClCompile Include="public\WinApi.cpp" />
     <ClCompile Include="TinyXml\tinyxml2.cpp" />
     <ClCompile Include="WeChatDLL.cpp" />
     <ClCompile Include="WeChat\ChatMsg.cpp" />
+    <ClCompile Include="WeChat\ChatRoom.cpp" />
     <ClCompile Include="WeChat\common.cpp" />
     <ClCompile Include="WeChat\Contact.cpp" />
     <ClCompile Include="WeChat\SnsObj.cpp" />
@@ -164,6 +169,10 @@
     <ClInclude Include="MinHook\hde\table64.h" />
     <ClInclude Include="MinHook\MinHook.h" />
     <ClInclude Include="MinHook\trampoline.h" />
+    <ClInclude Include="proto\BaseResponse.pb.h" />
+    <ClInclude Include="proto\ChatRoomMemberData.pb.h" />
+    <ClInclude Include="proto\ChatRoomMemberInfo.pb.h" />
+    <ClInclude Include="proto\GetChatroomMemberDetailResponse.pb.h" />
     <ClInclude Include="public\Public.h" />
     <ClInclude Include="public\RWMutex.h" />
     <ClInclude Include="public\Strings.h" />
@@ -171,6 +180,7 @@
     <ClInclude Include="TinyXml\tinyxml2.h" />
     <ClInclude Include="WeChatDLL.h" />
     <ClInclude Include="WeChat\ChatMsg.h" />
+    <ClInclude Include="WeChat\ChatRoom.h" />
     <ClInclude Include="WeChat\common.h" />
     <ClInclude Include="WeChat\Contact.h" />
     <ClInclude Include="WeChat\SnsObj.h" />

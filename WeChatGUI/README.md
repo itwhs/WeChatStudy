@@ -28,6 +28,10 @@ LoginWnd::eventProc，消息id为0x300，获取到二维码。
 
 
 
+
+
+
+
 ## 消息监控
 
 消息类型
@@ -51,6 +55,32 @@ LoginWnd::eventProc，消息id为0x300，获取到二维码。
 ### 图片消息监控
 
 NetSceneGetMsgImgCDN::onDownloadSuccessed
+
+
+
+### 群邀请消息监控
+
+新成员被邀请入群后，先是SyncMgr，来一条 xxx 被 xxx 邀请入群的文本消息，但是这里面只有昵称。
+
+然后又是SyncMgr，来一条群所有成员wxid的信息。
+
+之后是ChatRoomMgr::syncAddChatroomMember，对比多出来的新wxid，准备开始同步新增群成员，发送protoReq，GetChatroomMemberDetail，能拿到新增群成员的wxid，以及到底是被谁邀请的。
+
+NetSceneGetChatroomMemberDetail::onGYNetEnd
+
+
+
+我将A邀请入群：消息类型10002，特殊消息sysmsg(能拿到被邀请的人的wxid)
+
+我将A移出群：消息类型10000，你将"xxx"移出了群聊(拿不到被踢的人wxid)
+
+我被A邀请入群：消息类型10000，"xxx"邀请你加入了群聊，群聊参与人还有：a、b、c
+
+我被A移出群：消息类型10000，你被"xxx"移出群聊
+
+A被B邀请入群：消息类型10000，"xxx"邀请"yyy"加入了群聊
+
+A被B移出群，SyncMgr无感知。
 
 
 

@@ -211,19 +211,7 @@ void Api_syncMsg(const httplib::Request& req, httplib::Response& res)
 	std::vector<MsgUploadInfo> msgList = MsgMonitor::Instance().SyncMsg();
 	nlohmann::json &jsonData = retJson["data"];
 	for (unsigned int n = 0; n < msgList.size(); ++n) {
-		nlohmann::json tmp;
-		tmp["msg_type"] = msgList[n].msgType;
-		tmp["msg_id"] = msgList[n].msgID;
-		tmp["sender_name"] = UnicodeToUtf8(msgList[n].senderName.c_str());
-		tmp["sender_wxid"] = UnicodeToUtf8(msgList[n].senderWxid.c_str());
-		tmp["msg_content"] = UnicodeToUtf8(msgList[n].msgContent.c_str());
-		if (!msgList[n].wxid.empty()) {
-			tmp["wxid"] = UnicodeToUtf8(msgList[n].wxid.c_str());
-			tmp["name"] = UnicodeToUtf8(msgList[n].name.c_str());
-		}
-		tmp["robot_id"] = UnicodeToUtf8(msgList[n].robotID.c_str());
-		tmp["post_time"] = msgList[n].postTime;
-		jsonData.push_back(tmp);
+		jsonData.push_back(msgList[n].msg);
 	}
 	retJson["code"] = 200;
 	res.set_content(retJson.dump(), "application/json");

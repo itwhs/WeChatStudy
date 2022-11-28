@@ -1,0 +1,459 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="17.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <PreferredToolArchitecture>x64</PreferredToolArchitecture>
+  </PropertyGroup>
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="MinSizeRel|Win32">
+      <Configuration>MinSizeRel</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="RelWithDebInfo|Win32">
+      <Configuration>RelWithDebInfo</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{1BA6F431-65AF-39D8-ACBD-8896493E7577}</ProjectGuid>
+    <Keyword>Win32Proj</Keyword>
+    <WindowsTargetPlatformVersion>10.0.19041.0</WindowsTargetPlatformVersion>
+    <Platform>Win32</Platform>
+    <ProjectName>libprotoc</ProjectName>
+    <VCProjectUpgraderObjectName>NoUpgrade</VCProjectUpgraderObjectName>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v143</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v143</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v143</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v143</PlatformToolset>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup>
+    <_ProjectFileVersion>10.0.20506.1</_ProjectFileVersion>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">C:\Work\WeChatStudy\WeChatGUI\protobuf\Debug\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">libprotoc.dir\Debug\</IntDir>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">libprotocd</TargetName>
+    <TargetExt Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">.lib</TargetExt>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">C:\Work\WeChatStudy\WeChatGUI\protobuf\Release\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">libprotoc.dir\Release\</IntDir>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">libprotoc</TargetName>
+    <TargetExt Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">.lib</TargetExt>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">C:\Work\WeChatStudy\WeChatGUI\protobuf\MinSizeRel\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">libprotoc.dir\MinSizeRel\</IntDir>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">libprotoc</TargetName>
+    <TargetExt Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">.lib</TargetExt>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">C:\Work\WeChatStudy\WeChatGUI\protobuf\RelWithDebInfo\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">libprotoc.dir\RelWithDebInfo\</IntDir>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">libprotoc</TargetName>
+    <TargetExt Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">.lib</TargetExt>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>C:\Work\WeChatStudy\WeChatGUI\protobuf;C:\Users\Administrator\Downloads\protobuf-cpp-3.21.9\protobuf-3.21.9\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalOptions>%(AdditionalOptions) /utf-8 /bigobj</AdditionalOptions>
+      <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
+      <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <DisableSpecificWarnings>4065;4244;4251;4267;4305;4307;4309;4334;4355;4506;4800;4996</DisableSpecificWarnings>
+      <ExceptionHandling>Sync</ExceptionHandling>
+      <InlineFunctionExpansion>Disabled</InlineFunctionExpansion>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <Optimization>Disabled</Optimization>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
+      <RuntimeTypeInfo>true</RuntimeTypeInfo>
+      <UseFullPaths>false</UseFullPaths>
+      <WarningLevel>Level3</WarningLevel>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_WINDOWS;LIBPROTOC_EXPORTS;GOOGLE_PROTOBUF_CMAKE_BUILD;CMAKE_INTDIR="Debug"</PreprocessorDefinitions>
+      <ObjectFileName>$(IntDir)</ObjectFileName>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_DEBUG;_WINDOWS;LIBPROTOC_EXPORTS;GOOGLE_PROTOBUF_CMAKE_BUILD;CMAKE_INTDIR=\"Debug\"</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>C:\Work\WeChatStudy\WeChatGUI\protobuf;C:\Users\Administrator\Downloads\protobuf-cpp-3.21.9\protobuf-3.21.9\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+    <Midl>
+      <AdditionalIncludeDirectories>C:\Work\WeChatStudy\WeChatGUI\protobuf;C:\Users\Administrator\Downloads\protobuf-cpp-3.21.9\protobuf-3.21.9\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+    <Lib>
+      <AdditionalOptions>%(AdditionalOptions) /machine:X86 /ignore:4221</AdditionalOptions>
+    </Lib>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>C:\Work\WeChatStudy\WeChatGUI\protobuf;C:\Users\Administrator\Downloads\protobuf-cpp-3.21.9\protobuf-3.21.9\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalOptions>%(AdditionalOptions) /utf-8 /bigobj</AdditionalOptions>
+      <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
+      <DisableSpecificWarnings>4065;4244;4251;4267;4305;4307;4309;4334;4355;4506;4800;4996</DisableSpecificWarnings>
+      <ExceptionHandling>Sync</ExceptionHandling>
+      <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <Optimization>MaxSpeed</Optimization>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+      <RuntimeTypeInfo>true</RuntimeTypeInfo>
+      <UseFullPaths>false</UseFullPaths>
+      <WarningLevel>Level3</WarningLevel>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_WINDOWS;NDEBUG;LIBPROTOC_EXPORTS;GOOGLE_PROTOBUF_CMAKE_BUILD;CMAKE_INTDIR="Release"</PreprocessorDefinitions>
+      <ObjectFileName>$(IntDir)</ObjectFileName>
+      <DebugInformationFormat>
+      </DebugInformationFormat>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_WINDOWS;NDEBUG;LIBPROTOC_EXPORTS;GOOGLE_PROTOBUF_CMAKE_BUILD;CMAKE_INTDIR=\"Release\"</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>C:\Work\WeChatStudy\WeChatGUI\protobuf;C:\Users\Administrator\Downloads\protobuf-cpp-3.21.9\protobuf-3.21.9\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+    <Midl>
+      <AdditionalIncludeDirectories>C:\Work\WeChatStudy\WeChatGUI\protobuf;C:\Users\Administrator\Downloads\protobuf-cpp-3.21.9\protobuf-3.21.9\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+    <Lib>
+      <AdditionalOptions>%(AdditionalOptions) /machine:X86 /ignore:4221</AdditionalOptions>
+    </Lib>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>C:\Work\WeChatStudy\WeChatGUI\protobuf;C:\Users\Administrator\Downloads\protobuf-cpp-3.21.9\protobuf-3.21.9\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalOptions>%(AdditionalOptions) /utf-8 /bigobj</AdditionalOptions>
+      <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
+      <DisableSpecificWarnings>4065;4244;4251;4267;4305;4307;4309;4334;4355;4506;4800;4996</DisableSpecificWarnings>
+      <ExceptionHandling>Sync</ExceptionHandling>
+      <InlineFunctionExpansion>OnlyExplicitInline</InlineFunctionExpansion>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <Optimization>MinSpace</Optimization>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+      <RuntimeTypeInfo>true</RuntimeTypeInfo>
+      <UseFullPaths>false</UseFullPaths>
+      <WarningLevel>Level3</WarningLevel>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_WINDOWS;NDEBUG;LIBPROTOC_EXPORTS;GOOGLE_PROTOBUF_CMAKE_BUILD;CMAKE_INTDIR="MinSizeRel"</PreprocessorDefinitions>
+      <ObjectFileName>$(IntDir)</ObjectFileName>
+      <DebugInformationFormat>
+      </DebugInformationFormat>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_WINDOWS;NDEBUG;LIBPROTOC_EXPORTS;GOOGLE_PROTOBUF_CMAKE_BUILD;CMAKE_INTDIR=\"MinSizeRel\"</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>C:\Work\WeChatStudy\WeChatGUI\protobuf;C:\Users\Administrator\Downloads\protobuf-cpp-3.21.9\protobuf-3.21.9\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+    <Midl>
+      <AdditionalIncludeDirectories>C:\Work\WeChatStudy\WeChatGUI\protobuf;C:\Users\Administrator\Downloads\protobuf-cpp-3.21.9\protobuf-3.21.9\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+    <Lib>
+      <AdditionalOptions>%(AdditionalOptions) /machine:X86 /ignore:4221</AdditionalOptions>
+    </Lib>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>C:\Work\WeChatStudy\WeChatGUI\protobuf;C:\Users\Administrator\Downloads\protobuf-cpp-3.21.9\protobuf-3.21.9\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalOptions>%(AdditionalOptions) /utf-8 /bigobj</AdditionalOptions>
+      <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <DisableSpecificWarnings>4065;4244;4251;4267;4305;4307;4309;4334;4355;4506;4800;4996</DisableSpecificWarnings>
+      <ExceptionHandling>Sync</ExceptionHandling>
+      <InlineFunctionExpansion>OnlyExplicitInline</InlineFunctionExpansion>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <Optimization>MaxSpeed</Optimization>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+      <RuntimeTypeInfo>true</RuntimeTypeInfo>
+      <UseFullPaths>false</UseFullPaths>
+      <WarningLevel>Level3</WarningLevel>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_WINDOWS;NDEBUG;LIBPROTOC_EXPORTS;GOOGLE_PROTOBUF_CMAKE_BUILD;CMAKE_INTDIR="RelWithDebInfo"</PreprocessorDefinitions>
+      <ObjectFileName>$(IntDir)</ObjectFileName>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_WINDOWS;NDEBUG;LIBPROTOC_EXPORTS;GOOGLE_PROTOBUF_CMAKE_BUILD;CMAKE_INTDIR=\"RelWithDebInfo\"</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>C:\Work\WeChatStudy\WeChatGUI\protobuf;C:\Users\Administrator\Downloads\protobuf-cpp-3.21.9\protobuf-3.21.9\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+    <Midl>
+      <AdditionalIncludeDirectories>C:\Work\WeChatStudy\WeChatGUI\protobuf;C:\Users\Administrator\Downloads\protobuf-cpp-3.21.9\protobuf-3.21.9\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+    <Lib>
+      <AdditionalOptions>%(AdditionalOptions) /machine:X86 /ignore:4221</AdditionalOptions>
+    </Lib>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <CustomBuild Include="C:\Users\Administrator\Downloads\protobuf-cpp-3.21.9\protobuf-3.21.9\CMakeLists.txt">
+      <UseUtf8Encoding>Always</UseUtf8Encoding>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Building Custom Rule C:/Users/Administrator/Downloads/protobuf-cpp-3.21.9/protobuf-3.21.9/CMakeLists.txt</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -SC:/Users/Administrator/Downloads/protobuf-cpp-3.21.9/protobuf-3.21.9 -BC:/Work/WeChatStudy/WeChatGUI/protobuf --check-stamp-file C:/Work/WeChatStudy/WeChatGUI/protobuf/CMakeFiles/generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">C:\Program Files\CMake\share\cmake-3.25\Modules\CMakeCInformation.cmake;C:\Program Files\CMake\share\cmake-3.25\Modules\CMakeCXXInformation.cmake;C:\Program Files\CMake\share\cmake-3.25\Modules\CMakeCheckCompilerFlagCommonPatterns.cmake;C:\Program Files\CMake\share\cmake-3.25\Modules\CMakeCommonLanguageInclude.cmake;C:\Program Files\CMake\share\cmake-3.25\Modules\CMakeDependentOption.cmake;C:\Program Files\CMake\share\cmake-3.25\Modules\CMakeGenericSystem.cmake;C:\Program Files\CMake\share\cmake-3.25\Modules\CMakeInitializeConfigs.cmake;C:\Program Files\CMake\share\cmake-3.25\Modules\CMakeLanguageInformation.cmake;C:\Program Files\CMake\share\cmake-3.25\Modules\CMakeRCInformation.cmake;C:\Program Files\CMake\share\cmake-3.25\Modules\CMakeSystemSpecificInformation.cmake;C:\Program Files\CMake\share\cmake-3.25\Modules\CMakeSystemSpecificInitialize.cmake;C:\Program Files\CMake\share\cmake-3.25\Modules\CheckCSourceCompiles.cmake;C:\Program Files\CMake\share\cmake-3.25\Modules\CheckIncludeFile.cmake;C:\Program Files\CMake\share\cmake-3.25\Modules\CheckLibraryExists.cmake;C:\Program Files\CMake\share\cmake-3.25\Modules\CheckLinkerFlag.cmake;C:\Program Files\CMake\share\cmake-3.25\Modules\Compiler\CMakeCommonCompilerMacros.cmake;C:\Program Files\CMake\share\cmake-3.25\Modules\Compiler\MSVC-C.cmake;C:\Program Files\CMake\share\cmake-3.25\Modules\Compiler\MSVC-CXX.cmake;C:\Program Files\CMake\share\cmake-3.25\Modules\Compiler\MSVC.cmake;C:\Program Files\CMake\share\cmake-3.25\Modules\FindPackageHandleStandardArgs.cmake;C:\Program Files\CMake\share\cmake-3.25\Modules\FindPackageMessage.cmake;C:\Program Files\CMake\share\cmake-3.25\Modules\FindThreads.cmake;C:\Program Files\CMake\share\cmake-3.25\Modules\GNUInstallDirs.cmake;C:\Program Files\CMake\share\cmake-3.25\Modules\Internal\CheckFlagCommonConfig.cmake;C:\Program Files\CMake\share\cmake-3.25\Modules\Internal\CheckLinkerFlag.cmake;C:\Program Files\CMake\share\cmake-3.25\Modules\Internal\CheckSourceCompiles.cmake;C:\Program Files\CMake\share\cmake-3.25\Modules\Platform\Windows-MSVC-C.cmake;C:\Program Files\CMake\share\cmake-3.25\Modules\Platform\Windows-MSVC-CXX.cmake;C:\Program Files\CMake\share\cmake-3.25\Modules\Platform\Windows-MSVC.cmake;C:\Program Files\CMake\share\cmake-3.25\Modules\Platform\Windows.cmake;C:\Program Files\CMake\share\cmake-3.25\Modules\Platform\WindowsPaths.cmake;C:\Users\Administrator\Downloads\protobuf-cpp-3.21.9\protobuf-3.21.9\cmake\extract_includes.bat.in;C:\Users\Administrator\Downloads\protobuf-cpp-3.21.9\protobuf-3.21.9\cmake\install.cmake;C:\Users\Administrator\Downloads\protobuf-cpp-3.21.9\protobuf-3.21.9\cmake\libprotobuf-lite.cmake;C:\Users\Administrator\Downloads\protobuf-cpp-3.21.9\protobuf-3.21.9\cmake\libprotobuf.cmake;C:\Users\Administrator\Downloads\protobuf-cpp-3.21.9\protobuf-3.21.9\cmake\libprotoc.cmake;C:\Users\Administrator\Downloads\protobuf-cpp-3.21.9\protobuf-3.21.9\cmake\protobuf-config-version.cmake.in;C:\Users\Administrator\Downloads\protobuf-cpp-3.21.9\protobuf-3.21.9\cmake\protobuf-config.cmake.in;C:\Users\Administrator\Downloads\protobuf-cpp-3.21.9\protobuf-3.21.9\cmake\protobuf-lite.pc.cmake;C:\Users\Administrator\Downloads\protobuf-cpp-3.21.9\protobuf-3.21.9\cmake\protobuf-module.cmake.in;C:\Users\Administrator\Downloads\protobuf-cpp-3.21.9\protobuf-3.21.9\cmake\protobuf-options.cmake;C:\Users\Administrator\Downloads\protobuf-cpp-3.21.9\protobuf-3.21.9\cmake\protobuf.pc.cmake;C:\Users\Administrator\Downloads\protobuf-cpp-3.21.9\protobuf-3.21.9\cmake\protoc.cmake;C:\Users\Administrator\Downloads\protobuf-cpp-3.21.9\protobuf-3.21.9\cmake\version.rc.in;C:\Work\WeChatStudy\WeChatGUI\protobuf\CMakeFiles\3.25.0\CMakeCCompiler.cmake;C:\Work\WeChatStudy\WeChatGUI\protobuf\CMakeFiles\3.25.0\CMakeCXXCompiler.cmake;C:\Work\WeChatStudy\WeChatGUI\protobuf\CMakeFiles\3.25.0\CMakeRCCompiler.cmake;C:\Work\WeChatStudy\WeChatGUI\protobuf\CMakeFiles\3.25.0\CMakeSystem.cmake;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">C:\Work\WeChatStudy\WeChatGUI\protobuf\CMakeFiles\generate.stamp</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Building Custom Rule C:/Users/Administrator/Downloads/protobuf-cpp-3.21.9/protobuf-3.21.9/CMakeLists.txt</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -SC:/Users/Administrator/Downloads/protobuf-cpp-3.21.9/protobuf-3.21.9 -BC:/Work/WeChatStudy/WeChatGUI/protobuf --check-stamp-file C:/Work/WeChatStudy/WeChatGUI/protobuf/CMakeFiles/generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">C:\Program Files\CMake\share\cmake-3.25\Modules\CMakeCInformation.cmake;C:\Program Files\CMake\share\cmake-3.25\Modules\CMakeCXXInformation.cmake;C:\Program Files\CMake\share\cmake-3.25\Modules\CMakeCheckCompilerFlagCommonPatterns.cmake;C:\Program Files\CMake\share\cmake-3.25\Modules\CMakeCommonLanguageInclude.cmake;C:\Program Files\CMake\share\cmake-3.25\Modules\CMakeDependentOption.cmake;C:\Program Files\CMake\share\cmake-3.25\Modules\CMakeGenericSystem.cmake;C:\Program Files\CMake\share\cmake-3.25\Modules\CMakeInitializeConfigs.cmake;C:\Program Files\CMake\share\cmake-3.25\Modules\CMakeLanguageInformation.cmake;C:\Program Files\CMake\share\cmake-3.25\Modules\CMakeRCInformation.cmake;C:\Program Files\CMake\share\cmake-3.25\Modules\CMakeSystemSpecificInformation.cmake;C:\Program Files\CMake\share\cmake-3.25\Modules\CMakeSystemSpecificInitialize.cmake;C:\Program Files\CMake\share\cmake-3.25\Modules\CheckCSourceCompiles.cmake;C:\Program Files\CMake\share\cmake-3.25\Modules\CheckIncludeFile.cmake;C:\Program Files\CMake\share\cmake-3.25\Modules\CheckLibraryExists.cmake;C:\Program Files\CMake\share\cmake-3.25\Modules\CheckLinkerFlag.cmake;C:\Program Files\CMake\share\cmake-3.25\Modules\Compiler\CMakeCommonCompilerMacros.cmake;C:\Program Files\CMake\share\cmake-3.25\Modules\Compiler\MSVC-C.cmake;C:\Program Files\CMake\share\cmake-3.25\Modules\Compiler\MSVC-CXX.cmake;C:\Program Files\CMake\share\cmake-3.25\Modules\Compiler\MSVC.cmake;C:\Program Files\CMake\share\cmake-3.25\Modules\FindPackageHandleStandardArgs.cmake;C:\Program Files\CMake\share\cmake-3.25\Modules\FindPackageMessage.cmake;C:\Program Files\CMake\share\cmake-3.25\Modules\FindThreads.cmake;C:\Program Files\CMake\share\cmake-3.25\Modules\GNUInstallDirs.cmake;C:\Program Files\CMake\share\cmake-3.25\Modules\Internal\CheckFlagCommonConfig.cmake;C:\Program Files\CMake\share\cmake-3.25\Modules\Internal\CheckLinkerFlag.cmake;C:\Program Files\CMake\share\cmake-3.25\Modules\Internal\CheckSourceCompiles.cmake;C:\Program Files\CMake\share\cmake-3.25\Modules\Platform\Windows-MSVC-C.cmake;C:\Program Files\CMake\share\cmake-3.25\Modules\Platform\Windows-MSVC-CXX.cmake;C:\Program Files\CMake\share\cmake-3.25\Modules\Platform\Windows-MSVC.cmake;C:\Program Files\CMake\share\cmake-3.25\Modules\Platform\Windows.cmake;C:\Program Files\CMake\share\cmake-3.25\Modules\Platform\WindowsPaths.cmake;C:\Users\Administrator\Downloads\protobuf-cpp-3.21.9\protobuf-3.21.9\cmake\extract_includes.bat.in;C:\Users\Administrator\Downloads\protobuf-cpp-3.21.9\protobuf-3.21.9\cmake\install.cmake;C:\Users\Administrator\Downloads\protobuf-cpp-3.21.9\protobuf-3.21.9\cmake\libprotobuf-lite.cmake;C:\Users\Administrator\Downloads\protobuf-cpp-3.21.9\protobuf-3.21.9\cmake\libprotobuf.cmake;C:\Users\Administrator\Downloads\protobuf-cpp-3.21.9\protobuf-3.21.9\cmake\libprotoc.cmake;C:\Users\Administrator\Downloads\protobuf-cpp-3.21.9\protobuf-3.21.9\cmake\protobuf-config-version.cmake.in;C:\Users\Administrator\Downloads\protobuf-cpp-3.21.9\protobuf-3.21.9\cmake\protobuf-config.cmake.in;C:\Users\Administrator\Downloads\protobuf-cpp-3.21.9\protobuf-3.21.9\cmake\protobuf-lite.pc.cmake;C:\Users\Administrator\Downloads\protobuf-cpp-3.21.9\protobuf-3.21.9\cmake\protobuf-module.cmake.in;C:\Users\Administrator\Downloads\protobuf-cpp-3.21.9\protobuf-3.21.9\cmake\protobuf-options.cmake;C:\Users\Administrator\Downloads\protobuf-cpp-3.21.9\protobuf-3.21.9\cmake\protobuf.pc.cmake;C:\Users\Administrator\Downloads\protobuf-cpp-3.21.9\protobuf-3.21.9\cmake\protoc.cmake;C:\Users\Administrator\Downloads\protobuf-cpp-3.21.9\protobuf-3.21.9\cmake\version.rc.in;C:\Work\WeChatStudy\WeChatGUI\protobuf\CMakeFiles\3.25.0\CMakeCCompiler.cmake;C:\Work\WeChatStudy\WeChatGUI\protobuf\CMakeFiles\3.25.0\CMakeCXXCompiler.cmake;C:\Work\WeChatStudy\WeChatGUI\protobuf\CMakeFiles\3.25.0\CMakeRCCompiler.cmake;C:\Work\WeChatStudy\WeChatGUI\protobuf\CMakeFiles\3.25.0\CMakeSystem.cmake;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">C:\Work\WeChatStudy\WeChatGUI\protobuf\CMakeFiles\generate.stamp</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">Building Custom Rule C:/Users/Administrator/Downloads/protobuf-cpp-3.21.9/protobuf-3.21.9/CMakeLists.txt</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -SC:/Users/Administrator/Downloads/protobuf-cpp-3.21.9/protobuf-3.21.9 -BC:/Work/WeChatStudy/WeChatGUI/protobuf --check-stamp-file C:/Work/WeChatStudy/WeChatGUI/protobuf/CMakeFiles/generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">C:\Program Files\CMake\share\cmake-3.25\Modules\CMakeCInformation.cmake;C:\Program Files\CMake\share\cmake-3.25\Modules\CMakeCXXInformation.cmake;C:\Program Files\CMake\share\cmake-3.25\Modules\CMakeCheckCompilerFlagCommonPatterns.cmake;C:\Program Files\CMake\share\cmake-3.25\Modules\CMakeCommonLanguageInclude.cmake;C:\Program Files\CMake\share\cmake-3.25\Modules\CMakeDependentOption.cmake;C:\Program Files\CMake\share\cmake-3.25\Modules\CMakeGenericSystem.cmake;C:\Program Files\CMake\share\cmake-3.25\Modules\CMakeInitializeConfigs.cmake;C:\Program Files\CMake\share\cmake-3.25\Modules\CMakeLanguageInformation.cmake;C:\Program Files\CMake\share\cmake-3.25\Modules\CMakeRCInformation.cmake;C:\Program Files\CMake\share\cmake-3.25\Modules\CMakeSystemSpecificInformation.cmake;C:\Program Files\CMake\share\cmake-3.25\Modules\CMakeSystemSpecificInitialize.cmake;C:\Program Files\CMake\share\cmake-3.25\Modules\CheckCSourceCompiles.cmake;C:\Program Files\CMake\share\cmake-3.25\Modules\CheckIncludeFile.cmake;C:\Program Files\CMake\share\cmake-3.25\Modules\CheckLibraryExists.cmake;C:\Program Files\CMake\share\cmake-3.25\Modules\CheckLinkerFlag.cmake;C:\Program Files\CMake\share\cmake-3.25\Modules\Compiler\CMakeCommonCompilerMacros.cmake;C:\Program Files\CMake\share\cmake-3.25\Modules\Compiler\MSVC-C.cmake;C:\Program Files\CMake\share\cmake-3.25\Modules\Compiler\MSVC-CXX.cmake;C:\Program Files\CMake\share\cmake-3.25\Modules\Compiler\MSVC.cmake;C:\Program Files\CMake\share\cmake-3.25\Modules\FindPackageHandleStandardArgs.cmake;C:\Program Files\CMake\share\cmake-3.25\Modules\FindPackageMessage.cmake;C:\Program Files\CMake\share\cmake-3.25\Modules\FindThreads.cmake;C:\Program Files\CMake\share\cmake-3.25\Modules\GNUInstallDirs.cmake;C:\Program Files\CMake\share\cmake-3.25\Modules\Internal\CheckFlagCommonConfig.cmake;C:\Program Files\CMake\share\cmake-3.25\Modules\Internal\CheckLinkerFlag.cmake;C:\Program Files\CMake\share\cmake-3.25\Modules\Internal\CheckSourceCompiles.cmake;C:\Program Files\CMake\share\cmake-3.25\Modules\Platform\Windows-MSVC-C.cmake;C:\Program Files\CMake\share\cmake-3.25\Modules\Platform\Windows-MSVC-CXX.cmake;C:\Program Files\CMake\share\cmake-3.25\Modules\Platform\Windows-MSVC.cmake;C:\Program Files\CMake\share\cmake-3.25\Modules\Platform\Windows.cmake;C:\Program Files\CMake\share\cmake-3.25\Modules\Platform\WindowsPaths.cmake;C:\Users\Administrator\Downloads\protobuf-cpp-3.21.9\protobuf-3.21.9\cmake\extract_includes.bat.in;C:\Users\Administrator\Downloads\protobuf-cpp-3.21.9\protobuf-3.21.9\cmake\install.cmake;C:\Users\Administrator\Downloads\protobuf-cpp-3.21.9\protobuf-3.21.9\cmake\libprotobuf-lite.cmake;C:\Users\Administrator\Downloads\protobuf-cpp-3.21.9\protobuf-3.21.9\cmake\libprotobuf.cmake;C:\Users\Administrator\Downloads\protobuf-cpp-3.21.9\protobuf-3.21.9\cmake\libprotoc.cmake;C:\Users\Administrator\Downloads\protobuf-cpp-3.21.9\protobuf-3.21.9\cmake\protobuf-config-version.cmake.in;C:\Users\Administrator\Downloads\protobuf-cpp-3.21.9\protobuf-3.21.9\cmake\protobuf-config.cmake.in;C:\Users\Administrator\Downloads\protobuf-cpp-3.21.9\protobuf-3.21.9\cmake\protobuf-lite.pc.cmake;C:\Users\Administrator\Downloads\protobuf-cpp-3.21.9\protobuf-3.21.9\cmake\protobuf-module.cmake.in;C:\Users\Administrator\Downloads\protobuf-cpp-3.21.9\protobuf-3.21.9\cmake\protobuf-options.cmake;C:\Users\Administrator\Downloads\protobuf-cpp-3.21.9\protobuf-3.21.9\cmake\protobuf.pc.cmake;C:\Users\Administrator\Downloads\protobuf-cpp-3.21.9\protobuf-3.21.9\cmake\protoc.cmake;C:\Users\Administrator\Downloads\protobuf-cpp-3.21.9\protobuf-3.21.9\cmake\version.rc.in;C:\Work\WeChatStudy\WeChatGUI\protobuf\CMakeFiles\3.25.0\CMakeCCompiler.cmake;C:\Work\WeChatStudy\WeChatGUI\protobuf\CMakeFiles\3.25.0\CMakeCXXCompiler.cmake;C:\Work\WeChatStudy\WeChatGUI\protobuf\CMakeFiles\3.25.0\CMakeRCCompiler.cmake;C:\Work\WeChatStudy\WeChatGUI\protobuf\CMakeFiles\3.25.0\CMakeSystem.cmake;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">C:\Work\WeChatStudy\WeChatGUI\protobuf\CMakeFiles\generate.stamp</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">Building Custom Rule C:/Users/Administrator/Downloads/protobuf-cpp-3.21.9/protobuf-3.21.9/CMakeLists.txt</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -SC:/Users/Administrator/Downloads/protobuf-cpp-3.21.9/protobuf-3.21.9 -BC:/Work/WeChatStudy/WeChatGUI/protobuf --check-stamp-file C:/Work/WeChatStudy/WeChatGUI/protobuf/CMakeFiles/generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">C:\Program Files\CMake\share\cmake-3.25\Modules\CMakeCInformation.cmake;C:\Program Files\CMake\share\cmake-3.25\Modules\CMakeCXXInformation.cmake;C:\Program Files\CMake\share\cmake-3.25\Modules\CMakeCheckCompilerFlagCommonPatterns.cmake;C:\Program Files\CMake\share\cmake-3.25\Modules\CMakeCommonLanguageInclude.cmake;C:\Program Files\CMake\share\cmake-3.25\Modules\CMakeDependentOption.cmake;C:\Program Files\CMake\share\cmake-3.25\Modules\CMakeGenericSystem.cmake;C:\Program Files\CMake\share\cmake-3.25\Modules\CMakeInitializeConfigs.cmake;C:\Program Files\CMake\share\cmake-3.25\Modules\CMakeLanguageInformation.cmake;C:\Program Files\CMake\share\cmake-3.25\Modules\CMakeRCInformation.cmake;C:\Program Files\CMake\share\cmake-3.25\Modules\CMakeSystemSpecificInformation.cmake;C:\Program Files\CMake\share\cmake-3.25\Modules\CMakeSystemSpecificInitialize.cmake;C:\Program Files\CMake\share\cmake-3.25\Modules\CheckCSourceCompiles.cmake;C:\Program Files\CMake\share\cmake-3.25\Modules\CheckIncludeFile.cmake;C:\Program Files\CMake\share\cmake-3.25\Modules\CheckLibraryExists.cmake;C:\Program Files\CMake\share\cmake-3.25\Modules\CheckLinkerFlag.cmake;C:\Program Files\CMake\share\cmake-3.25\Modules\Compiler\CMakeCommonCompilerMacros.cmake;C:\Program Files\CMake\share\cmake-3.25\Modules\Compiler\MSVC-C.cmake;C:\Program Files\CMake\share\cmake-3.25\Modules\Compiler\MSVC-CXX.cmake;C:\Program Files\CMake\share\cmake-3.25\Modules\Compiler\MSVC.cmake;C:\Program Files\CMake\share\cmake-3.25\Modules\FindPackageHandleStandardArgs.cmake;C:\Program Files\CMake\share\cmake-3.25\Modules\FindPackageMessage.cmake;C:\Program Files\CMake\share\cmake-3.25\Modules\FindThreads.cmake;C:\Program Files\CMake\share\cmake-3.25\Modules\GNUInstallDirs.cmake;C:\Program Files\CMake\share\cmake-3.25\Modules\Internal\CheckFlagCommonConfig.cmake;C:\Program Files\CMake\share\cmake-3.25\Modules\Internal\CheckLinkerFlag.cmake;C:\Program Files\CMake\share\cmake-3.25\Modules\Internal\CheckSourceCompiles.cmake;C:\Program Files\CMake\share\cmake-3.25\Modules\Platform\Windows-MSVC-C.cmake;C:\Program Files\CMake\share\cmake-3.25\Modules\Platform\Windows-MSVC-CXX.cmake;C:\Program Files\CMake\share\cmake-3.25\Modules\Platform\Windows-MSVC.cmake;C:\Program Files\CMake\share\cmake-3.25\Modules\Platform\Windows.cmake;C:\Program Files\CMake\share\cmake-3.25\Modules\Platform\WindowsPaths.cmake;C:\Users\Administrator\Downloads\protobuf-cpp-3.21.9\protobuf-3.21.9\cmake\extract_includes.bat.in;C:\Users\Administrator\Downloads\protobuf-cpp-3.21.9\protobuf-3.21.9\cmake\install.cmake;C:\Users\Administrator\Downloads\protobuf-cpp-3.21.9\protobuf-3.21.9\cmake\libprotobuf-lite.cmake;C:\Users\Administrator\Downloads\protobuf-cpp-3.21.9\protobuf-3.21.9\cmake\libprotobuf.cmake;C:\Users\Administrator\Downloads\protobuf-cpp-3.21.9\protobuf-3.21.9\cmake\libprotoc.cmake;C:\Users\Administrator\Downloads\protobuf-cpp-3.21.9\protobuf-3.21.9\cmake\protobuf-config-version.cmake.in;C:\Users\Administrator\Downloads\protobuf-cpp-3.21.9\protobuf-3.21.9\cmake\protobuf-config.cmake.in;C:\Users\Administrator\Downloads\protobuf-cpp-3.21.9\protobuf-3.21.9\cmake\protobuf-lite.pc.cmake;C:\Users\Administrator\Downloads\protobuf-cpp-3.21.9\protobuf-3.21.9\cmake\protobuf-module.cmake.in;C:\Users\Administrator\Downloads\protobuf-cpp-3.21.9\protobuf-3.21.9\cmake\protobuf-options.cmake;C:\Users\Administrator\Downloads\protobuf-cpp-3.21.9\protobuf-3.21.9\cmake\protobuf.pc.cmake;C:\Users\Administrator\Downloads\protobuf-cpp-3.21.9\protobuf-3.21.9\cmake\protoc.cmake;C:\Users\Administrator\Downloads\protobuf-cpp-3.21.9\protobuf-3.21.9\cmake\version.rc.in;C:\Work\WeChatStudy\WeChatGUI\protobuf\CMakeFiles\3.25.0\CMakeCCompiler.cmake;C:\Work\WeChatStudy\WeChatGUI\protobuf\CMakeFiles\3.25.0\CMakeCXXCompiler.cmake;C:\Work\WeChatStudy\WeChatGUI\protobuf\CMakeFiles\3.25.0\CMakeRCCompiler.cmake;C:\Work\WeChatStudy\WeChatGUI\protobuf\CMakeFiles\3.25.0\CMakeSystem.cmake;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">C:\Work\WeChatStudy\WeChatGUI\protobuf\CMakeFiles\generate.stamp</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">false</LinkObjects>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="C:\Users\Administrator\Downloads\protobuf-cpp-3.21.9\protobuf-3.21.9\src\google\protobuf\compiler\code_generator.cc" />
+    <ClCompile Include="C:\Users\Administrator\Downloads\protobuf-cpp-3.21.9\protobuf-3.21.9\src\google\protobuf\compiler\command_line_interface.cc" />
+    <ClCompile Include="C:\Users\Administrator\Downloads\protobuf-cpp-3.21.9\protobuf-3.21.9\src\google\protobuf\compiler\cpp\enum.cc">
+      <ObjectFileName>$(IntDir)/src/google/protobuf/compiler/cpp/enum.cc.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="C:\Users\Administrator\Downloads\protobuf-cpp-3.21.9\protobuf-3.21.9\src\google\protobuf\compiler\cpp\enum_field.cc">
+      <ObjectFileName>$(IntDir)/src/google/protobuf/compiler/cpp/enum_field.cc.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="C:\Users\Administrator\Downloads\protobuf-cpp-3.21.9\protobuf-3.21.9\src\google\protobuf\compiler\cpp\extension.cc">
+      <ObjectFileName>$(IntDir)/src/google/protobuf/compiler/cpp/extension.cc.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="C:\Users\Administrator\Downloads\protobuf-cpp-3.21.9\protobuf-3.21.9\src\google\protobuf\compiler\cpp\field.cc">
+      <ObjectFileName>$(IntDir)/src/google/protobuf/compiler/cpp/field.cc.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="C:\Users\Administrator\Downloads\protobuf-cpp-3.21.9\protobuf-3.21.9\src\google\protobuf\compiler\cpp\file.cc">
+      <ObjectFileName>$(IntDir)/src/google/protobuf/compiler/cpp/file.cc.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="C:\Users\Administrator\Downloads\protobuf-cpp-3.21.9\protobuf-3.21.9\src\google\protobuf\compiler\cpp\generator.cc">
+      <ObjectFileName>$(IntDir)/src/google/protobuf/compiler/cpp/generator.cc.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="C:\Users\Administrator\Downloads\protobuf-cpp-3.21.9\protobuf-3.21.9\src\google\protobuf\compiler\cpp\helpers.cc">
+      <ObjectFileName>$(IntDir)/src/google/protobuf/compiler/cpp/helpers.cc.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="C:\Users\Administrator\Downloads\protobuf-cpp-3.21.9\protobuf-3.21.9\src\google\protobuf\compiler\cpp\map_field.cc">
+      <ObjectFileName>$(IntDir)/src/google/protobuf/compiler/cpp/map_field.cc.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="C:\Users\Administrator\Downloads\protobuf-cpp-3.21.9\protobuf-3.21.9\src\google\protobuf\compiler\cpp\message.cc">
+      <ObjectFileName>$(IntDir)/src/google/protobuf/compiler/cpp/message.cc.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="C:\Users\Administrator\Downloads\protobuf-cpp-3.21.9\protobuf-3.21.9\src\google\protobuf\compiler\cpp\message_field.cc">
+      <ObjectFileName>$(IntDir)/src/google/protobuf/compiler/cpp/message_field.cc.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="C:\Users\Administrator\Downloads\protobuf-cpp-3.21.9\protobuf-3.21.9\src\google\protobuf\compiler\cpp\padding_optimizer.cc" />
+    <ClCompile Include="C:\Users\Administrator\Downloads\protobuf-cpp-3.21.9\protobuf-3.21.9\src\google\protobuf\compiler\cpp\parse_function_generator.cc" />
+    <ClCompile Include="C:\Users\Administrator\Downloads\protobuf-cpp-3.21.9\protobuf-3.21.9\src\google\protobuf\compiler\cpp\primitive_field.cc">
+      <ObjectFileName>$(IntDir)/src/google/protobuf/compiler/cpp/primitive_field.cc.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="C:\Users\Administrator\Downloads\protobuf-cpp-3.21.9\protobuf-3.21.9\src\google\protobuf\compiler\cpp\service.cc">
+      <ObjectFileName>$(IntDir)/src/google/protobuf/compiler/cpp/service.cc.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="C:\Users\Administrator\Downloads\protobuf-cpp-3.21.9\protobuf-3.21.9\src\google\protobuf\compiler\cpp\string_field.cc">
+      <ObjectFileName>$(IntDir)/src/google/protobuf/compiler/cpp/string_field.cc.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="C:\Users\Administrator\Downloads\protobuf-cpp-3.21.9\protobuf-3.21.9\src\google\protobuf\compiler\csharp\csharp_doc_comment.cc" />
+    <ClCompile Include="C:\Users\Administrator\Downloads\protobuf-cpp-3.21.9\protobuf-3.21.9\src\google\protobuf\compiler\csharp\csharp_enum.cc" />
+    <ClCompile Include="C:\Users\Administrator\Downloads\protobuf-cpp-3.21.9\protobuf-3.21.9\src\google\protobuf\compiler\csharp\csharp_enum_field.cc" />
+    <ClCompile Include="C:\Users\Administrator\Downloads\protobuf-cpp-3.21.9\protobuf-3.21.9\src\google\protobuf\compiler\csharp\csharp_field_base.cc" />
+    <ClCompile Include="C:\Users\Administrator\Downloads\protobuf-cpp-3.21.9\protobuf-3.21.9\src\google\protobuf\compiler\csharp\csharp_generator.cc" />
+    <ClCompile Include="C:\Users\Administrator\Downloads\protobuf-cpp-3.21.9\protobuf-3.21.9\src\google\protobuf\compiler\csharp\csharp_helpers.cc" />
+    <ClCompile Include="C:\Users\Administrator\Downloads\protobuf-cpp-3.21.9\protobuf-3.21.9\src\google\protobuf\compiler\csharp\csharp_map_field.cc" />
+    <ClCompile Include="C:\Users\Administrator\Downloads\protobuf-cpp-3.21.9\protobuf-3.21.9\src\google\protobuf\compiler\csharp\csharp_message.cc" />
+    <ClCompile Include="C:\Users\Administrator\Downloads\protobuf-cpp-3.21.9\protobuf-3.21.9\src\google\protobuf\compiler\csharp\csharp_message_field.cc" />
+    <ClCompile Include="C:\Users\Administrator\Downloads\protobuf-cpp-3.21.9\protobuf-3.21.9\src\google\protobuf\compiler\csharp\csharp_primitive_field.cc" />
+    <ClCompile Include="C:\Users\Administrator\Downloads\protobuf-cpp-3.21.9\protobuf-3.21.9\src\google\protobuf\compiler\csharp\csharp_reflection_class.cc" />
+    <ClCompile Include="C:\Users\Administrator\Downloads\protobuf-cpp-3.21.9\protobuf-3.21.9\src\google\protobuf\compiler\csharp\csharp_repeated_enum_field.cc" />
+    <ClCompile Include="C:\Users\Administrator\Downloads\protobuf-cpp-3.21.9\protobuf-3.21.9\src\google\protobuf\compiler\csharp\csharp_repeated_message_field.cc" />
+    <ClCompile Include="C:\Users\Administrator\Downloads\protobuf-cpp-3.21.9\protobuf-3.21.9\src\google\protobuf\compiler\csharp\csharp_repeated_primitive_field.cc" />
+    <ClCompile Include="C:\Users\Administrator\Downloads\protobuf-cpp-3.21.9\protobuf-3.21.9\src\google\protobuf\compiler\csharp\csharp_source_generator_base.cc" />
+    <ClCompile Include="C:\Users\Administrator\Downloads\protobuf-cpp-3.21.9\protobuf-3.21.9\src\google\protobuf\compiler\csharp\csharp_wrapper_field.cc" />
+    <ClCompile Include="C:\Users\Administrator\Downloads\protobuf-cpp-3.21.9\protobuf-3.21.9\src\google\protobuf\compiler\java\context.cc" />
+    <ClCompile Include="C:\Users\Administrator\Downloads\protobuf-cpp-3.21.9\protobuf-3.21.9\src\google\protobuf\compiler\java\doc_comment.cc" />
+    <ClCompile Include="C:\Users\Administrator\Downloads\protobuf-cpp-3.21.9\protobuf-3.21.9\src\google\protobuf\compiler\java\enum.cc">
+      <ObjectFileName>$(IntDir)/src/google/protobuf/compiler/java/enum.cc.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="C:\Users\Administrator\Downloads\protobuf-cpp-3.21.9\protobuf-3.21.9\src\google\protobuf\compiler\java\enum_field.cc">
+      <ObjectFileName>$(IntDir)/src/google/protobuf/compiler/java/enum_field.cc.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="C:\Users\Administrator\Downloads\protobuf-cpp-3.21.9\protobuf-3.21.9\src\google\protobuf\compiler\java\enum_field_lite.cc" />
+    <ClCompile Include="C:\Users\Administrator\Downloads\protobuf-cpp-3.21.9\protobuf-3.21.9\src\google\protobuf\compiler\java\enum_lite.cc" />
+    <ClCompile Include="C:\Users\Administrator\Downloads\protobuf-cpp-3.21.9\protobuf-3.21.9\src\google\protobuf\compiler\java\extension.cc">
+      <ObjectFileName>$(IntDir)/src/google/protobuf/compiler/java/extension.cc.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="C:\Users\Administrator\Downloads\protobuf-cpp-3.21.9\protobuf-3.21.9\src\google\protobuf\compiler\java\extension_lite.cc" />
+    <ClCompile Include="C:\Users\Administrator\Downloads\protobuf-cpp-3.21.9\protobuf-3.21.9\src\google\protobuf\compiler\java\field.cc">
+      <ObjectFileName>$(IntDir)/src/google/protobuf/compiler/java/field.cc.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="C:\Users\Administrator\Downloads\protobuf-cpp-3.21.9\protobuf-3.21.9\src\google\protobuf\compiler\java\file.cc">
+      <ObjectFileName>$(IntDir)/src/google/protobuf/compiler/java/file.cc.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="C:\Users\Administrator\Downloads\protobuf-cpp-3.21.9\protobuf-3.21.9\src\google\protobuf\compiler\java\generator.cc">
+      <ObjectFileName>$(IntDir)/src/google/protobuf/compiler/java/generator.cc.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="C:\Users\Administrator\Downloads\protobuf-cpp-3.21.9\protobuf-3.21.9\src\google\protobuf\compiler\java\generator_factory.cc" />
+    <ClCompile Include="C:\Users\Administrator\Downloads\protobuf-cpp-3.21.9\protobuf-3.21.9\src\google\protobuf\compiler\java\helpers.cc">
+      <ObjectFileName>$(IntDir)/src/google/protobuf/compiler/java/helpers.cc.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="C:\Users\Administrator\Downloads\protobuf-cpp-3.21.9\protobuf-3.21.9\src\google\protobuf\compiler\java\kotlin_generator.cc" />
+    <ClCompile Include="C:\Users\Administrator\Downloads\protobuf-cpp-3.21.9\protobuf-3.21.9\src\google\protobuf\compiler\java\map_field.cc">
+      <ObjectFileName>$(IntDir)/src/google/protobuf/compiler/java/map_field.cc.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="C:\Users\Administrator\Downloads\protobuf-cpp-3.21.9\protobuf-3.21.9\src\google\protobuf\compiler\java\map_field_lite.cc" />
+    <ClCompile Include="C:\Users\Administrator\Downloads\protobuf-cpp-3.21.9\protobuf-3.21.9\src\google\protobuf\compiler\java\message.cc">
+      <ObjectFileName>$(IntDir)/src/google/protobuf/compiler/java/message.cc.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="C:\Users\Administrator\Downloads\protobuf-cpp-3.21.9\protobuf-3.21.9\src\google\protobuf\compiler\java\message_builder.cc" />
+    <ClCompile Include="C:\Users\Administrator\Downloads\protobuf-cpp-3.21.9\protobuf-3.21.9\src\google\protobuf\compiler\java\message_builder_lite.cc" />
+    <ClCompile Include="C:\Users\Administrator\Downloads\protobuf-cpp-3.21.9\protobuf-3.21.9\src\google\protobuf\compiler\java\message_field.cc">
+      <ObjectFileName>$(IntDir)/src/google/protobuf/compiler/java/message_field.cc.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="C:\Users\Administrator\Downloads\protobuf-cpp-3.21.9\protobuf-3.21.9\src\google\protobuf\compiler\java\message_field_lite.cc" />
+    <ClCompile Include="C:\Users\Administrator\Downloads\protobuf-cpp-3.21.9\protobuf-3.21.9\src\google\protobuf\compiler\java\message_lite.cc" />
+    <ClCompile Include="C:\Users\Administrator\Downloads\protobuf-cpp-3.21.9\protobuf-3.21.9\src\google\protobuf\compiler\java\name_resolver.cc" />
+    <ClCompile Include="C:\Users\Administrator\Downloads\protobuf-cpp-3.21.9\protobuf-3.21.9\src\google\protobuf\compiler\java\primitive_field.cc">
+      <ObjectFileName>$(IntDir)/src/google/protobuf/compiler/java/primitive_field.cc.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="C:\Users\Administrator\Downloads\protobuf-cpp-3.21.9\protobuf-3.21.9\src\google\protobuf\compiler\java\primitive_field_lite.cc" />
+    <ClCompile Include="C:\Users\Administrator\Downloads\protobuf-cpp-3.21.9\protobuf-3.21.9\src\google\protobuf\compiler\java\service.cc">
+      <ObjectFileName>$(IntDir)/src/google/protobuf/compiler/java/service.cc.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="C:\Users\Administrator\Downloads\protobuf-cpp-3.21.9\protobuf-3.21.9\src\google\protobuf\compiler\java\shared_code_generator.cc" />
+    <ClCompile Include="C:\Users\Administrator\Downloads\protobuf-cpp-3.21.9\protobuf-3.21.9\src\google\protobuf\compiler\java\string_field.cc">
+      <ObjectFileName>$(IntDir)/src/google/protobuf/compiler/java/string_field.cc.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="C:\Users\Administrator\Downloads\protobuf-cpp-3.21.9\protobuf-3.21.9\src\google\protobuf\compiler\java\string_field_lite.cc" />
+    <ClCompile Include="C:\Users\Administrator\Downloads\protobuf-cpp-3.21.9\protobuf-3.21.9\src\google\protobuf\compiler\objectivec\objectivec_enum.cc" />
+    <ClCompile Include="C:\Users\Administrator\Downloads\protobuf-cpp-3.21.9\protobuf-3.21.9\src\google\protobuf\compiler\objectivec\objectivec_enum_field.cc" />
+    <ClCompile Include="C:\Users\Administrator\Downloads\protobuf-cpp-3.21.9\protobuf-3.21.9\src\google\protobuf\compiler\objectivec\objectivec_extension.cc" />
+    <ClCompile Include="C:\Users\Administrator\Downloads\protobuf-cpp-3.21.9\protobuf-3.21.9\src\google\protobuf\compiler\objectivec\objectivec_field.cc" />
+    <ClCompile Include="C:\Users\Administrator\Downloads\protobuf-cpp-3.21.9\protobuf-3.21.9\src\google\protobuf\compiler\objectivec\objectivec_file.cc" />
+    <ClCompile Include="C:\Users\Administrator\Downloads\protobuf-cpp-3.21.9\protobuf-3.21.9\src\google\protobuf\compiler\objectivec\objectivec_generator.cc" />
+    <ClCompile Include="C:\Users\Administrator\Downloads\protobuf-cpp-3.21.9\protobuf-3.21.9\src\google\protobuf\compiler\objectivec\objectivec_helpers.cc" />
+    <ClCompile Include="C:\Users\Administrator\Downloads\protobuf-cpp-3.21.9\protobuf-3.21.9\src\google\protobuf\compiler\objectivec\objectivec_map_field.cc" />
+    <ClCompile Include="C:\Users\Administrator\Downloads\protobuf-cpp-3.21.9\protobuf-3.21.9\src\google\protobuf\compiler\objectivec\objectivec_message.cc" />
+    <ClCompile Include="C:\Users\Administrator\Downloads\protobuf-cpp-3.21.9\protobuf-3.21.9\src\google\protobuf\compiler\objectivec\objectivec_message_field.cc" />
+    <ClCompile Include="C:\Users\Administrator\Downloads\protobuf-cpp-3.21.9\protobuf-3.21.9\src\google\protobuf\compiler\objectivec\objectivec_oneof.cc" />
+    <ClCompile Include="C:\Users\Administrator\Downloads\protobuf-cpp-3.21.9\protobuf-3.21.9\src\google\protobuf\compiler\objectivec\objectivec_primitive_field.cc" />
+    <ClCompile Include="C:\Users\Administrator\Downloads\protobuf-cpp-3.21.9\protobuf-3.21.9\src\google\protobuf\compiler\php\php_generator.cc" />
+    <ClCompile Include="C:\Users\Administrator\Downloads\protobuf-cpp-3.21.9\protobuf-3.21.9\src\google\protobuf\compiler\plugin.cc" />
+    <ClCompile Include="C:\Users\Administrator\Downloads\protobuf-cpp-3.21.9\protobuf-3.21.9\src\google\protobuf\compiler\plugin.pb.cc" />
+    <ClCompile Include="C:\Users\Administrator\Downloads\protobuf-cpp-3.21.9\protobuf-3.21.9\src\google\protobuf\compiler\python\generator.cc">
+      <ObjectFileName>$(IntDir)/src/google/protobuf/compiler/python/generator.cc.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="C:\Users\Administrator\Downloads\protobuf-cpp-3.21.9\protobuf-3.21.9\src\google\protobuf\compiler\python\helpers.cc">
+      <ObjectFileName>$(IntDir)/src/google/protobuf/compiler/python/helpers.cc.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="C:\Users\Administrator\Downloads\protobuf-cpp-3.21.9\protobuf-3.21.9\src\google\protobuf\compiler\python\pyi_generator.cc" />
+    <ClCompile Include="C:\Users\Administrator\Downloads\protobuf-cpp-3.21.9\protobuf-3.21.9\src\google\protobuf\compiler\ruby\ruby_generator.cc" />
+    <ClCompile Include="C:\Users\Administrator\Downloads\protobuf-cpp-3.21.9\protobuf-3.21.9\src\google\protobuf\compiler\subprocess.cc" />
+    <ClCompile Include="C:\Users\Administrator\Downloads\protobuf-cpp-3.21.9\protobuf-3.21.9\src\google\protobuf\compiler\zip_writer.cc" />
+    <ClInclude Include="C:\Users\Administrator\Downloads\protobuf-cpp-3.21.9\protobuf-3.21.9\src\google\protobuf\compiler\code_generator.h" />
+    <ClInclude Include="C:\Users\Administrator\Downloads\protobuf-cpp-3.21.9\protobuf-3.21.9\src\google\protobuf\compiler\command_line_interface.h" />
+    <ClInclude Include="C:\Users\Administrator\Downloads\protobuf-cpp-3.21.9\protobuf-3.21.9\src\google\protobuf\compiler\cpp\cpp_generator.h" />
+    <ClInclude Include="C:\Users\Administrator\Downloads\protobuf-cpp-3.21.9\protobuf-3.21.9\src\google\protobuf\compiler\cpp\file.h" />
+    <ClInclude Include="C:\Users\Administrator\Downloads\protobuf-cpp-3.21.9\protobuf-3.21.9\src\google\protobuf\compiler\cpp\generator.h" />
+    <ClInclude Include="C:\Users\Administrator\Downloads\protobuf-cpp-3.21.9\protobuf-3.21.9\src\google\protobuf\compiler\cpp\helpers.h" />
+    <ClInclude Include="C:\Users\Administrator\Downloads\protobuf-cpp-3.21.9\protobuf-3.21.9\src\google\protobuf\compiler\cpp\names.h" />
+    <ClInclude Include="C:\Users\Administrator\Downloads\protobuf-cpp-3.21.9\protobuf-3.21.9\src\google\protobuf\compiler\csharp\csharp_doc_comment.h" />
+    <ClInclude Include="C:\Users\Administrator\Downloads\protobuf-cpp-3.21.9\protobuf-3.21.9\src\google\protobuf\compiler\csharp\csharp_generator.h" />
+    <ClInclude Include="C:\Users\Administrator\Downloads\protobuf-cpp-3.21.9\protobuf-3.21.9\src\google\protobuf\compiler\csharp\csharp_names.h" />
+    <ClInclude Include="C:\Users\Administrator\Downloads\protobuf-cpp-3.21.9\protobuf-3.21.9\src\google\protobuf\compiler\csharp\csharp_options.h" />
+    <ClInclude Include="C:\Users\Administrator\Downloads\protobuf-cpp-3.21.9\protobuf-3.21.9\src\google\protobuf\compiler\java\generator.h" />
+    <ClInclude Include="C:\Users\Administrator\Downloads\protobuf-cpp-3.21.9\protobuf-3.21.9\src\google\protobuf\compiler\java\java_generator.h" />
+    <ClInclude Include="C:\Users\Administrator\Downloads\protobuf-cpp-3.21.9\protobuf-3.21.9\src\google\protobuf\compiler\java\kotlin_generator.h" />
+    <ClInclude Include="C:\Users\Administrator\Downloads\protobuf-cpp-3.21.9\protobuf-3.21.9\src\google\protobuf\compiler\java\names.h" />
+    <ClInclude Include="C:\Users\Administrator\Downloads\protobuf-cpp-3.21.9\protobuf-3.21.9\src\google\protobuf\compiler\objectivec\objectivec_generator.h" />
+    <ClInclude Include="C:\Users\Administrator\Downloads\protobuf-cpp-3.21.9\protobuf-3.21.9\src\google\protobuf\compiler\objectivec\objectivec_helpers.h" />
+    <ClInclude Include="C:\Users\Administrator\Downloads\protobuf-cpp-3.21.9\protobuf-3.21.9\src\google\protobuf\compiler\php\php_generator.h" />
+    <ClInclude Include="C:\Users\Administrator\Downloads\protobuf-cpp-3.21.9\protobuf-3.21.9\src\google\protobuf\compiler\plugin.h" />
+    <ClInclude Include="C:\Users\Administrator\Downloads\protobuf-cpp-3.21.9\protobuf-3.21.9\src\google\protobuf\compiler\python\generator.h" />
+    <ClInclude Include="C:\Users\Administrator\Downloads\protobuf-cpp-3.21.9\protobuf-3.21.9\src\google\protobuf\compiler\python\pyi_generator.h" />
+    <ClInclude Include="C:\Users\Administrator\Downloads\protobuf-cpp-3.21.9\protobuf-3.21.9\src\google\protobuf\compiler\python\python_generator.h" />
+    <ClInclude Include="C:\Users\Administrator\Downloads\protobuf-cpp-3.21.9\protobuf-3.21.9\src\google\protobuf\compiler\ruby\ruby_generator.h" />
+    <ResourceCompile Include="C:\Work\WeChatStudy\WeChatGUI\protobuf\version.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="C:\Work\WeChatStudy\WeChatGUI\protobuf\ZERO_CHECK.vcxproj">
+      <Project>{13B44718-8FAE-35DD-A4FD-901EFDE27BDA}</Project>
+      <Name>ZERO_CHECK</Name>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </ProjectReference>
+    <ProjectReference Include="C:\Work\WeChatStudy\WeChatGUI\protobuf\libprotobuf.vcxproj">
+      <Project>{C71695AE-30AE-334F-A6DD-EC558A505C32}</Project>
+      <Name>libprotobuf</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

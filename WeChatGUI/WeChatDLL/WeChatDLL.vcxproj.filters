@@ -46,6 +46,9 @@
     <Filter Include="ApiServer">
       <UniqueIdentifier>{ce1897ee-ebac-46bf-a9bd-25ca243a8dec}</UniqueIdentifier>
     </Filter>
+    <Filter Include="proto">
+      <UniqueIdentifier>{9640a523-eca6-46c1-954b-901a6729d1a5}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="WeChatDLL.cpp">
@@ -125,6 +128,21 @@
     </ClCompile>
     <ClCompile Include="include\MyTinySTL\algobase.cpp">
       <Filter>MyTinySTL</Filter>
+    </ClCompile>
+    <ClCompile Include="proto\BaseResponse.pb.cc">
+      <Filter>proto</Filter>
+    </ClCompile>
+    <ClCompile Include="proto\ChatRoomMemberData.pb.cc">
+      <Filter>proto</Filter>
+    </ClCompile>
+    <ClCompile Include="proto\ChatRoomMemberInfo.pb.cc">
+      <Filter>proto</Filter>
+    </ClCompile>
+    <ClCompile Include="proto\GetChatroomMemberDetailResponse.pb.cc">
+      <Filter>proto</Filter>
+    </ClCompile>
+    <ClCompile Include="WeChat\ChatRoom.cpp">
+      <Filter>WeChat</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -298,6 +316,21 @@
     </ClInclude>
     <ClInclude Include="include\MyTinySTL\heap_algo.h">
       <Filter>MyTinySTL</Filter>
+    </ClInclude>
+    <ClInclude Include="proto\GetChatroomMemberDetailResponse.pb.h">
+      <Filter>proto</Filter>
+    </ClInclude>
+    <ClInclude Include="proto\BaseResponse.pb.h">
+      <Filter>proto</Filter>
+    </ClInclude>
+    <ClInclude Include="proto\ChatRoomMemberData.pb.h">
+      <Filter>proto</Filter>
+    </ClInclude>
+    <ClInclude Include="proto\ChatRoomMemberInfo.pb.h">
+      <Filter>proto</Filter>
+    </ClInclude>
+    <ClInclude Include="WeChat\ChatRoom.h">
+      <Filter>WeChat</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

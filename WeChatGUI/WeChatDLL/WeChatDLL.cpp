@@ -63,10 +63,10 @@ WeChatDLL::WeChatDLL()
 {
 	MH_Initialize();
 
-	//m_MsgRecvLoger = spdlog::basic_logger_mt("MsgRecv", "logs/MsgRecv_" + std::to_string(GetCurrentProcessId()) + ".log");
-	//m_MsgRecvLoger->flush_on(spdlog::level::err);
-	//m_WechatDLLLoger = spdlog::basic_logger_mt("WeChatDLL", "logs/WeChatDLL_" + std::to_string(GetCurrentProcessId()) + ".log");
-	//m_WechatDLLLoger->flush_on(spdlog::level::err);
+	m_MsgRecvLoger = spdlog::basic_logger_mt("MsgRecv", "logs/MsgRecv_" + std::to_string(GetCurrentProcessId()) + ".log");
+	m_MsgRecvLoger->flush_on(spdlog::level::err);
+	m_WechatDLLLoger = spdlog::basic_logger_mt("WeChatDLL", "logs/WeChatDLL_" + std::to_string(GetCurrentProcessId()) + ".log");
+	m_WechatDLLLoger->flush_on(spdlog::level::err);
 }
 
 WeChatDLL::~WeChatDLL()
