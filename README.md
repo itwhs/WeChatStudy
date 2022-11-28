@@ -24,6 +24,12 @@ pip3 install pefile
 
 作者本人并没有使用该项目的需求，因此该项目的代码几乎未进行测试。
 
+# 项目源码搭建
+
+1、安装Visual Studio，运行.sln工程文件
+
+2、项目使用到了proto，因此你需要自行编译libprotobuf-lite，传送门https://github.com/protocolbuffers/protobuf/releases。
+
 
 
 # API接口说明

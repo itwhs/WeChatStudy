@@ -16,6 +16,12 @@ def test_getContanct():
     resp = requests.post("http://127.0.0.1:5000/getContactInfo", json=contactList)
     print(resp.text)
 
+def test_syncMsg():
+    resp = requests.get("http://127.0.0.1:5000/syncMsg")
+    print(resp.text)
+
+test_syncMsg()
+exit(0)
 test_SendText()
 test_getContanct()
 test_syncSns()
